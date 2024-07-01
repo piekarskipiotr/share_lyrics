@@ -1,26 +1,60 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:share_lyrics/data/enums/enums.dart';
+import 'package:share_lyrics/data/repositories/firebase_auth/firebase_auth_repository.dart';
 import 'package:share_lyrics/l10n/l10n.dart';
 import 'package:share_lyrics/router/app_router.dart';
+import 'package:share_lyrics/router/app_router_navigation.dart';
+import 'package:share_lyrics/services/auth_service/auth_service.dart';
+import 'package:share_lyrics/services/auth_service/bloc/auth_bloc.dart';
 
 class App extends StatelessWidget {
   const App({
+    required FirebaseAuthRepository firebaseAuthRepository,
+    required AuthService authService,
     required AppRouter router,
     super.key,
-  }) : _router = router;
+  })  : _firebaseAuthRepository = firebaseAuthRepository,
+        _authService = authService,
+        _router = router;
 
+  final FirebaseAuthRepository _firebaseAuthRepository;
+  final AuthService _authService;
   final AppRouter _router;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(textTheme: GoogleFonts.openSansTextTheme()),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      routeInformationProvider: _router.router.routeInformationProvider,
-      routeInformationParser: _router.router.routeInformationParser,
-      routerDelegate: _router.router.routerDelegate,
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider.value(value: _firebaseAuthRepository),
+        RepositoryProvider.value(value: _authService),
+        RepositoryProvider.value(value: _router),
+      ],
+      child: BlocProvider(
+        create: (context) => AuthBloc(_authService),
+        child: BlocListener<AuthBloc, AuthState>(
+          listenWhen: (previous, current) => previous.status != current.status,
+          listener: (context, state) {
+            switch (state.status) {
+              case AuthenticationStatus.authenticated:
+                context.read<AppRouter>().showHome();
+              case AuthenticationStatus.unauthenticated:
+              case AuthenticationStatus.unknown:
+                context.read<AppRouter>().showSignIn();
+            }
+          },
+          child: MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(textTheme: GoogleFonts.openSansTextTheme()),
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            routeInformationProvider: _router.router.routeInformationProvider,
+            routeInformationParser: _router.router.routeInformationParser,
+            routerDelegate: _router.router.routerDelegate,
+          ),
+        ),
+      ),
     );
   }
 }

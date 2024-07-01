@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "681724192228",
+    "project_id": "share-lyrics",
+    "storage_bucket": "share-lyrics.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:681724192228:android:90758dd0b67f887d5b93f1",
+        "android_client_info": {
+          "package_name": "com.sharelyrics"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "681724192228-4msu8batgubaomiftp63v55j8gcmrgh1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuZ11RmnPAZWpeStzARiyCqCCZrTtgEWU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "681724192228-4msu8batgubaomiftp63v55j8gcmrgh1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:681724192228:android:1f5ae18a43623bc05b93f1",
+        "android_client_info": {
+          "package_name": "com.sharelyrics.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "681724192228-4msu8batgubaomiftp63v55j8gcmrgh1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuZ11RmnPAZWpeStzARiyCqCCZrTtgEWU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "681724192228-4msu8batgubaomiftp63v55j8gcmrgh1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
