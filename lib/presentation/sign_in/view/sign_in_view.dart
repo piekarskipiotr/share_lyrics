@@ -43,6 +43,12 @@ class _SignInViewState extends State<SignInView> {
             AbsorbPointer(
               absorbing: isLoading,
               child: AppScaffold(
+                meshGradientColors: const [
+                  AppColors.primary,
+                  AppColors.blackBg,
+                  AppColors.blackBg,
+                  AppColors.blackBg,
+                ],
                 body: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
