@@ -1,3 +1,21 @@
 {
-  "@@locale": "en"
+  "@@locale": "en",
+  "sign_in_hero_title_pt_1": "Share",
+  "sign_in_hero_title_pt_2": " Lyrics ",
+  "sign_in_hero_title_pt_3": "with Your Friends!",
+  "sign_in_hero_description_pt_1": "Explore and enjoy your favorite song",
+  "sign_in_hero_description_pt_2": " lyrics ",
+  "sign_in_hero_description_pt_3": "together. Sign in to get started!",
+  "terms_n_privacy_pt_1": "By signing in, you agree to our",
+  "terms_n_privacy_pt_2": " Terms of Service ",
+  "terms_n_privacy_pt_3": "and",
+  "terms_n_privacy_pt_4": " Privacy Policy.",
+  "sign_in_with": "Sign in with {sign_in_method}",
+  "@sign_in_with": {
+    "placeholders": {
+      "sign_in_method": {
+        "type": "String"
+      }
+    }
+  }
 }
