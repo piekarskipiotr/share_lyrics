@@ -22,19 +22,16 @@ class AuthService {
     });
   }
 
-  Future<bool> isSignedIn() async {
-    // TODO(piotr): handle isSignedIn
-    return false;
+  Future<bool> isAuthenticated() async {
+    return _firebaseAuthRepository.isAuthenticated();
   }
 
   Future<void> logOut() async {
-    // TODO(piotr): handle logOut
+    await _firebaseAuthRepository.signOut();
     _controller.add(AuthenticationStatus.unauthenticated);
   }
 
   void setAuthenticationStatus(AuthenticationStatus status) {
     _controller.add(status);
   }
-
-  void dispose() => _controller.close();
 }

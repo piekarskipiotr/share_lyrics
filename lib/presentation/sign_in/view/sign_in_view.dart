@@ -20,7 +20,7 @@ class SignInView extends StatefulWidget {
 class _SignInViewState extends State<SignInView> {
   void _handleStateStatus(BuildContext context, SignInState state) {
     switch (state.status) {
-      case StateStatus.loading:
+      case StateStatus.failure:
       // TODO(piotr): display error toast
       case _:
         break;
