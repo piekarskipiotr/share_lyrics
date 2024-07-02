@@ -77,6 +77,7 @@ class _SignInViewState extends State<SignInView> {
   }
 
   Widget _signingInOverlay() {
+    // TODO(piotr): improve loading state (make it cooler 😎)
     return ColoredBox(
       color: AppColors.black.withOpacity(0.5),
       child: const Center(

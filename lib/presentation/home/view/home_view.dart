@@ -1,5 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:share_lyrics/presentation/home/bloc/home_bloc.dart';
+import 'package:share_lyrics/presentation/home/view/home_app_bar.dart';
 import 'package:share_lyrics/presentation/widgets/app_scaffold.dart';
 
 class HomeView extends StatelessWidget {
@@ -8,12 +10,17 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            FirebaseAuth.instance.signOut();
+      body: NestedScrollView(
+        physics: const NeverScrollableScrollPhysics(),
+        headerSliverBuilder: (context, innerBoxIsScrolled) {
+          return [const HomeAppBar()];
+        },
+        body: BlocBuilder<HomeBloc, HomeState>(
+          builder: (context, state) {
+            final showSearch = state.showSearch;
+            final body = showSearch ? state.searchPage : state.feedPage;
+            return body;
           },
-          child: Text('sign out'),
         ),
       ),
     );

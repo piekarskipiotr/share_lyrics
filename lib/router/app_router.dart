@@ -22,6 +22,13 @@ class AppRouter {
           return const MaterialPage(child: HomePage());
         },
       ),
+      GoRoute(
+        path: '/${AppRoutes.settings}',
+        name: AppRoutes.settings,
+        pageBuilder: (context, state) {
+          return const MaterialPage(child: HomePage());
+        },
+      ),
     ],
   );
 }

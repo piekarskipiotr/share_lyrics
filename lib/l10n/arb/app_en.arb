@@ -1,5 +1,8 @@
 {
   "@@locale": "en",
+  "app_name": "shareLYRICS",
+  "app_name_pt_1": "share",
+  "app_name_pt_2": "LYRICS",
   "sign_in_hero_title_pt_1": "Share",
   "sign_in_hero_title_pt_2": " Lyrics ",
   "sign_in_hero_title_pt_3": "with Your Friends!",
@@ -17,5 +20,6 @@
         "type": "String"
       }
     }
-  }
+  },
+  "search_hint": "What's on your headphones?"
 }

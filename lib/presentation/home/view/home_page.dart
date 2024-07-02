@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:share_lyrics/presentation/home/bloc/home_bloc.dart';
 import 'package:share_lyrics/presentation/home/view/home_view.dart';
 
 class HomePage extends StatelessWidget {
@@ -6,6 +8,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const HomeView();
+    return BlocProvider(
+      create: (_) => HomeBloc(),
+      child: const HomeView(),
+    );
   }
 }
