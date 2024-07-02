@@ -13,11 +13,6 @@ final class _AuthenticationStatusChanged extends AuthEvent {
   List<Object?> get props => [status];
 }
 
-final class AuthenticationLogoutRequested extends AuthEvent {
-  @override
-  List<Object?> get props => [];
-}
-
 final class AuthenticationGuestRequested extends AuthEvent {
   @override
   List<Object?> get props => [];

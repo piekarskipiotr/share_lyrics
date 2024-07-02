@@ -1,17 +1,19 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:share_lyrics/data/constants.dart';
 import 'package:share_lyrics/design_system/design_system.dart';
 import 'package:share_lyrics/l10n/l10n.dart';
+import 'package:share_lyrics/utils/helpers/helpers.dart';
 
 class SignInTermsNPrivacyText extends StatelessWidget {
   const SignInTermsNPrivacyText({super.key});
 
   void _onTermsTapped() {
-    // TODO(piotr): navigate to terms
+    UrlLauncher.open(termsOfServiceUrl);
   }
 
   void _onPrivacyTapped() {
-    // TODO(piotr): navigate to privacy
+    UrlLauncher.open(privacyPolicyUrl);
   }
 
   @override

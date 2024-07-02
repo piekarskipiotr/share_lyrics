@@ -11,7 +11,6 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc(this._authService) : super(const AuthState.unknown()) {
     on<_AuthenticationStatusChanged>(_onAuthenticationStatusChanged);
-    on<AuthenticationLogoutRequested>(_onAuthenticationLogoutRequested);
     _authenticationStatusSubscription = _authService.status.listen(
       (status) => add(_AuthenticationStatusChanged(status)),
     );
@@ -29,10 +28,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       case AuthenticationStatus.unknown:
         return emit(const AuthState.unknown());
     }
-  }
-
-  void _onAuthenticationLogoutRequested(AuthenticationLogoutRequested event, Emitter<AuthState> emit) {
-    _authService.logOut();
   }
 
   @override

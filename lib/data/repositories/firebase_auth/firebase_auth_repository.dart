@@ -63,6 +63,15 @@ class FirebaseAuthRepository {
     }
   }
 
+  Future<void> deleteAccount() async {
+    try {
+      final currentUser = getCurrentUser();
+      await currentUser?.delete();
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
   Future<dynamic> updateProfile({
     required String name,
     String? avatarURL,

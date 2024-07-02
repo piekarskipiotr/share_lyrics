@@ -6,5 +6,5 @@ extension AppRouterNavigation on AppRouter {
 
   void showHome() => router.goNamed(AppRoutes.home);
 
-  void showSettings() => router.goNamed(AppRoutes.settings);
+  void showSettings() => router.pushNamed(AppRoutes.settings);
 }

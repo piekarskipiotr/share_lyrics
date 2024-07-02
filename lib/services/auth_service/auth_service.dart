@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:share_lyrics/data/enums/enums.dart';
 import 'package:share_lyrics/data/repositories/firebase_auth/firebase_auth_repository.dart';
 
@@ -26,12 +27,13 @@ class AuthService {
     return _firebaseAuthRepository.isAuthenticated();
   }
 
-  Future<void> logOut() async {
+  User? get currentUser => _firebaseAuthRepository.getCurrentUser();
+
+  Future<void> signOut() async {
     await _firebaseAuthRepository.signOut();
-    _controller.add(AuthenticationStatus.unauthenticated);
   }
 
-  void setAuthenticationStatus(AuthenticationStatus status) {
-    _controller.add(status);
+  Future<void> deleteAccount() async {
+    await _firebaseAuthRepository.deleteAccount();
   }
 }
