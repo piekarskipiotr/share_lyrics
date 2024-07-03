@@ -43,7 +43,7 @@ class SongDetailsBloc extends Bloc<SongDetailsEvent, SongDetailsState> {
     await _geniusRepository.getSongLyrics(url: url).then((lyrics) async {
       emit(state.copyWith(status: SongDetailsStateStatus.fetchingLyricsSucceeded, lyrics: lyrics));
     }).catchError((Object error, StackTrace stacktrace) async {
-      log('GENIUS: FAILED TO FETCH SONG LYRICS, error: $error \n\n $stacktrace');
+      log('FAILED TO FETCH SONG LYRICS, error: $error \n\n $stacktrace');
       emit(state.copyWith(status: SongDetailsStateStatus.fetchingLyricsFailed, error: error.toString()));
     });
   }

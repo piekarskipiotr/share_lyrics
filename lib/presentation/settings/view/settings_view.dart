@@ -31,6 +31,7 @@ class _SettingsViewState extends State<SettingsView> {
     UrlLauncher.open(privacyPolicyUrl);
   }
 
+  // TODO(piotr): call this function like "show delete dialog" & move bloc call to function _deleteAccount
   void _deleteAccount() {
     final l10n = context.l10n;
     AppActionDialog.show(
@@ -60,6 +61,7 @@ class _SettingsViewState extends State<SettingsView> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    // TODO(piotr): think about re-building / improving UI
     return AppScaffold(
       appBar: AppBar(
         backgroundColor: AppColors.transparent,
@@ -103,6 +105,7 @@ class _SettingsViewState extends State<SettingsView> {
                       value: Icons.link_rounded,
                       onTap: _navigateToPrivacyPolicy,
                     ),
+                    // TODO(piotr): improve color of danger and improve UI of dialog
                     SettingsSectionItem(
                       label: l10n.delete_account,
                       onTap: _deleteAccount,

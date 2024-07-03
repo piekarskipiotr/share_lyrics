@@ -8,8 +8,8 @@ class SearchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: context.read<SearchBloc>(),
+    return BlocProvider(
+      create: (_) => SearchBloc(searchService: context.read(), geniusRepository: context.read()),
       child: const SearchView(),
     );
   }

@@ -5,7 +5,6 @@ import 'package:share_lyrics/data/enums/enums.dart';
 import 'package:share_lyrics/data/repositories/firebase_auth/firebase_auth_repository.dart';
 import 'package:share_lyrics/data/repositories/genius_repository/genius_repository.dart';
 import 'package:share_lyrics/l10n/l10n.dart';
-import 'package:share_lyrics/presentation/search/bloc/search_bloc.dart';
 import 'package:share_lyrics/router/app_router.dart';
 import 'package:share_lyrics/router/app_router_navigation.dart';
 import 'package:share_lyrics/services/auth_service/auth_service.dart';
@@ -42,12 +41,6 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _authService),
         RepositoryProvider.value(value: _router),
         RepositoryProvider.value(value: _searchService),
-        RepositoryProvider(
-          create: (_) => SearchBloc(
-            geniusRepository: _geniusRepository,
-            searchService: _searchService,
-          ),
-        ),
       ],
       child: BlocProvider(
         create: (context) => AuthBloc(_authService),

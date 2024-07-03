@@ -22,6 +22,7 @@ class _HomeAppBarState extends State<HomeAppBar> {
   }
 
   void _changeSearchPhrase(String phrase) {
+    // TODO(piotr): add delay
     context.read<HomeBloc>().add(ChangeSearchPhrase(phrase: phrase));
   }
 
@@ -68,6 +69,7 @@ class _HomeAppBarState extends State<HomeAppBar> {
         child: AppTextFormField(
           label: l10n.search_hint,
           prefixIcon: Icons.search_rounded,
+          // TODO(piotr): add smooth animation of displaying Cancel text
           suffixWidget: BlocBuilder<HomeBloc, HomeState>(
             builder: (context, state) {
               final showSearch = state.showSearch;
