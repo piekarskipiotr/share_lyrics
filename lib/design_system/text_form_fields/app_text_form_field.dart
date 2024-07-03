@@ -9,6 +9,7 @@ class AppTextFormField extends StatefulWidget {
     this.isRequired = false,
     this.isReadOnly = false,
     this.prefixIcon,
+    this.suffixWidget,
     this.onChange,
     super.key,
   });
@@ -19,6 +20,7 @@ class AppTextFormField extends StatefulWidget {
   final bool isRequired;
   final bool isReadOnly;
   final IconData? prefixIcon;
+  final Widget? suffixWidget;
   final void Function(String)? onChange;
 
   @override
@@ -78,7 +80,15 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
             const SizedBox(width: 8),
           ],
         ),
+        suffixIcon: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            widget.suffixWidget ?? const SizedBox(),
+            const SizedBox(width: 24),
+          ],
+        ),
         prefixIconConstraints: const BoxConstraints(minWidth: 48),
+        suffixIconConstraints: const BoxConstraints(minWidth: 48),
         contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
         border: _textFormFieldBorder(),
         enabledBorder: _textFormFieldBorder(),

@@ -16,6 +16,11 @@ class HomeAppBar extends StatefulWidget {
 class _HomeAppBarState extends State<HomeAppBar> {
   final _searchController = TextEditingController();
 
+  void _clearSearchField() {
+    _searchController.clear();
+    context.read<HomeBloc>().add(const ChangeSearchPhrase(phrase: ''));
+  }
+
   void _changeSearchPhrase(String phrase) {
     context.read<HomeBloc>().add(ChangeSearchPhrase(phrase: phrase));
   }
@@ -50,16 +55,38 @@ class _HomeAppBarState extends State<HomeAppBar> {
           icon: const Icon(Icons.settings_rounded, color: AppColors.white),
         ),
       ],
-      bottom: PreferredSize(
-        preferredSize: const Size(double.infinity, 72),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 14),
-          child: AppTextFormField(
-            label: l10n.search_hint,
-            prefixIcon: Icons.search_rounded,
-            textController: _searchController,
-            onChange: _changeSearchPhrase,
+      bottom: _searchTextField(),
+    );
+  }
+
+  PreferredSize _searchTextField() {
+    final l10n = context.l10n;
+    return PreferredSize(
+      preferredSize: const Size(double.infinity, 72),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 14),
+        child: AppTextFormField(
+          label: l10n.search_hint,
+          prefixIcon: Icons.search_rounded,
+          suffixWidget: BlocBuilder<HomeBloc, HomeState>(
+            builder: (context, state) {
+              final showSearch = state.showSearch;
+              if (!showSearch) return const SizedBox();
+
+              return GestureDetector(
+                onTap: _clearSearchField,
+                child: Text(
+                  l10n.cancel,
+                  style: AppTextStyles.h10(
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.iosBlueText,
+                  ),
+                ),
+              );
+            },
           ),
+          textController: _searchController,
+          onChange: _changeSearchPhrase,
         ),
       ),
     );
