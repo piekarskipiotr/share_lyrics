@@ -18,8 +18,7 @@ class HomeView extends StatelessWidget {
         body: BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
             final showSearch = state.showSearch;
-            final body = showSearch ? state.searchPage : state.feedPage;
-            return body;
+            return showSearch ? state.searchPage : state.feedPage;
           },
         ),
       ),

@@ -9,6 +9,7 @@ class AppTextFormField extends StatefulWidget {
     this.isRequired = false,
     this.isReadOnly = false,
     this.prefixIcon,
+    this.onChange,
     super.key,
   });
 
@@ -18,6 +19,7 @@ class AppTextFormField extends StatefulWidget {
   final bool isRequired;
   final bool isReadOnly;
   final IconData? prefixIcon;
+  final void Function(String)? onChange;
 
   @override
   State<AppTextFormField> createState() => _AppTextFormFieldState();
@@ -57,6 +59,9 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
       controller: widget.textController,
       autocorrect: false,
       focusNode: _focusNode,
+      onChanged: (value) {
+        widget.onChange?.call(value);
+      },
       onTapOutside: (_) {
         _focusNode.unfocus();
       },

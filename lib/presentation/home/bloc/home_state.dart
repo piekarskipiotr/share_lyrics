@@ -19,10 +19,12 @@ class HomeState extends Equatable {
   }) {
     return HomeState(
       showSearch: showSearch ?? this.showSearch,
+      feedPage: feedPage,
+      searchPage: searchPage,
       error: error,
     );
   }
 
   @override
-  List<Object?> get props => [showSearch, error];
+  List<Object?> get props => [showSearch, feedPage, searchPage, error];
 }

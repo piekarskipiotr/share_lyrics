@@ -3,24 +3,33 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:share_lyrics/data/enums/enums.dart';
 import 'package:share_lyrics/data/repositories/firebase_auth/firebase_auth_repository.dart';
+import 'package:share_lyrics/data/repositories/genius_repository/genius_repository.dart';
 import 'package:share_lyrics/l10n/l10n.dart';
+import 'package:share_lyrics/presentation/search/bloc/search_bloc.dart';
 import 'package:share_lyrics/router/app_router.dart';
 import 'package:share_lyrics/router/app_router_navigation.dart';
 import 'package:share_lyrics/services/auth_service/auth_service.dart';
 import 'package:share_lyrics/services/auth_service/bloc/auth_bloc.dart';
+import 'package:share_lyrics/services/search_service/search_service.dart';
 
 class App extends StatelessWidget {
-  const App({
+  App({
     required FirebaseAuthRepository firebaseAuthRepository,
+    required GeniusRepository geniusRepository,
     required AuthService authService,
+    required SearchService searchService,
     required AppRouter router,
     super.key,
   })  : _firebaseAuthRepository = firebaseAuthRepository,
+        _geniusRepository = geniusRepository,
         _authService = authService,
+        _searchService = searchService,
         _router = router;
 
   final FirebaseAuthRepository _firebaseAuthRepository;
+  final GeniusRepository _geniusRepository;
   final AuthService _authService;
+  final SearchService _searchService;
   final AppRouter _router;
 
   @override
@@ -28,8 +37,17 @@ class App extends StatelessWidget {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider.value(value: _firebaseAuthRepository),
+        RepositoryProvider.value(value: _geniusRepository),
+        RepositoryProvider.value(value: _authService),
         RepositoryProvider.value(value: _authService),
         RepositoryProvider.value(value: _router),
+        RepositoryProvider.value(value: _searchService),
+        RepositoryProvider(
+          create: (_) => SearchBloc(
+            geniusRepository: _geniusRepository,
+            searchService: _searchService,
+          ),
+        ),
       ],
       child: BlocProvider(
         create: (context) => AuthBloc(_authService),

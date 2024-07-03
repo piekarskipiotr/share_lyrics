@@ -12,3 +12,12 @@ final class ToggleSearchPage extends HomeEvent {
   @override
   List<Object?> get props => [showSearch];
 }
+
+final class ChangeSearchPhrase extends HomeEvent {
+  const ChangeSearchPhrase({required this.phrase});
+
+  final String phrase;
+
+  @override
+  List<Object?> get props => [phrase];
+}
