@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_lyrics/data/models/models.dart';
+import 'package:share_lyrics/presentation/song_details/bloc/song_details_bloc.dart';
 import 'package:share_lyrics/presentation/song_details/view/song_details_view.dart';
 
 class SongDetailsPage extends StatelessWidget {
@@ -9,6 +11,9 @@ class SongDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SongDetailsView();
+    return BlocProvider(
+      create: (context) => SongDetailsBloc(song: song, geniusRepository: context.read()),
+      child: const SongDetailsView(),
+    );
   }
 }

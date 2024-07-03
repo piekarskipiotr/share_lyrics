@@ -9,6 +9,7 @@ class Song {
     required this.title,
     required this.artist,
     required this.image,
+    required this.lyricsUrl,
   });
 
   factory Song.fromJson(Map<String, dynamic> json) => _$SongFromJson(json);
@@ -21,9 +22,11 @@ class Song {
   final String artist;
   @JsonKey(name: 'song_art_image_url')
   final String? image;
+  @JsonKey(name: 'url')
+  final String? lyricsUrl;
 
   @override
   String toString() {
-    return 'Song{id: $id, title: $title, artist: $artist, image: $image}';
+    return 'Song{id: $id, title: $title, artist: $artist, image: $image, lyricsUrl: $lyricsUrl}';
   }
 }

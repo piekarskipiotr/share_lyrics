@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:chopper/chopper.dart' hide Post;
+import 'package:http/http.dart' as http;
 import 'package:share_lyrics/data/models/song/song.dart';
 import 'package:share_lyrics/network/genius_api/genius_api.dart';
 import 'package:share_lyrics/utils/wrappers/genius_wrappers/genius_wrappers.dart';
@@ -33,12 +34,24 @@ class GeniusRepository {
     }
   }
 
-  Future<void> getSongDetails({required int id}) async {
+  Future<Song> getSongDetails({required int id}) async {
     final response = await _geniusApi.getSongDetails(id: id);
     if (_isSuccessful(response)) {
+      return Song.fromJson(response.body!);
     } else {
       log('${response.error}');
       throw Exception(response.error);
+    }
+  }
+
+  Future<List<String>> getSongLyrics({required String url}) async {
+    final response = await http.get(Uri.parse(url));
+    final isSuccessful = response.statusCode == 200;
+    if (isSuccessful) {
+      final body = response.body;
+      return GeniusLyricsWrapper(body).getLyrics();
+    } else {
+      throw Exception('Failed to fetch song lyrics $url');
     }
   }
 }
