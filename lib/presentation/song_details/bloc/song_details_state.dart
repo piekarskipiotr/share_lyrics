@@ -3,18 +3,18 @@ part of 'song_details_bloc.dart';
 class SongDetailsState extends Equatable {
   const SongDetailsState({
     required this.song,
-    this.status = StateStatus.initial,
+    this.status = SongDetailsStateStatus.initial,
     this.lyrics,
     this.error,
   });
 
-  final StateStatus status;
+  final SongDetailsStateStatus status;
   final Song song;
   final List<String>? lyrics;
   final String? error;
 
   SongDetailsState copyWith({
-    StateStatus? status,
+    SongDetailsStateStatus? status,
     Song? song,
     List<String>? lyrics,
     String? error,

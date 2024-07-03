@@ -37,7 +37,7 @@ class GeniusRepository {
   Future<Song> getSongDetails({required int id}) async {
     final response = await _geniusApi.getSongDetails(id: id);
     if (_isSuccessful(response)) {
-      return Song.fromJson(response.body!);
+      return GeniusSongDetailsWrapper(response.body).getSongDetails();
     } else {
       log('${response.error}');
       throw Exception(response.error);

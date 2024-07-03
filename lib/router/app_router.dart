@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_lyrics/data/models/models.dart';
 import 'package:share_lyrics/presentation/home/view/home_page.dart';
@@ -14,30 +13,30 @@ class AppRouter {
       GoRoute(
         path: '/${AppRoutes.signIn}',
         name: AppRoutes.signIn,
-        pageBuilder: (context, state) {
-          return const MaterialPage(child: SignInPage());
+        builder: (context, state) {
+          return const SignInPage();
         },
       ),
       GoRoute(
         path: '/${AppRoutes.home}',
         name: AppRoutes.home,
-        pageBuilder: (context, state) {
-          return const MaterialPage(child: HomePage());
+        builder: (context, state) {
+          return const HomePage();
         },
       ),
       GoRoute(
         path: '/${AppRoutes.songDetails}',
         name: AppRoutes.songDetails,
-        pageBuilder: (context, state) {
+        builder: (context, state) {
           final song = state.extra! as Song;
-          return MaterialPage(child: SongDetailsPage(song: song));
+          return SongDetailsPage(song: song);
         },
       ),
       GoRoute(
         path: '/${AppRoutes.settings}',
         name: AppRoutes.settings,
-        pageBuilder: (context, state) {
-          return const MaterialPage(child: SettingsPage());
+        builder: (context, state) {
+          return const SettingsPage();
         },
       ),
     ],

@@ -1,6 +1,5 @@
 import 'package:share_lyrics/data/models/models.dart';
-
-typedef Json = Map<String, dynamic>;
+import 'package:share_lyrics/utils/wrappers/genius_wrappers/genius_wrappers.dart';
 
 class GeniusSearchWrapper {
   GeniusSearchWrapper(this.jsonResponse);
