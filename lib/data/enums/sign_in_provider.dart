@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:share_lyrics/resources/resources.dart';
 
-enum SignInProvider { google, apple }
+enum SignInProvider {
+  google,
+  apple;
 
-extension SignInProviderExtension on SignInProvider {
   String get logo {
     switch (this) {
       case SignInProvider.google:

@@ -10,13 +10,13 @@ class SongDetailsState extends Equatable {
 
   final SongDetailsStateStatus status;
   final Song song;
-  final List<String>? lyrics;
+  final List<Lyric>? lyrics;
   final String? error;
 
   SongDetailsState copyWith({
     SongDetailsStateStatus? status,
     Song? song,
-    List<String>? lyrics,
+    List<Lyric>? lyrics,
     String? error,
   }) {
     return SongDetailsState(

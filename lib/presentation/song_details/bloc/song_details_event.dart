@@ -22,3 +22,12 @@ final class FetchLyrics extends SongDetailsEvent {
   List<Object?> get props => [url];
 }
 
+final class SelectLine extends SongDetailsEvent {
+  const SelectLine({required this.lyric});
+
+  final Lyric lyric;
+
+  @override
+  List<Object?> get props => [lyric];
+}
+

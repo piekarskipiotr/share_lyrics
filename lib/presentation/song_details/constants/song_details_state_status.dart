@@ -5,5 +5,7 @@ enum SongDetailsStateStatus {
   fetchingSongDetailsFailed,
   fetchingLyrics,
   fetchingLyricsSucceeded,
-  fetchingLyricsFailed;
+  fetchingLyricsFailed,
+  selectingLine,
+  selectingLineCompleted;
 }

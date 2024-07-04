@@ -8,6 +8,8 @@ class AppScaffold extends StatelessWidget {
     this.appBar,
     this.bottomNavigationBar,
     this.meshGradientColors,
+    this.backgroundColor = AppColors.blackBg,
+    this.ignoreBottomSafeArea = false,
     super.key,
   });
 
@@ -15,14 +17,16 @@ class AppScaffold extends StatelessWidget {
   final PreferredSizeWidget? appBar;
   final Widget? bottomNavigationBar;
   final List<Color>? meshGradientColors;
+  final Color backgroundColor;
+  final bool ignoreBottomSafeArea;
 
   @override
   Widget build(BuildContext context) {
-    final safeBody = SafeArea(child: body);
+    final safeBody = SafeArea(bottom: !ignoreBottomSafeArea, child: body);
     final safeBottomNavigationBar = bottomNavigationBar != null ? SafeArea(child: bottomNavigationBar!) : null;
 
     return Scaffold(
-      backgroundColor: AppColors.blackBg,
+      backgroundColor: backgroundColor,
       appBar: appBar,
       body: [...?meshGradientColors].isEmpty
           ? safeBody

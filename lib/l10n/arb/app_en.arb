@@ -36,5 +36,6 @@
   "cancel": "Cancel",
   "delete": "Delete",
   "empty_feed": "It looks like you haven't saved any lyrics. Explore and save your favorite lines!",
-  "empty_search": "No songs found. Try a different title or include more letters in your search!"
+  "empty_search": "No songs found. Try a different title or include more letters in your search!",
+  "continue_button": "Continue"
 }

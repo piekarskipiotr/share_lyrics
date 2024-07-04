@@ -46,6 +46,7 @@ flutter:
   generate: true
   assets:
     - assets/sign_in_icons/
+    - assets/song_media_icons/
 
 spider:
   generate_tests: true
@@ -57,4 +58,7 @@ spider:
   groups:
     - path: assets/sign_in_icons
       class_name: SignInIcons
+      types: [ .svg ]
+    - path: assets/song_media_icons
+      class_name: SongMediaIcons
       types: [ .svg ]
