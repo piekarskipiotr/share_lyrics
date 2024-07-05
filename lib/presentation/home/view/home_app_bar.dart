@@ -69,28 +69,38 @@ class _HomeAppBarState extends State<HomeAppBar> {
         child: AppTextFormField(
           label: l10n.search_hint,
           prefixIcon: Icons.search_rounded,
-          // TODO(piotr): add smooth animation of displaying Cancel text
-          suffixWidget: BlocBuilder<HomeBloc, HomeState>(
-            builder: (context, state) {
-              final showSearch = state.showSearch;
-              if (!showSearch) return const SizedBox();
-
-              return GestureDetector(
-                onTap: _clearSearchField,
-                child: Text(
-                  l10n.cancel,
-                  style: AppTextStyles.h10(
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.iosBlueText,
-                  ),
-                ),
-              );
-            },
-          ),
+          suffixWidget: _cancelTextButton(),
           textController: _searchController,
           onChange: _changeSearchPhrase,
         ),
       ),
+    );
+  }
+
+  Widget _cancelTextButton() {
+    final l10n = context.l10n;
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        final showSearch = state.showSearch;
+
+        return AbsorbPointer(
+          absorbing: !showSearch,
+          child: AnimatedOpacity(
+            duration: const Duration(milliseconds: 150),
+            opacity: showSearch ? 1 : 0,
+            child: GestureDetector(
+              onTap: _clearSearchField,
+              child: Text(
+                l10n.cancel,
+                style: AppTextStyles.h10(
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.iosBlueText,
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
