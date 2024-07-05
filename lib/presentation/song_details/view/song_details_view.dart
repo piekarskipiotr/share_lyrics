@@ -21,6 +21,28 @@ class SongDetailsView extends StatefulWidget {
 }
 
 class _SongDetailsViewState extends State<SongDetailsView> {
+  late ScrollController _scrollController;
+  bool _showTitleInAppBar = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+    _scrollController.addListener(_scrollListener);
+  }
+
+  void _scrollListener() {
+    if (_scrollController.offset >= 90 && !_showTitleInAppBar) {
+      setState(() {
+        _showTitleInAppBar = true;
+      });
+    } else if (_scrollController.offset < 90 && _showTitleInAppBar) {
+      setState(() {
+        _showTitleInAppBar = false;
+      });
+    }
+  }
+
   void _handleStateStatus(BuildContext context, SongDetailsState state) {
     switch (state.status) {
       case _:
@@ -39,30 +61,61 @@ class _SongDetailsViewState extends State<SongDetailsView> {
   void _onContinueButtonPressed() {}
 
   @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    return AppScaffold(
-      backgroundColor: AppColors.black,
-      ignoreBottomSafeArea: true,
-      appBar: AppBar(
-        backgroundColor: AppColors.transparent,
-        leading: IconButton(
-          onPressed: _navigateBack,
-          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.white),
-        ),
-      ),
-      body: BlocConsumer<SongDetailsBloc, SongDetailsState>(
-        listenWhen: (previous, current) => previous.status != current.status,
-        listener: _handleStateStatus,
-        builder: (context, state) {
-          final song = state.song;
-          final songMedia = [...?song.media];
-          final lyrics = [...?state.lyrics];
-          final isLoading = state.status == SongDetailsStateStatus.fetchingSongData;
-          final isAnyLyricSelected = lyrics.any((lyric) => lyric.isSelected);
-          return Stack(
+    return BlocConsumer<SongDetailsBloc, SongDetailsState>(
+      listenWhen: (previous, current) => previous.status != current.status,
+      listener: _handleStateStatus,
+      builder: (context, state) {
+        final song = state.song;
+        final songMedia = [...?song.media];
+        final lyrics = [...?state.lyrics];
+        final isLoading = state.status == SongDetailsStateStatus.fetchingSongData;
+        final isAnyLyricSelected = lyrics.any((lyric) => lyric.isSelected);
+        return AppScaffold(
+          backgroundColor: AppColors.black,
+          ignoreBottomSafeArea: true,
+          appBar: AppBar(
+            backgroundColor: AppColors.transparent,
+            leading: IconButton(
+              onPressed: _navigateBack,
+              icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.white),
+            ),
+            title: AnimatedOpacity(
+              opacity: _showTitleInAppBar ? 1.0 : 0.0,
+              duration: const Duration(milliseconds: 200),
+              child: RichText(
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: song.artist,
+                      style: AppTextStyles.h8(fontWeight: FontWeight.bold),
+                    ),
+                    TextSpan(
+                      text: ' - ',
+                      style: AppTextStyles.h8(fontWeight: FontWeight.bold),
+                    ),
+                    TextSpan(
+                      text: song.title,
+                      style: AppTextStyles.h8(color: AppColors.primary, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          body: Stack(
             children: [
               SingleChildScrollView(
+                controller: _scrollController,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -74,7 +127,10 @@ class _SongDetailsViewState extends State<SongDetailsView> {
                       switchInCurve: Curves.easeIn,
                       switchOutCurve: Curves.easeOut,
                       child: isLoading
-                          ? const SongMediaLoading()
+                          ? const Padding(
+                              padding: EdgeInsets.only(bottom: 24),
+                              child: SongMediaLoading(),
+                            )
                           : Padding(
                               padding: const EdgeInsets.only(bottom: 24),
                               child: SongMediaList(songMedia: songMedia),
@@ -107,9 +163,9 @@ class _SongDetailsViewState extends State<SongDetailsView> {
                 ),
               ),
             ],
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

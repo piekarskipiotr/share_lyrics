@@ -17,6 +17,7 @@ class SongDetailsState extends Equatable {
     SongDetailsStateStatus? status,
     Song? song,
     List<Lyric>? lyrics,
+    bool? showAppBarTitle,
     String? error,
   }) {
     return SongDetailsState(
