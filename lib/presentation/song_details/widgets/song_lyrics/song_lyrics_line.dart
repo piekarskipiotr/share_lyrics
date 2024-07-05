@@ -51,6 +51,7 @@ class _SongLyricsLineState extends State<SongLyricsLine> {
       onTap: () => widget.onTap.call(widget.lyric),
       child: AnimatedContainer(
         duration: _animationDuration,
+        width: double.infinity,
         decoration: BoxDecoration(color: backgroundColor, borderRadius: borderRadius),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),

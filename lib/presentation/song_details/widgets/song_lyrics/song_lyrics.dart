@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:share_lyrics/data/models/models.dart';
-import 'package:share_lyrics/presentation/song_details/widgets/song_lyrics/song_lyrics_line.dart';
+import 'package:share_lyrics/presentation/song_details/widgets/song_lyrics/song_lyrics_loading.dart';
+import 'package:share_lyrics/presentation/song_details/widgets/song_lyrics/song_lyrics_view.dart';
 
 class SongLyrics extends StatelessWidget {
-  const SongLyrics({required this.lyrics, required this.onTap, super.key});
+  const SongLyrics({required this.lyrics, required this.onTap, required this.isLoading, super.key});
 
   final List<Lyric> lyrics;
   final void Function(Lyric lyric) onTap;
+  final bool isLoading;
+  static const _animationDuration = Duration(milliseconds: 250);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ...lyrics.map((lyric) => SongLyricsLine(lyric: lyric, onTap: onTap)),
-        ],
-      ),
+    return AnimatedSwitcher(
+      duration: _animationDuration,
+      switchInCurve: Curves.easeIn,
+      switchOutCurve: Curves.easeOut,
+      child: isLoading ? const SongLyricsLoading() : SongLyricsView(lyrics: lyrics, onTap: onTap),
     );
   }
 }

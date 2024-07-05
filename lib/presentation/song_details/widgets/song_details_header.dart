@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:share_lyrics/data/models/models.dart';
 import 'package:share_lyrics/design_system/design_system.dart';
 
-class SongInformation extends StatelessWidget {
-  const SongInformation({required this.song, super.key});
+class SongDetailsHeader extends StatelessWidget {
+  const SongDetailsHeader({required this.song, super.key});
 
   final Song song;
 

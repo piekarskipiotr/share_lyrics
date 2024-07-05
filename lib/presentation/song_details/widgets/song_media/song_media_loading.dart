@@ -28,14 +28,14 @@ class SongMediaLoading extends StatelessWidget {
           child: SingleChildScrollView(
             physics: const NeverScrollableScrollPhysics(),
             scrollDirection: Axis.horizontal,
-            child: Row(children: List.generate(3, (_) => _buildSongMediaButton(context))),
+            child: Row(children: List.generate(3, (_) => _buildSongMediaButton())),
           ),
         ),
       ],
     );
   }
 
-  Widget _buildSongMediaButton(BuildContext context) {
+  Widget _buildSongMediaButton() {
     return Padding(
       padding: const EdgeInsets.only(left: 20),
       child: Container(

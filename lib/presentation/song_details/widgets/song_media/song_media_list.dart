@@ -1,38 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:share_lyrics/data/models/song/song_media.dart';
-import 'package:share_lyrics/design_system/design_system.dart';
-import 'package:share_lyrics/l10n/l10n.dart';
+import 'package:share_lyrics/presentation/song_details/widgets/song_media/song_media_list_view.dart';
+import 'package:share_lyrics/presentation/song_details/widgets/song_media/song_media_loading.dart';
 
 class SongMediaList extends StatelessWidget {
-  const SongMediaList({required this.songMedia, super.key});
+  const SongMediaList({required this.songMedia, required this.isLoading, super.key});
 
   final List<SongMedia> songMedia;
+  final bool isLoading;
+  static const _animationDuration = Duration(milliseconds: 250);
+  static const _defaultPadding = EdgeInsets.only(bottom: 24);
+  static const _zeroPadding = EdgeInsets.zero;
 
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Text(l10n.song_media_label, style: AppTextStyles.h9(fontWeight: FontWeight.w500)),
-        ),
-        const SizedBox(height: 16),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              ...songMedia.map(
-                (media) => Padding(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: SongMediaButton(songMedia: media),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
+    return AnimatedSwitcher(
+      duration: _animationDuration,
+      switchInCurve: Curves.easeIn,
+      switchOutCurve: Curves.easeOut,
+      child: isLoading
+          ? const Padding(
+              padding: _defaultPadding,
+              child: SongMediaLoading(),
+            )
+          : Padding(
+              padding: songMedia.isEmpty ? _zeroPadding : _defaultPadding,
+              child: SongMediaListView(songMedia: songMedia),
+            ),
     );
   }
 }

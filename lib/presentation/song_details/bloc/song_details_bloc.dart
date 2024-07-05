@@ -16,6 +16,7 @@ class SongDetailsBloc extends Bloc<SongDetailsEvent, SongDetailsState> {
         super(SongDetailsState(song: song)) {
     on<FetchSongData>(_onFetchSongData);
     on<SelectLine>(_onSelectLine);
+    on<ChangeVisibilityOfTitleInAppBar>(_onChangeVisibilityOfTitleInAppBar);
 
     add(const FetchSongData());
   }
@@ -76,5 +77,12 @@ class SongDetailsBloc extends Bloc<SongDetailsEvent, SongDetailsState> {
     }
 
     emit(state.copyWith(lyrics: lyrics, status: SongDetailsStateStatus.selectingLineCompleted));
+  }
+
+  Future<void> _onChangeVisibilityOfTitleInAppBar(
+    ChangeVisibilityOfTitleInAppBar event,
+    Emitter<SongDetailsState> emit,
+  ) async {
+    emit(state.copyWith(showTitleInAppBar: event.showTitleInAppBar));
   }
 }

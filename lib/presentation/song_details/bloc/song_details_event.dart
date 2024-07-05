@@ -19,3 +19,13 @@ final class SelectLine extends SongDetailsEvent {
   @override
   List<Object?> get props => [lyric];
 }
+
+
+final class ChangeVisibilityOfTitleInAppBar extends SongDetailsEvent {
+  const ChangeVisibilityOfTitleInAppBar({required this.showTitleInAppBar});
+
+  final bool showTitleInAppBar;
+
+  @override
+  List<Object?> get props => [showTitleInAppBar];
+}
