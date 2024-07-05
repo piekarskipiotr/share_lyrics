@@ -83,6 +83,7 @@ class _SongDetailsViewState extends State<SongDetailsView> {
           ignoreBottomSafeArea: true,
           appBar: AppBar(
             backgroundColor: AppColors.transparent,
+            surfaceTintColor: AppColors.transparent,
             leading: IconButton(
               onPressed: _navigateBack,
               icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.white),
@@ -142,8 +143,44 @@ class _SongDetailsViewState extends State<SongDetailsView> {
                       switchOutCurve: Curves.easeOut,
                       child: isLoading ? const SongLyricsLoading() : SongLyrics(lyrics: lyrics, onTap: _onLyricTap),
                     ),
-                    const SizedBox(height: 148),
+                    const SizedBox(height: 196),
                   ],
+                ),
+              ),
+              IgnorePointer(
+                child: Positioned.fill(
+                  child: Column(
+                    children: [
+                      AnimatedContainer(
+                        duration: const Duration(milliseconds: 500),
+                        height: _showTitleInAppBar ? 200 : 56,
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Colors.black,
+                              Colors.transparent,
+                            ],
+                          ),
+                        ),
+                      ),
+                      const Spacer(),
+                      Container(
+                        height: 248,
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.topCenter,
+                            colors: [
+                              Colors.black,
+                              Colors.transparent,
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               AnimatedOpacity(
