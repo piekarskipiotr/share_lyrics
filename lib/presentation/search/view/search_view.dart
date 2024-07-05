@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:share_lyrics/data/enums/enums.dart';
 import 'package:share_lyrics/data/models/models.dart';
 import 'package:share_lyrics/design_system/design_system.dart';
 import 'package:share_lyrics/l10n/l10n.dart';
 import 'package:share_lyrics/presentation/search/bloc/search_bloc.dart';
 import 'package:share_lyrics/presentation/search/widgets/song_item.dart';
+import 'package:share_lyrics/presentation/search/widgets/songs_loading.dart';
 import 'package:share_lyrics/router/app_router.dart';
 import 'package:share_lyrics/router/app_router_navigation.dart';
 
@@ -25,6 +27,8 @@ class _SearchViewState extends State<SearchView> {
     return BlocBuilder<SearchBloc, SearchState>(
       builder: (context, state) {
         final songs = [...?state.results];
+        final isLoading = state.status == StateStatus.loading;
+        if (isLoading) return const SongsLoading();
         if (songs.isEmpty) return _buildEmptyView();
         return _buildResultsView(songs);
       },
