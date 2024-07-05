@@ -14,41 +14,27 @@ class SongDetailsBloc extends Bloc<SongDetailsEvent, SongDetailsState> {
   SongDetailsBloc({required Song song, required GeniusRepository geniusRepository})
       : _geniusRepository = geniusRepository,
         super(SongDetailsState(song: song)) {
-    on<FetchSongDetails>(_onFetchSongDetails);
-    on<FetchLyrics>(_onFetchLyrics);
+    on<FetchSongData>(_onFetchSongData);
     on<SelectLine>(_onSelectLine);
 
-    add(FetchSongDetails(id: song.id));
-    add(FetchLyrics(url: song.lyricsUrl));
+    add(const FetchSongData());
   }
 
   final GeniusRepository _geniusRepository;
 
-  Future<void> _onFetchSongDetails(FetchSongDetails event, Emitter<SongDetailsState> emit) async {
-    emit(state.copyWith(status: SongDetailsStateStatus.fetchingSongDetails));
-    await _geniusRepository.getSongDetails(id: state.song.id).then((song) async {
-      emit(state.copyWith(status: SongDetailsStateStatus.fetchingSongDetailsSucceeded, song: song));
-    }).catchError((Object error, StackTrace stacktrace) async {
-      log('GENIUS: FAILED TO FETCH SONG DETAILS, error: $error \n\n $stacktrace');
-      emit(state.copyWith(status: SongDetailsStateStatus.fetchingSongDetailsFailed, error: error.toString()));
-    });
-  }
-
-  Future<void> _onFetchLyrics(FetchLyrics event, Emitter<SongDetailsState> emit) async {
-    emit(state.copyWith(status: SongDetailsStateStatus.fetchingLyrics));
-    final url = state.song.lyricsUrl;
-    if (url == null || url.isEmpty) {
-      emit(state.copyWith(status: SongDetailsStateStatus.fetchingLyricsFailed));
-      return;
+  Future<void> _onFetchSongData(FetchSongData event, Emitter<SongDetailsState> emit) async {
+    emit(state.copyWith(status: SongDetailsStateStatus.fetchingSongData));
+    try {
+      final songId = state.song.id;
+      final song = await _geniusRepository.getSongDetails(id: songId);
+      final url = state.song.lyricsUrl;
+      final stringLyrics = (url != null && url.isNotEmpty) ? await _geniusRepository.getSongLyrics(url: url) : null;
+      final lyrics = _mapStringTableToLyrics(stringLyrics ?? []);
+      emit(state.copyWith(status: SongDetailsStateStatus.fetchingSongDataSucceeded, song: song, lyrics: lyrics));
+    } catch (error, stacktrace) {
+      log('FAILED TO FETCH SONG DATA, error: $error \n\n $stacktrace');
+      emit(state.copyWith(status: SongDetailsStateStatus.fetchingSongDataFailed, error: error.toString()));
     }
-
-    await _geniusRepository.getSongLyrics(url: url).then((stringLyrics) async {
-      final lyrics = _mapStringTableToLyrics(stringLyrics);
-      emit(state.copyWith(status: SongDetailsStateStatus.fetchingLyricsSucceeded, lyrics: lyrics));
-    }).catchError((Object error, StackTrace stacktrace) async {
-      log('FAILED TO FETCH SONG LYRICS, error: $error \n\n $stacktrace');
-      emit(state.copyWith(status: SongDetailsStateStatus.fetchingLyricsFailed, error: error.toString()));
-    });
   }
 
   List<Lyric> _mapStringTableToLyrics(List<String> lyrics) {

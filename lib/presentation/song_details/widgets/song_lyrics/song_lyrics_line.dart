@@ -37,12 +37,7 @@ class _SongLyricsLineState extends State<SongLyricsLine> {
     }
 
     if (lyric.isSelected || lyric.isNextLineSelected || lyric.isPreviousLineSelected) {
-      return const BorderRadius.only(
-        topLeft: Radius.circular(26),
-        topRight: Radius.circular(26),
-        bottomRight: Radius.circular(26),
-        bottomLeft: Radius.circular(26),
-      );
+      return const BorderRadius.all(Radius.circular(26));
     }
 
     return null;

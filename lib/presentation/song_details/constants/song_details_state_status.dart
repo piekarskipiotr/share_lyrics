@@ -1,11 +1,8 @@
 enum SongDetailsStateStatus {
   initial,
-  fetchingSongDetails,
-  fetchingSongDetailsSucceeded,
-  fetchingSongDetailsFailed,
-  fetchingLyrics,
-  fetchingLyricsSucceeded,
-  fetchingLyricsFailed,
+  fetchingSongData,
+  fetchingSongDataSucceeded,
+  fetchingSongDataFailed,
   selectingLine,
   selectingLineCompleted;
 }

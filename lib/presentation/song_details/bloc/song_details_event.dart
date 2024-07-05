@@ -4,6 +4,13 @@ abstract class SongDetailsEvent extends Equatable {
   const SongDetailsEvent();
 }
 
+final class FetchSongData extends SongDetailsEvent {
+  const FetchSongData();
+
+  @override
+  List<Object?> get props => [];
+}
+
 final class FetchSongDetails extends SongDetailsEvent {
   const FetchSongDetails({required this.id});
 
@@ -30,4 +37,3 @@ final class SelectLine extends SongDetailsEvent {
   @override
   List<Object?> get props => [lyric];
 }
-
