@@ -10,23 +10,19 @@ class SongMediaList extends StatelessWidget {
   final bool isLoading;
   static const _animationDuration = Duration(milliseconds: 250);
   static const _defaultPadding = EdgeInsets.only(bottom: 24);
-  static const _zeroPadding = EdgeInsets.zero;
 
   @override
   Widget build(BuildContext context) {
+    final hasAnySongMedia = songMedia.isNotEmpty;
     return AnimatedSwitcher(
       duration: _animationDuration,
       switchInCurve: Curves.easeIn,
       switchOutCurve: Curves.easeOut,
       child: isLoading
-          ? const Padding(
-              padding: _defaultPadding,
-              child: SongMediaLoading(),
-            )
-          : Padding(
-              padding: songMedia.isEmpty ? _zeroPadding : _defaultPadding,
-              child: SongMediaListView(songMedia: songMedia),
-            ),
+          ? const Padding(padding: _defaultPadding, child: SongMediaLoading())
+          : hasAnySongMedia
+              ? Padding(padding: _defaultPadding, child: SongMediaListView(songMedia: songMedia))
+              : null,
     );
   }
 }
