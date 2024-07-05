@@ -7,7 +7,7 @@ class SongLyricsLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: AppShimmer(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
