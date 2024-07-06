@@ -7,6 +7,7 @@ import 'package:share_lyrics/presentation/song_details/constants/song_details_st
 import 'package:share_lyrics/presentation/song_details/widgets/song_details_app_bar.dart';
 import 'package:share_lyrics/presentation/song_details/widgets/song_details_continue_button.dart';
 import 'package:share_lyrics/presentation/song_details/widgets/song_details_header.dart';
+import 'package:share_lyrics/presentation/song_details/widgets/song_details_share_dialog.dart';
 import 'package:share_lyrics/presentation/song_details/widgets/song_details_vertical_gradient.dart';
 import 'package:share_lyrics/presentation/song_details/widgets/song_lyrics/song_lyrics.dart';
 import 'package:share_lyrics/presentation/song_details/widgets/song_media/song_media_list.dart';
@@ -45,7 +46,10 @@ class _SongDetailsViewState extends State<SongDetailsView> {
     context.read<SongDetailsBloc>().add(SelectLine(lyric: lyric));
   }
 
-  void _onContinueButtonPressed() {}
+  void _onContinueButtonPressed(Song song, List<String> lyrics) {
+    final shareSongLyrics = ShareSongLyrics(title: song.title, artist: song.artist, image: song.image, lyrics: lyrics);
+    AppBottomSheetDialog.show(child: SongDetailsShareDialog(shareSongLyrics: shareSongLyrics), context: context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +61,6 @@ class _SongDetailsViewState extends State<SongDetailsView> {
         final songMedia = [...?song.media];
         final lyrics = [...?state.lyrics];
         final isLoading = state.status == SongDetailsStateStatus.fetchingSongData;
-        final isAnyLyricSelected = lyrics.any((lyric) => lyric.isSelected);
         final showTitleInAppBar = state.showTitleInAppBar;
         return AppScaffold(
           backgroundColor: AppColors.black,
@@ -84,7 +87,7 @@ class _SongDetailsViewState extends State<SongDetailsView> {
                 ),
               ),
               SongDetailsVerticalGradient(showTitleInAppBar: showTitleInAppBar),
-              SongDetailsContinueButton(isAnyLyricSelected: isAnyLyricSelected, onPressed: _onContinueButtonPressed),
+              SongDetailsContinueButton(song: song, lyrics: lyrics, onPressed: _onContinueButtonPressed),
             ],
           ),
         );

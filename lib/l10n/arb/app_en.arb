@@ -39,5 +39,7 @@
   "empty_search": "No songs found. Try a different title or include more letters in your search!",
   "continue_button": "Continue",
   "song_media_label": "Listen on:",
-  "empty_lyrics": "No lyrics found."
+  "empty_lyrics": "No lyrics found.",
+  "save_n_share": "Save & share",
+  "just_save": "Just save"
 }
