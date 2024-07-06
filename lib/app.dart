@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:share_lyrics/data/enums/enums.dart';
 import 'package:share_lyrics/data/repositories/firebase_auth/firebase_auth_repository.dart';
+import 'package:share_lyrics/data/repositories/firebase_store/firestore_song_lyrics_repository.dart';
 import 'package:share_lyrics/data/repositories/genius_repository/genius_repository.dart';
 import 'package:share_lyrics/l10n/l10n.dart';
 import 'package:share_lyrics/router/app_router.dart';
@@ -14,18 +15,21 @@ import 'package:share_lyrics/services/search_service/search_service.dart';
 class App extends StatelessWidget {
   App({
     required FirebaseAuthRepository firebaseAuthRepository,
+    required FirestoreSongLyricsRepository firestoreSongLyricsRepository,
     required GeniusRepository geniusRepository,
     required AuthService authService,
     required SearchService searchService,
     required AppRouter router,
     super.key,
   })  : _firebaseAuthRepository = firebaseAuthRepository,
+        _firestoreSongLyricsRepository = firestoreSongLyricsRepository,
         _geniusRepository = geniusRepository,
         _authService = authService,
         _searchService = searchService,
         _router = router;
 
   final FirebaseAuthRepository _firebaseAuthRepository;
+  final FirestoreSongLyricsRepository _firestoreSongLyricsRepository;
   final GeniusRepository _geniusRepository;
   final AuthService _authService;
   final SearchService _searchService;
@@ -36,6 +40,7 @@ class App extends StatelessWidget {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider.value(value: _firebaseAuthRepository),
+        RepositoryProvider.value(value: _firestoreSongLyricsRepository),
         RepositoryProvider.value(value: _geniusRepository),
         RepositoryProvider.value(value: _authService),
         RepositoryProvider.value(value: _authService),
