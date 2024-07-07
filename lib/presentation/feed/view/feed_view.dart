@@ -46,7 +46,7 @@ class _FeedViewState extends State<FeedView> {
       listenWhen: (previous, current) => previous.status != current.status,
       listener: _handleStateStatus,
       builder: (context, state) {
-        return PagedListView<int, ShareSongLyrics>(
+        return PagedListView<int, ShareSongLyrics>.separated(
           pagingController: _pagingController,
           padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 20),
           builderDelegate: PagedChildBuilderDelegate<ShareSongLyrics>(
@@ -60,6 +60,9 @@ class _FeedViewState extends State<FeedView> {
               return SongLyricsCard(shareSongLyrics: shareSongLyrics);
             },
           ),
+          separatorBuilder: (context, index) {
+            return const SizedBox(height: 32);
+          },
         );
       },
     );
