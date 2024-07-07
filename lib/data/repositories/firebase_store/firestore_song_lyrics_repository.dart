@@ -7,49 +7,27 @@ class FirestoreSongLyricsRepository {
 
   Future<dynamic> saveSongLyrics({required String userUUID, required ShareSongLyrics shareSongLyrics}) async {
     try {
-      final firestoreShareSongLyrics = shareSongLyrics.updateLocalToFirestore(
-        userUUID: userUUID,
-        createdAt: DateTime.now(),
-      );
-
-      await _firebaseStore.doc(userUUID).set(firestoreShareSongLyrics.toJson());
+      final createdAt = DateTime.now();
+      final timestamp = createdAt.millisecondsSinceEpoch;
+      final docName = '$userUUID-$timestamp';
+      final firestoreShareSongLyrics = shareSongLyrics.updateLocalToFirestore(userUUID: userUUID, createdAt: createdAt);
+      await _firebaseStore.doc(docName).set(firestoreShareSongLyrics.toJson());
     } catch (e) {
       throw Exception(e.toString());
     }
   }
 
   Future<(List<ShareSongLyrics>?, DocumentSnapshot?)> fetchSongLyrics({
+    required DocumentSnapshot? lastDocSnap,
     required String userUUID,
     required int pageSize,
   }) async {
     try {
-      final querySnapshot = await _firebaseStore
-          .where('userUUID', isEqualTo: userUUID)
-          .orderBy('createdAt', descending: true)
-          .limit(pageSize)
-          .get();
+      var query =
+          _firebaseStore.where('userUUID', isEqualTo: userUUID).orderBy('createdAt', descending: true).limit(pageSize);
 
-      final documents = querySnapshot.docs;
-      final songLyrics = documents.map((e) => ShareSongLyrics.fromJson(e.data())).toList();
-      final lastDoc = songLyrics.isEmpty ? null : documents.last;
-      return (songLyrics, lastDoc);
-    } catch (e) {
-      throw Exception(e.toString());
-    }
-  }
-
-  Future<(List<ShareSongLyrics>?, DocumentSnapshot?)> fetchNext({
-    required DocumentSnapshot lastDocSnap,
-    required String userUUID,
-    required int pageSize,
-  }) async {
-    try {
-      final querySnapshot = await _firebaseStore
-          .where('userUUID', isEqualTo: userUUID)
-          .orderBy('createdAt', descending: true)
-          .startAfterDocument(lastDocSnap)
-          .limit(pageSize)
-          .get();
+      if (lastDocSnap != null) query = query.startAfterDocument(lastDocSnap);
+      final querySnapshot = await query.get();
 
       final documents = querySnapshot.docs;
       final songLyrics = documents.map((e) => ShareSongLyrics.fromJson(e.data())).toList();
