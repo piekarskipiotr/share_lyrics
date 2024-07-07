@@ -9,39 +9,37 @@ class SongDetailsVerticalGradient extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IgnorePointer(
-      child: Positioned.fill(
-        child: Column(
-          children: [
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 500),
-              height: showTitleInAppBar ? 200 : 56,
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    AppColors.black,
-                    AppColors.transparent,
-                  ],
-                ),
+      child: Column(
+        children: [
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 500),
+            height: showTitleInAppBar ? 200 : 56,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  AppColors.black,
+                  AppColors.transparent,
+                ],
               ),
             ),
-            const Spacer(),
-            Container(
-              height: 248,
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                  colors: [
-                    AppColors.black,
-                    AppColors.transparent,
-                  ],
-                ),
+          ),
+          const Spacer(),
+          Container(
+            height: 248,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
+                colors: [
+                  AppColors.black,
+                  AppColors.transparent,
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

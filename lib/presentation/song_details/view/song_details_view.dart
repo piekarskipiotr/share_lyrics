@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_lyrics/data/models/models.dart';
 import 'package:share_lyrics/design_system/design_system.dart';
+import 'package:share_lyrics/presentation/share_lyrics_dialog/view/share_lyrics_dialog.dart';
 import 'package:share_lyrics/presentation/song_details/bloc/song_details_bloc.dart';
 import 'package:share_lyrics/presentation/song_details/constants/song_details_state_status.dart';
 import 'package:share_lyrics/presentation/song_details/widgets/song_details_app_bar.dart';
 import 'package:share_lyrics/presentation/song_details/widgets/song_details_continue_button.dart';
 import 'package:share_lyrics/presentation/song_details/widgets/song_details_header.dart';
-import 'package:share_lyrics/presentation/song_details/widgets/song_details_share_dialog.dart';
 import 'package:share_lyrics/presentation/song_details/widgets/song_details_vertical_gradient.dart';
 import 'package:share_lyrics/presentation/song_details/widgets/song_lyrics/song_lyrics.dart';
 import 'package:share_lyrics/presentation/song_details/widgets/song_media/song_media_list.dart';
@@ -48,7 +48,7 @@ class _SongDetailsViewState extends State<SongDetailsView> {
 
   void _onContinueButtonPressed(Song song, List<String> lyrics) {
     final shareSongLyrics = ShareSongLyrics(title: song.title, artist: song.artist, image: song.image, lyrics: lyrics);
-    AppBottomSheetDialog.show(child: SongDetailsShareDialog(shareSongLyrics: shareSongLyrics), context: context);
+    AppBottomSheetDialog.show(child: ShareLyricsDialog(shareSongLyrics: shareSongLyrics), context: context);
   }
 
   @override

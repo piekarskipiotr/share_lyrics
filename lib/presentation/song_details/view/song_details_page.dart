@@ -12,7 +12,6 @@ class SongDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      lazy: false,
       create: (_) => SongDetailsBloc(song: song, geniusRepository: context.read()),
       child: const SongDetailsView(),
     );
