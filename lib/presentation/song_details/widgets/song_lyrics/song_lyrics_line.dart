@@ -22,6 +22,10 @@ class _SongLyricsLineState extends State<SongLyricsLine> {
   }
 
   BorderRadiusGeometry? getBorderRadius(Lyric lyric) {
+    if (lyric.isSelected && lyric.isNextLineSelected && lyric.isPreviousLineSelected) {
+      return null;
+    }
+
     if (lyric.isSelected && lyric.isNextLineSelected) {
       return const BorderRadius.only(
         topLeft: Radius.circular(26),

@@ -48,8 +48,12 @@ class SongDetailsBloc extends Bloc<SongDetailsEvent, SongDetailsState> {
     final selectedIndex = lyrics.indexOf(event.lyric);
     final selectedLyric = lyrics[selectedIndex];
     final isAlreadySelected = selectedLyric.isSelected;
+
     if (isAlreadySelected) {
-      lyrics[selectedIndex] = selectedLyric.copyWith(isSelected: false);
+      for (var i = selectedIndex; i < lyrics.length; i++) {
+        if (!lyrics[i].isSelected) break;
+        lyrics[i] = lyrics[i].copyWith(isSelected: false, isNextLineSelected: false, isPreviousLineSelected: false);
+      }
     } else {
       final selectedLyrics = lyrics.where((lyric) => lyric.isSelected).toList();
       final isAdjacentSelection = selectedLyrics.isEmpty ||
@@ -58,7 +62,7 @@ class SongDetailsBloc extends Bloc<SongDetailsEvent, SongDetailsState> {
             return index == selectedIndex - 1 || index == selectedIndex + 1;
           });
 
-      if (isAdjacentSelection && selectedLyrics.length < 2) {
+      if (isAdjacentSelection && selectedLyrics.length < 3) {
         lyrics[selectedIndex] = selectedLyric.copyWith(isSelected: true);
       } else {
         lyrics = lyrics
