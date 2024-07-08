@@ -50,8 +50,8 @@ class _FeedViewState extends State<FeedView> {
           pagingController: _pagingController,
           padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 20),
           builderDelegate: PagedChildBuilderDelegate<ShareSongLyrics>(
-            firstPageProgressIndicatorBuilder: (_) => const SizedBox(),
-            newPageProgressIndicatorBuilder: (_) => const SizedBox(),
+            firstPageProgressIndicatorBuilder: (_) => _buildLoadingView(),
+            newPageProgressIndicatorBuilder: (_) => _buildLoadingView(),
             newPageErrorIndicatorBuilder: (_) => const SizedBox(),
             noItemsFoundIndicatorBuilder: (_) => _buildEmptyView(),
             firstPageErrorIndicatorBuilder: (_) => const SizedBox(),
@@ -66,6 +66,10 @@ class _FeedViewState extends State<FeedView> {
         );
       },
     );
+  }
+
+  Widget _buildLoadingView() {
+    return const SongLyricsCardsLoading();
   }
 
   Widget _buildEmptyView() {

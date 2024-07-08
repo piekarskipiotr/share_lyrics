@@ -52,7 +52,7 @@ class _SearchViewState extends State<SearchView> {
   Widget _buildResultsView(List<Song> songs) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         child: Column(
           children: [
             ...songs.map((song) => SongItem(song: song, onTap: _navigateToSongDetails)),
