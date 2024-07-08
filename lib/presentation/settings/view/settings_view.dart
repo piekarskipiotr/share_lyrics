@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_lyrics/data/constants.dart';
+import 'package:share_lyrics/data/enums/enums.dart';
 import 'package:share_lyrics/design_system/design_system.dart';
 import 'package:share_lyrics/l10n/l10n.dart';
 import 'package:share_lyrics/presentation/settings/bloc/settings_bloc.dart';
@@ -62,19 +63,20 @@ class _SettingsViewState extends State<SettingsView> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     // TODO(piotr): think about re-building / improving UI
-    return AppScaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.transparent,
-        title: Text(l10n.settings, style: AppTextStyles.h7()),
-        leading: IconButton(
-          onPressed: _navigateBack,
-          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.white),
-        ),
-      ),
-      body: BlocBuilder<SettingsBloc, SettingsState>(
-        builder: (context, state) {
-          final user = state.user;
-          return SingleChildScrollView(
+    return BlocBuilder<SettingsBloc, SettingsState>(
+      builder: (context, state) {
+        final user = state.user;
+        final isSigningOut = state.status == StateStatus.loading;
+        return AppScaffold(
+          appBar: AppBar(
+            backgroundColor: AppColors.transparent,
+            title: Text(l10n.settings, style: AppTextStyles.h7()),
+            leading: IconButton(
+              onPressed: _navigateBack,
+              icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.white),
+            ),
+          ),
+          body: SingleChildScrollView(
             child: Column(
               children: [
                 const SizedBox(height: 24),
@@ -115,21 +117,18 @@ class _SettingsViewState extends State<SettingsView> {
                 ),
               ],
             ),
-          );
-        },
-      ),
-      bottomNavigationBar: GestureDetector(
-        onTap: _signOut,
-        behavior: HitTestBehavior.translucent,
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Text(
-            l10n.sign_out,
-            textAlign: TextAlign.center,
-            style: AppTextStyles.h8(fontWeight: FontWeight.bold, color: AppColors.primary),
           ),
-        ),
-      ),
+          bottomNavigationBar: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 24),
+            child: AppTextButton(
+              label: l10n.sign_out,
+              onPressed: _signOut,
+              textColor: AppColors.primary,
+              isLoading: isSigningOut,
+            ),
+          ),
+        );
+      },
     );
   }
 }

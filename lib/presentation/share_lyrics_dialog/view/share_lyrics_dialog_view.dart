@@ -45,16 +45,26 @@ class _ShareLyricsDialogViewState extends State<ShareLyricsDialogView> {
       builder: (context, state) {
         final lyricsCardWidgetKey = state.lyricsWidgetKey;
         final shareSongLyrics = state.shareSongLyrics;
+        final isSavingNSharingLyrics = state.status == ShareLyricsStateStatus.savingNSharingLyrics;
+        final isSavingLyrics = state.status == ShareLyricsStateStatus.savingLyrics;
+        final isLoading = isSavingNSharingLyrics || isSavingLyrics;
+
         return Column(
           children: [
             SongLyricsCard(shareSongLyrics: shareSongLyrics, lyricsCardWidgetKey: lyricsCardWidgetKey),
             const SizedBox(height: 48),
-            AppButton(label: l10n.save_n_share, onPressed: _saveNShareLyrics),
+            AppButton(
+              label: l10n.save_n_share,
+              onPressed: _saveNShareLyrics,
+              isLoading: isSavingNSharingLyrics,
+              disableOnPressed: isLoading,
+            ),
             const SizedBox(height: 24),
-            GestureDetector(
-              onTap: _saveLyrics,
-              behavior: HitTestBehavior.translucent,
-              child: Text(l10n.just_save, style: AppTextStyles.h7()),
+            AppTextButton(
+              label: l10n.just_save,
+              onPressed: _saveLyrics,
+              isLoading: isSavingLyrics,
+              disableOnPressed: isLoading,
             ),
           ],
         );
