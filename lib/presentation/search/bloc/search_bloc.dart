@@ -7,22 +7,28 @@ import 'package:share_lyrics/data/enums/enums.dart';
 import 'package:share_lyrics/data/models/song/song.dart';
 import 'package:share_lyrics/data/repositories/genius_repository/genius_repository.dart';
 import 'package:share_lyrics/services/search_service/search_service.dart';
+import 'package:stream_transform/stream_transform.dart';
 
 part 'search_event.dart';
 part 'search_state.dart';
+
+EventTransformer<Event> debounce<Event>(Duration duration) {
+  return (events, mapper) => events.debounce(duration).switchMap(mapper);
+}
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   SearchBloc({required GeniusRepository geniusRepository, required SearchService searchService})
       : _geniusRepository = geniusRepository,
         _searchService = searchService,
         super(const SearchState()) {
-    on<Search>(_onSearch);
+    on<Search>(_onSearch, transformer: debounce(_debounceDuration));
     _phraseSubscription = _searchService.phrase.listen((phrase) => add(Search(phrase: phrase)));
   }
 
   final SearchService _searchService;
   final GeniusRepository _geniusRepository;
   late StreamSubscription<String> _phraseSubscription;
+  static const _debounceDuration = Duration(milliseconds: 300);
 
   Future<void> _onSearch(Search event, Emitter<SearchState> emit) async {
     emit(state.copyWith(status: StateStatus.loading));
