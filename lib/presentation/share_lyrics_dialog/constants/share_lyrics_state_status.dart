@@ -8,5 +8,8 @@ enum ShareLyricsStateStatus {
   savingLyricsFailed,
   sharingLyrics,
   sharingLyricsSucceeded,
-  sharingLyricsFailed;
+  sharingLyricsFailed,
+  savingToGallery,
+  savingToGallerySucceeded,
+  savingToGalleryFailed;
 }

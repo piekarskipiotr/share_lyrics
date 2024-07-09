@@ -16,6 +16,7 @@ class ShareLyricsDialogView extends StatefulWidget {
 class _ShareLyricsDialogViewState extends State<ShareLyricsDialogView> {
   void _handleStateStatus(BuildContext context, ShareLyricsState state) {
     switch (state.status) {
+      case ShareLyricsStateStatus.savingToGallerySucceeded:
       case ShareLyricsStateStatus.sharingLyricsSucceeded:
       case ShareLyricsStateStatus.savingLyricsSucceeded:
       case ShareLyricsStateStatus.savingNSharingLyricsSucceeded:
@@ -45,6 +46,7 @@ class _ShareLyricsDialogViewState extends State<ShareLyricsDialogView> {
       listener: _handleStateStatus,
       builder: (context, state) {
         final isQuickShare = state.quickShare;
+        final isSaveToGallery = state.quickSaveToGallery;
         final lyricsCardWidgetKey = state.lyricsWidgetKey;
         final shareSongLyrics = state.shareSongLyrics;
         final isSavingNSharingLyrics = state.status == ShareLyricsStateStatus.savingNSharingLyrics;
@@ -54,7 +56,7 @@ class _ShareLyricsDialogViewState extends State<ShareLyricsDialogView> {
         return Column(
           children: [
             SongLyricsCard(shareSongLyrics: shareSongLyrics, lyricsCardWidgetKey: lyricsCardWidgetKey),
-            if (!isQuickShare) ...[
+            if (!isQuickShare && !isSaveToGallery) ...[
               const SizedBox(height: 48),
               AppButton(
                 label: l10n.save_n_share,

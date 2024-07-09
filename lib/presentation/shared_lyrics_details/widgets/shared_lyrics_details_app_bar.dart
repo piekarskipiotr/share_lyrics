@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:share_lyrics/data/models/models.dart';
 import 'package:share_lyrics/design_system/design_system.dart';
+import 'package:share_lyrics/l10n/l10n.dart';
+import 'package:share_lyrics/presentation/share_lyrics_dialog/view/share_lyrics_dialog.dart';
 import 'package:share_lyrics/presentation/shared_lyrics_details/bloc/shared_lyrics_details_bloc.dart';
 
 class SharedLyricsDetailsAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -47,8 +50,40 @@ class _SharedLyricsDetailsAppBarState extends State<SharedLyricsDetailsAppBar> {
     context.pop();
   }
 
+  // TODO(piotr): call this function like "show delete dialog" & move bloc call to function "_deleteSong"
+  void _deleteSong() {
+    final l10n = context.l10n;
+    AppActionDialog.show(
+      title: l10n.shared_lyrics_delete_confirmation_title,
+      subtitle: l10n.shared_lyrics_delete_confirmation_description,
+      primaryText: l10n.delete,
+      secondaryText: l10n.cancel,
+      onPrimaryPressed: () {
+        context.read<SharedLyricsDetailsBloc>().add(const DeleteSharedLyrics());
+      },
+      onSecondaryPressed: () {
+        context.pop();
+      },
+      context: context,
+    );
+  }
+
+  Future<void> _saveToGallery(ShareSongLyrics shareSongLyrics) async {
+    final status = await Permission.photos.status;
+    if (status.isGranted) {
+      AppBottomSheetDialog.show(
+        child: ShareLyricsDialog(shareSongLyrics: shareSongLyrics, quickSaveToGallery: true),
+        context: context,
+      );
+      return;
+    }
+
+    if (status.isPermanentlyDenied) await openAppSettings();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return AppBar(
       backgroundColor: AppColors.transparent,
       surfaceTintColor: AppColors.transparent,
@@ -56,6 +91,27 @@ class _SharedLyricsDetailsAppBarState extends State<SharedLyricsDetailsAppBar> {
         onPressed: _navigateBack,
         icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.white),
       ),
+      actions: [
+        AppDropdownMenu(
+          items: [
+            AppDropdownMenuItem(
+              label: l10n.save_to_gallery,
+              icon: Icons.save_alt_rounded,
+              isDanger: false,
+              onTap: () {
+                _saveToGallery(widget.shareSongLyrics);
+              },
+            ),
+            AppDropdownMenuItem(
+              label: l10n.delete,
+              icon: Icons.delete_rounded,
+              isDanger: true,
+              onTap: _deleteSong,
+            ),
+          ],
+          child: const Icon(Icons.more_vert_rounded, color: AppColors.white),
+        ),
+      ],
       title: AnimatedOpacity(
         opacity: widget.showTitleInAppBar ? 1.0 : 0.0,
         duration: const Duration(milliseconds: 200),

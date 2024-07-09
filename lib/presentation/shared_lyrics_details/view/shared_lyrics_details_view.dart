@@ -80,7 +80,7 @@ class _SharedLyricsDetailsViewState extends State<SharedLyricsDetailsView> {
                     SongLyrics(
                       lyrics: shareSongLyrics.lyrics.map((lyric) => Lyric(line: lyric)).toList(),
                       onTap: (_) {},
-                      isLoading: isLoading,
+                      isLoading: false,
                     ),
                     const SizedBox(height: 196),
                   ],

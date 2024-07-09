@@ -9,6 +9,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_lyrics/data/models/models.dart';
 import 'package:share_lyrics/data/repositories/firebase_store/firestore_song_lyrics_repository.dart';
@@ -23,6 +24,7 @@ class ShareLyricsBloc extends Bloc<ShareLyricsEvent, ShareLyricsState> {
   ShareLyricsBloc({
     required ShareSongLyrics shareSongLyrics,
     required bool quickShare,
+    required bool quickSaveToGallery,
     required AuthService authService,
     required FirestoreSongLyricsRepository firestoreSongLyricsRepository,
   })  : _authService = authService,
@@ -32,13 +34,16 @@ class ShareLyricsBloc extends Bloc<ShareLyricsEvent, ShareLyricsState> {
             lyricsWidgetKey: GlobalKey(),
             shareSongLyrics: shareSongLyrics,
             quickShare: quickShare,
+            quickSaveToGallery: quickSaveToGallery,
           ),
         ) {
     on<SaveNShareLyrics>(_onSaveNShareLyrics);
     on<SaveLyrics>(_onSaveLyrics);
     on<ShareLyrics>(_onShareLyrics);
+    on<SaveToGallery>(_onSaveToGallery);
 
     if (quickShare) add(const ShareLyrics());
+    if (quickSaveToGallery) add(const SaveToGallery());
   }
 
   final AuthService _authService;
@@ -94,6 +99,24 @@ class ShareLyricsBloc extends Bloc<ShareLyricsEvent, ShareLyricsState> {
     } catch (error, stacktrace) {
       log('FAILED TO SAVE & SHARE SONG, error: $error \n\n $stacktrace');
       emit(state.copyWith(status: ShareLyricsStateStatus.sharingLyricsFailed, error: error.toString()));
+    }
+  }
+
+  Future<void> _onSaveToGallery(SaveToGallery event, Emitter<ShareLyricsState> emit) async {
+    emit(state.copyWith(status: ShareLyricsStateStatus.savingToGallery));
+    try {
+      final sharedSongLyrics = state.shareSongLyrics;
+      final artist = sharedSongLyrics.artist;
+      final title = sharedSongLyrics.title;
+      final timestamp = DateTime.now().millisecondsSinceEpoch;
+      final name = '$artist-$title-$timestamp';
+      final lyricsWidgetKey = state.lyricsWidgetKey;
+      final cardLyricsBytes = await _captureLyricsCardImage(lyricsWidgetKey);
+      await ImageGallerySaver.saveImage(cardLyricsBytes, name: name, quality: 100);
+      emit(state.copyWith(status: ShareLyricsStateStatus.savingToGallerySucceeded));
+    } catch (error, stacktrace) {
+      log('FAILED TO SAVE & SHARE SONG, error: $error \n\n $stacktrace');
+      emit(state.copyWith(status: ShareLyricsStateStatus.savingToGalleryFailed, error: error.toString()));
     }
   }
 

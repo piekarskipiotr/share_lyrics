@@ -42,5 +42,8 @@
   "empty_lyrics": "No lyrics found.",
   "save_n_share": "Save & share",
   "just_save": "Just save",
-  "share": "Share"
+  "share": "Share",
+  "save_to_gallery": "Save to gallery",
+  "shared_lyrics_delete_confirmation_title": "Do you want to delete these shared lyrics?",
+  "shared_lyrics_delete_confirmation_description": "This action cannot be undone"
 }
