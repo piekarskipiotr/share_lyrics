@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:share_lyrics/data/models/song/song_media.dart';
 import 'package:share_lyrics/design_system/design_system.dart';
+import 'package:share_lyrics/utils/helpers/helpers.dart';
 
 class SongMediaButton extends StatelessWidget {
   const SongMediaButton({
@@ -11,7 +12,9 @@ class SongMediaButton extends StatelessWidget {
 
   final SongMedia songMedia;
 
-  void _openSongMedia() {}
+  void _openSongMedia(String url) {
+    UrlLauncher.open(url);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +29,7 @@ class SongMediaButton extends StatelessWidget {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           ),
         ),
-        onPressed: _openSongMedia,
+        onPressed: () => _openSongMedia(songMedia.url),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
