@@ -59,6 +59,7 @@ class _SharedLyricsDetailsAppBarState extends State<SharedLyricsDetailsAppBar> {
       primaryText: l10n.delete,
       secondaryText: l10n.cancel,
       onPrimaryPressed: () {
+        context.pop();
         context.read<SharedLyricsDetailsBloc>().add(const DeleteSharedLyrics());
       },
       onSecondaryPressed: () {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:share_lyrics/data/models/models.dart';
 import 'package:share_lyrics/design_system/design_system.dart';
 import 'package:share_lyrics/presentation/share_lyrics_dialog/view/share_lyrics_dialog.dart';
@@ -35,6 +36,8 @@ class _SharedLyricsDetailsViewState extends State<SharedLyricsDetailsView> {
 
   void _handleStateStatus(BuildContext context, SharedLyricsDetailsState state) {
     switch (state.status) {
+      case SharedLyricsDetailsStateStatus.deletingSharedLyricsSucceeded:
+        context.pop();
       case _:
         break;
     }
