@@ -6,12 +6,12 @@ import 'package:share_lyrics/l10n/l10n.dart';
 class SharedLyricsDetailsContinueButton extends StatelessWidget {
   const SharedLyricsDetailsContinueButton({
     required this.onPressed,
-    required this.shareSongLyrics,
+    required this.sharedLyrics,
     super.key,
   });
 
-  final ShareSongLyrics shareSongLyrics;
-  final void Function(ShareSongLyrics shareSongLyrics) onPressed;
+  final SharedLyrics sharedLyrics;
+  final void Function(SharedLyrics sharedLyrics) onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class SharedLyricsDetailsContinueButton extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           child: AppButton(
             label: l10n.share,
-            onPressed: () => onPressed.call(shareSongLyrics),
+            onPressed: () => onPressed.call(sharedLyrics),
           ),
         ),
       ),

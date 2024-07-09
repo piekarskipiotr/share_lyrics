@@ -5,15 +5,15 @@ import 'package:share_lyrics/presentation/shared_lyrics_details/bloc/shared_lyri
 import 'package:share_lyrics/presentation/shared_lyrics_details/view/shared_lyrics_details_view.dart';
 
 class SharedLyricsDetailsPage extends StatelessWidget {
-  const SharedLyricsDetailsPage({required this.shareSongLyrics, super.key});
+  const SharedLyricsDetailsPage({required this.sharedLyrics, super.key});
 
-  final ShareSongLyrics shareSongLyrics;
+  final SharedLyrics sharedLyrics;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => SharedLyricsDetailsBloc(
-        shareSongLyrics: shareSongLyrics,
+        sharedLyrics: sharedLyrics,
         geniusRepository: context.read(),
         firestoreSongLyricsRepository: context.read(),
       ),

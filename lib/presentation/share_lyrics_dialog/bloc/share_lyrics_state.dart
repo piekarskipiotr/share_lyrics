@@ -3,7 +3,7 @@ part of 'share_lyrics_bloc.dart';
 class ShareLyricsState extends Equatable {
   const ShareLyricsState({
     required this.lyricsWidgetKey,
-    required this.shareSongLyrics,
+    required this.sharedLyrics,
     required this.quickShare,
     required this.quickSaveToGallery,
     this.status = ShareLyricsStateStatus.initial,
@@ -11,7 +11,7 @@ class ShareLyricsState extends Equatable {
   });
 
   final GlobalKey lyricsWidgetKey;
-  final ShareSongLyrics shareSongLyrics;
+  final SharedLyrics sharedLyrics;
   final bool quickShare;
   final bool quickSaveToGallery;
   final ShareLyricsStateStatus status;
@@ -23,7 +23,7 @@ class ShareLyricsState extends Equatable {
   }) {
     return ShareLyricsState(
       lyricsWidgetKey: lyricsWidgetKey,
-      shareSongLyrics: shareSongLyrics,
+      sharedLyrics: sharedLyrics,
       quickShare: quickShare,
       quickSaveToGallery: quickSaveToGallery,
       status: status ?? this.status,
@@ -32,5 +32,5 @@ class ShareLyricsState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [lyricsWidgetKey, shareSongLyrics, quickShare, quickSaveToGallery, status, error];
+  List<Object?> get props => [lyricsWidgetKey, sharedLyrics, quickShare, quickSaveToGallery, status, error];
 }

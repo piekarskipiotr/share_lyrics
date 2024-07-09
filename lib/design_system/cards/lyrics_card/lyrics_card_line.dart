@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:share_lyrics/design_system/design_system.dart';
 
-class SongLyricsCardLine extends StatelessWidget {
-  const SongLyricsCardLine({required this.line, super.key});
+class LyricsCardLine extends StatelessWidget {
+  const LyricsCardLine({required this.line, super.key});
 
   final String line;
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:share_lyrics/design_system/design_system.dart';
 
-class SongLyricsCardHeader extends StatelessWidget {
-  const SongLyricsCardHeader({required this.artist, required this.title, this.image, super.key});
+class LyricsCardHeader extends StatelessWidget {
+  const LyricsCardHeader({required this.artist, required this.title, this.image, super.key});
 
   final String? image;
   final String artist;

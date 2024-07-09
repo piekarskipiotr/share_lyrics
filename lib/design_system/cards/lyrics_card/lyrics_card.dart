@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:share_lyrics/data/models/models.dart';
-import 'package:share_lyrics/design_system/cards/song_lyrics_card/song_lyrics_card_header.dart';
-import 'package:share_lyrics/design_system/cards/song_lyrics_card/song_lyrics_card_lines.dart';
+import 'package:share_lyrics/design_system/cards/lyrics_card/lyrics_card_header.dart';
+import 'package:share_lyrics/design_system/cards/lyrics_card/lyrics_card_lines.dart';
 import 'package:share_lyrics/design_system/design_system.dart';
 
-class SongLyricsCard extends StatelessWidget {
-  const SongLyricsCard({required this.shareSongLyrics, this.lyricsCardWidgetKey, super.key});
+class LyricsCard extends StatelessWidget {
+  const LyricsCard({required this.sharedLyrics, this.lyricsCardWidgetKey, super.key});
 
-  final ShareSongLyrics shareSongLyrics;
+  final SharedLyrics sharedLyrics;
   final GlobalKey? lyricsCardWidgetKey;
 
   Widget get _defaultGap => const SizedBox(height: 24);
@@ -25,13 +25,13 @@ class SongLyricsCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SongLyricsCardHeader(
-              artist: shareSongLyrics.artist,
-              title: shareSongLyrics.title,
-              image: shareSongLyrics.image,
+            LyricsCardHeader(
+              artist: sharedLyrics.song.artist,
+              title: sharedLyrics.song.title,
+              image: sharedLyrics.song.image,
             ),
             _defaultGap,
-            SongLyricsCardLines(lines: shareSongLyrics.lyrics),
+            LyricsCardLines(lines: sharedLyrics.lyrics),
             _defaultGap,
           ],
         ),

@@ -37,8 +37,8 @@ class AppRouter {
         path: '/${AppRoutes.sharedLyricsDetails}',
         name: AppRoutes.sharedLyricsDetails,
         builder: (context, state) {
-          final shareSongLyrics = state.extra! as ShareSongLyrics;
-          return SharedLyricsDetailsPage(shareSongLyrics: shareSongLyrics);
+          final sharedLyrics = state.extra! as SharedLyrics;
+          return SharedLyricsDetailsPage(sharedLyrics: sharedLyrics);
         },
       ),
       GoRoute(

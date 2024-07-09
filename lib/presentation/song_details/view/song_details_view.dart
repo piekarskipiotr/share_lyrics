@@ -45,15 +45,8 @@ class _SongDetailsViewState extends State<SongDetailsView> {
   }
 
   void _onContinueButtonPressed(Song song, List<String> lyrics) {
-    final shareSongLyrics = ShareSongLyrics(
-      id: song.id,
-      title: song.title,
-      artist: song.artist,
-      image: song.image,
-      lyrics: lyrics,
-    );
-
-    AppBottomSheetDialog.show(child: ShareLyricsDialog(shareSongLyrics: shareSongLyrics), context: context);
+    final sharedLyrics = SharedLyrics(lyrics: lyrics, song: song);
+    AppBottomSheetDialog.show(child: ShareLyricsDialog(sharedLyrics: sharedLyrics), context: context);
   }
 
   @override

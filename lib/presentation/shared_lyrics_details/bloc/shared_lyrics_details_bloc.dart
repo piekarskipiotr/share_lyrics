@@ -13,12 +13,12 @@ part 'shared_lyrics_details_state.dart';
 
 class SharedLyricsDetailsBloc extends Bloc<SharedLyricsDetailsEvent, SharedLyricsDetailsState> {
   SharedLyricsDetailsBloc({
-    required ShareSongLyrics shareSongLyrics,
+    required SharedLyrics sharedLyrics,
     required GeniusRepository geniusRepository,
     required FirestoreSongLyricsRepository firestoreSongLyricsRepository,
   })  : _geniusRepository = geniusRepository,
         _firestoreSongLyricsRepository = firestoreSongLyricsRepository,
-        super(SharedLyricsDetailsState(shareSongLyrics: shareSongLyrics)) {
+        super(SharedLyricsDetailsState(sharedLyrics: sharedLyrics)) {
     on<FetchSongData>(_onFetchSongData);
     on<DeleteSharedLyrics>(_onDeleteSharedLyrics);
     on<ChangeVisibilityOfTitleInAppBar>(_onChangeVisibilityOfTitleInAppBar);
@@ -31,7 +31,7 @@ class SharedLyricsDetailsBloc extends Bloc<SharedLyricsDetailsEvent, SharedLyric
   Future<void> _onFetchSongData(FetchSongData event, Emitter<SharedLyricsDetailsState> emit) async {
     emit(state.copyWith(status: SharedLyricsDetailsStateStatus.fetchingSongData));
     try {
-      final songId = state.shareSongLyrics.id;
+      final songId = state.sharedLyrics.song.id;
       final song = await _geniusRepository.getSongDetails(id: songId);
       emit(state.copyWith(status: SharedLyricsDetailsStateStatus.fetchingSongDataSucceeded, songMedia: song.media));
     } catch (error, stacktrace) {
@@ -43,8 +43,8 @@ class SharedLyricsDetailsBloc extends Bloc<SharedLyricsDetailsEvent, SharedLyric
   Future<void> _onDeleteSharedLyrics(DeleteSharedLyrics event, Emitter<SharedLyricsDetailsState> emit) async {
     emit(state.copyWith(status: SharedLyricsDetailsStateStatus.deletingSharedLyrics));
     try {
-      final shareSongLyrics = state.shareSongLyrics;
-      await _firestoreSongLyricsRepository.deleteSongLyrics(shareSongLyrics: shareSongLyrics);
+      final sharedLyrics = state.sharedLyrics;
+      await _firestoreSongLyricsRepository.deleteSongLyrics(sharedLyrics: sharedLyrics);
       emit(state.copyWith(status: SharedLyricsDetailsStateStatus.deletingSharedLyricsSucceeded));
     } catch (error, stacktrace) {
       log('FAILED TO FETCH SONG DATA, error: $error \n\n $stacktrace');

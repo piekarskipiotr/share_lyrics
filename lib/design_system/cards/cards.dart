@@ -1,2 +1,2 @@
-export 'song_lyrics_card/song_lyrics_card.dart';
-export 'song_lyrics_card/song_lyrics_cards_loading.dart';
+export 'lyrics_card/lyrics_card.dart';
+export 'lyrics_card/lyrics_cards_loading.dart';

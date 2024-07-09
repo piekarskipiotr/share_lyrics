@@ -2,7 +2,7 @@ part of 'shared_lyrics_details_bloc.dart';
 
 class SharedLyricsDetailsState extends Equatable {
   const SharedLyricsDetailsState({
-    required this.shareSongLyrics,
+    required this.sharedLyrics,
     this.status = SharedLyricsDetailsStateStatus.initial,
     this.songMedia,
     this.showTitleInAppBar = false,
@@ -10,7 +10,7 @@ class SharedLyricsDetailsState extends Equatable {
   });
 
   final SharedLyricsDetailsStateStatus status;
-  final ShareSongLyrics shareSongLyrics;
+  final SharedLyrics sharedLyrics;
   final List<SongMedia>? songMedia;
   final bool showTitleInAppBar;
   final String? error;
@@ -22,7 +22,7 @@ class SharedLyricsDetailsState extends Equatable {
     String? error,
   }) {
     return SharedLyricsDetailsState(
-      shareSongLyrics: shareSongLyrics,
+      sharedLyrics: sharedLyrics,
       status: status ?? this.status,
       songMedia: songMedia ?? this.songMedia,
       showTitleInAppBar: showTitleInAppBar ?? this.showTitleInAppBar,
@@ -31,5 +31,5 @@ class SharedLyricsDetailsState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [status, shareSongLyrics, songMedia, showTitleInAppBar, error];
+  List<Object?> get props => [status, sharedLyrics, songMedia, showTitleInAppBar, error];
 }

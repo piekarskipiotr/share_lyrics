@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:share_lyrics/design_system/design_system.dart';
 
-class SongLyricsCardsLoading extends StatelessWidget {
-  const SongLyricsCardsLoading({super.key});
+class LyricsCardsLoading extends StatelessWidget {
+  const LyricsCardsLoading({super.key});
 
   @override
   Widget build(BuildContext context) {

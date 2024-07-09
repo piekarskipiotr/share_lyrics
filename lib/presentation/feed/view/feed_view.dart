@@ -17,7 +17,7 @@ class FeedView extends StatefulWidget {
 }
 
 class _FeedViewState extends State<FeedView> {
-  final _pagingController = PagingController<int, ShareSongLyrics>(firstPageKey: 1);
+  final _pagingController = PagingController<int, SharedLyrics>(firstPageKey: 1);
 
   @override
   void initState() {
@@ -42,8 +42,8 @@ class _FeedViewState extends State<FeedView> {
     }
   }
 
-  void _navigateToSharedLyricsDetails(ShareSongLyrics shareSongLyrics) {
-    context.read<AppRouter>().showSharedLyricsDetails(shareSongLyrics: shareSongLyrics);
+  void _navigateToSharedLyricsDetails(SharedLyrics sharedLyrics) {
+    context.read<AppRouter>().showSharedLyricsDetails(sharedLyrics: sharedLyrics);
   }
 
   @override
@@ -52,23 +52,23 @@ class _FeedViewState extends State<FeedView> {
       listenWhen: (previous, current) => previous.status != current.status,
       listener: _handleStateStatus,
       builder: (context, state) {
-        return PagedListView<int, ShareSongLyrics>.separated(
+        return PagedListView<int, SharedLyrics>.separated(
           pagingController: _pagingController,
           padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 20),
-          builderDelegate: PagedChildBuilderDelegate<ShareSongLyrics>(
+          builderDelegate: PagedChildBuilderDelegate<SharedLyrics>(
             firstPageProgressIndicatorBuilder: (_) => _buildLoadingView(),
             newPageProgressIndicatorBuilder: (_) => _buildLoadingView(),
             newPageErrorIndicatorBuilder: (_) => const SizedBox(),
             noItemsFoundIndicatorBuilder: (_) => _buildEmptyView(),
             firstPageErrorIndicatorBuilder: (_) => const SizedBox(),
             noMoreItemsIndicatorBuilder: (_) => const SizedBox(),
-            itemBuilder: (context, shareSongLyrics, index) {
+            itemBuilder: (context, sharedLyrics, index) {
               return GestureDetector(
                 onTap: () {
-                  _navigateToSharedLyricsDetails(shareSongLyrics);
+                  _navigateToSharedLyricsDetails(sharedLyrics);
                 },
                 behavior: HitTestBehavior.translucent,
-                child: SongLyricsCard(shareSongLyrics: shareSongLyrics),
+                child: LyricsCard(sharedLyrics: sharedLyrics),
               );
             },
           ),
@@ -81,7 +81,7 @@ class _FeedViewState extends State<FeedView> {
   }
 
   Widget _buildLoadingView() {
-    return const SongLyricsCardsLoading();
+    return const LyricsCardsLoading();
   }
 
   Widget _buildEmptyView() {

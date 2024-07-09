@@ -48,14 +48,14 @@ class _ShareLyricsDialogViewState extends State<ShareLyricsDialogView> {
         final isQuickShare = state.quickShare;
         final isSaveToGallery = state.quickSaveToGallery;
         final lyricsCardWidgetKey = state.lyricsWidgetKey;
-        final shareSongLyrics = state.shareSongLyrics;
+        final sharedLyrics = state.sharedLyrics;
         final isSavingNSharingLyrics = state.status == ShareLyricsStateStatus.savingNSharingLyrics;
         final isSavingLyrics = state.status == ShareLyricsStateStatus.savingLyrics;
         final isLoading = isSavingNSharingLyrics || isSavingLyrics;
 
         return Column(
           children: [
-            SongLyricsCard(shareSongLyrics: shareSongLyrics, lyricsCardWidgetKey: lyricsCardWidgetKey),
+            LyricsCard(sharedLyrics: sharedLyrics, lyricsCardWidgetKey: lyricsCardWidgetKey),
             if (!isQuickShare && !isSaveToGallery) ...[
               const SizedBox(height: 48),
               AppButton(

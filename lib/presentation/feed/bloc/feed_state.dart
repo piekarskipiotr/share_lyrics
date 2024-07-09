@@ -14,7 +14,7 @@ class FeedState extends Equatable {
   final int pageSize;
   final int page;
   final DocumentSnapshot? lastDocSnap;
-  final List<ShareSongLyrics>? results;
+  final List<SharedLyrics>? results;
   final String? error;
 
   FeedState copyWith({
@@ -22,7 +22,7 @@ class FeedState extends Equatable {
     int? pageSize,
     int? page,
     DocumentSnapshot? lastDocSnap,
-    List<ShareSongLyrics>? results,
+    List<SharedLyrics>? results,
     String? error,
   }) {
     return FeedState(

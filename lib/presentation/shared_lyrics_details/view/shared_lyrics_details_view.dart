@@ -43,9 +43,9 @@ class _SharedLyricsDetailsViewState extends State<SharedLyricsDetailsView> {
     }
   }
 
-  void _onContinueButtonPressed(ShareSongLyrics shareSongLyrics) {
+  void _onContinueButtonPressed(SharedLyrics sharedLyrics) {
     AppBottomSheetDialog.show(
-      child: ShareLyricsDialog(shareSongLyrics: shareSongLyrics, quickShare: true),
+      child: ShareLyricsDialog(sharedLyrics: sharedLyrics, quickShare: true),
       context: context,
     );
   }
@@ -56,7 +56,7 @@ class _SharedLyricsDetailsViewState extends State<SharedLyricsDetailsView> {
       listenWhen: (previous, current) => previous.status != current.status,
       listener: _handleStateStatus,
       builder: (context, state) {
-        final shareSongLyrics = state.shareSongLyrics;
+        final sharedLyrics = state.sharedLyrics;
         final songMedia = [...?state.songMedia];
         final isLoading = state.status == SharedLyricsDetailsStateStatus.fetchingSongData;
         final showTitleInAppBar = state.showTitleInAppBar;
@@ -65,7 +65,7 @@ class _SharedLyricsDetailsViewState extends State<SharedLyricsDetailsView> {
           backgroundColor: AppColors.black,
           ignoreBottomSafeArea: true,
           appBar: SharedLyricsDetailsAppBar(
-            shareSongLyrics: shareSongLyrics,
+            sharedLyrics: sharedLyrics,
             scrollController: _scrollController,
             showTitleInAppBar: showTitleInAppBar,
           ),
@@ -77,11 +77,11 @@ class _SharedLyricsDetailsViewState extends State<SharedLyricsDetailsView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 8),
-                    SharedLyricsDetailsHeader(shareSongLyrics: shareSongLyrics),
+                    SharedLyricsDetailsHeader(sharedLyrics: sharedLyrics),
                     const SizedBox(height: 16),
                     SongMediaList(songMedia: songMedia, isLoading: isLoading),
                     SongLyrics(
-                      lyrics: shareSongLyrics.lyrics.map((lyric) => Lyric(line: lyric)).toList(),
+                      lyrics: sharedLyrics.lyrics.map((lyric) => Lyric(line: lyric)).toList(),
                       onTap: (_) {},
                       isLoading: false,
                     ),
@@ -90,7 +90,7 @@ class _SharedLyricsDetailsViewState extends State<SharedLyricsDetailsView> {
                 ),
               ),
               SharedLyricsDetailsVerticalGradient(showTitleInAppBar: showTitleInAppBar),
-              SharedLyricsDetailsContinueButton(shareSongLyrics: shareSongLyrics, onPressed: _onContinueButtonPressed),
+              SharedLyricsDetailsContinueButton(sharedLyrics: sharedLyrics, onPressed: _onContinueButtonPressed),
             ],
           ),
         );

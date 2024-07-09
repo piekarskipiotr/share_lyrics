@@ -22,7 +22,7 @@ part 'share_lyrics_state.dart';
 
 class ShareLyricsBloc extends Bloc<ShareLyricsEvent, ShareLyricsState> {
   ShareLyricsBloc({
-    required ShareSongLyrics shareSongLyrics,
+    required SharedLyrics sharedLyrics,
     required bool quickShare,
     required bool quickSaveToGallery,
     required AuthService authService,
@@ -32,7 +32,7 @@ class ShareLyricsBloc extends Bloc<ShareLyricsEvent, ShareLyricsState> {
         super(
           ShareLyricsState(
             lyricsWidgetKey: GlobalKey(),
-            shareSongLyrics: shareSongLyrics,
+            sharedLyrics: sharedLyrics,
             quickShare: quickShare,
             quickSaveToGallery: quickSaveToGallery,
           ),
@@ -60,8 +60,8 @@ class ShareLyricsBloc extends Bloc<ShareLyricsEvent, ShareLyricsState> {
       }
 
       final lyricsWidgetKey = state.lyricsWidgetKey;
-      final shareSongLyrics = state.shareSongLyrics;
-      await _firestoreSongLyricsRepository.saveSongLyrics(userUUID: userUUID, shareSongLyrics: shareSongLyrics);
+      final sharedLyrics = state.sharedLyrics;
+      await _firestoreSongLyricsRepository.saveSongLyrics(userUUID: userUUID, sharedLyrics: sharedLyrics);
       final cardLyricsBytes = await _captureLyricsCardImage(lyricsWidgetKey);
       await _share(cardLyricsBytes);
       emit(state.copyWith(status: ShareLyricsStateStatus.savingNSharingLyricsSucceeded));
@@ -80,8 +80,8 @@ class ShareLyricsBloc extends Bloc<ShareLyricsEvent, ShareLyricsState> {
       return;
     }
 
-    final shareSongLyrics = state.shareSongLyrics;
-    await _firestoreSongLyricsRepository.saveSongLyrics(userUUID: userUUID, shareSongLyrics: shareSongLyrics).then((_) {
+    final sharedLyrics = state.sharedLyrics;
+    await _firestoreSongLyricsRepository.saveSongLyrics(userUUID: userUUID, sharedLyrics: sharedLyrics).then((_) {
       emit(state.copyWith(status: ShareLyricsStateStatus.savingLyricsSucceeded));
     }).catchError((Object error, StackTrace stacktrace) async {
       log('FAILED TO SAVE SONG LYRICS, error: $error \n\n $stacktrace');
@@ -105,9 +105,9 @@ class ShareLyricsBloc extends Bloc<ShareLyricsEvent, ShareLyricsState> {
   Future<void> _onSaveToGallery(SaveToGallery event, Emitter<ShareLyricsState> emit) async {
     emit(state.copyWith(status: ShareLyricsStateStatus.savingToGallery));
     try {
-      final sharedSongLyrics = state.shareSongLyrics;
-      final artist = sharedSongLyrics.artist;
-      final title = sharedSongLyrics.title;
+      final sharedLyrics = state.sharedLyrics;
+      final artist = sharedLyrics.song.artist;
+      final title = sharedLyrics.song.title;
       final timestamp = DateTime.now().millisecondsSinceEpoch;
       final name = '$artist-$title-$timestamp';
       final lyricsWidgetKey = state.lyricsWidgetKey;

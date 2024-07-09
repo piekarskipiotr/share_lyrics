@@ -6,13 +6,13 @@ import 'package:share_lyrics/presentation/share_lyrics_dialog/view/share_lyrics_
 
 class ShareLyricsDialog extends StatelessWidget {
   const ShareLyricsDialog({
-    required this.shareSongLyrics,
+    required this.sharedLyrics,
     this.quickShare = false,
     this.quickSaveToGallery = false,
     super.key,
   });
 
-  final ShareSongLyrics shareSongLyrics;
+  final SharedLyrics sharedLyrics;
   final bool quickShare;
   final bool quickSaveToGallery;
 
@@ -20,7 +20,7 @@ class ShareLyricsDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => ShareLyricsBloc(
-        shareSongLyrics: shareSongLyrics,
+        sharedLyrics: sharedLyrics,
         quickShare: quickShare,
         quickSaveToGallery: quickSaveToGallery,
         authService: context.read(),

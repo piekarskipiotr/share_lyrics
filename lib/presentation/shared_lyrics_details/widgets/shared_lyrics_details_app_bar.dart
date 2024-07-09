@@ -10,13 +10,13 @@ import 'package:share_lyrics/presentation/shared_lyrics_details/bloc/shared_lyri
 
 class SharedLyricsDetailsAppBar extends StatefulWidget implements PreferredSizeWidget {
   const SharedLyricsDetailsAppBar({
-    required this.shareSongLyrics,
+    required this.sharedLyrics,
     required this.scrollController,
     required this.showTitleInAppBar,
     super.key,
   });
 
-  final ShareSongLyrics shareSongLyrics;
+  final SharedLyrics sharedLyrics;
   final ScrollController scrollController;
   final bool showTitleInAppBar;
 
@@ -69,11 +69,11 @@ class _SharedLyricsDetailsAppBarState extends State<SharedLyricsDetailsAppBar> {
     );
   }
 
-  Future<void> _saveToGallery(ShareSongLyrics shareSongLyrics) async {
+  Future<void> _saveToGallery(SharedLyrics sharedLyrics) async {
     final status = await Permission.photos.status;
     if (status.isGranted) {
       AppBottomSheetDialog.show(
-        child: ShareLyricsDialog(shareSongLyrics: shareSongLyrics, quickSaveToGallery: true),
+        child: ShareLyricsDialog(sharedLyrics: sharedLyrics, quickSaveToGallery: true),
         context: context,
       );
       return;
@@ -100,7 +100,7 @@ class _SharedLyricsDetailsAppBarState extends State<SharedLyricsDetailsAppBar> {
               icon: Icons.save_alt_rounded,
               isDanger: false,
               onTap: () {
-                _saveToGallery(widget.shareSongLyrics);
+                _saveToGallery(widget.sharedLyrics);
               },
             ),
             AppDropdownMenuItem(
@@ -122,7 +122,7 @@ class _SharedLyricsDetailsAppBarState extends State<SharedLyricsDetailsAppBar> {
           text: TextSpan(
             children: [
               TextSpan(
-                text: widget.shareSongLyrics.artist,
+                text: widget.sharedLyrics.song.artist,
                 style: AppTextStyles.h8(fontWeight: FontWeight.bold),
               ),
               TextSpan(
@@ -130,7 +130,7 @@ class _SharedLyricsDetailsAppBarState extends State<SharedLyricsDetailsAppBar> {
                 style: AppTextStyles.h8(fontWeight: FontWeight.bold),
               ),
               TextSpan(
-                text: widget.shareSongLyrics.title,
+                text: widget.sharedLyrics.song.title,
                 style: AppTextStyles.h8(color: AppColors.primary, fontWeight: FontWeight.bold),
               ),
             ],
