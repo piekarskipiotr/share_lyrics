@@ -4,13 +4,6 @@ abstract class SharedLyricsDetailsEvent extends Equatable {
   const SharedLyricsDetailsEvent();
 }
 
-final class FetchSongData extends SharedLyricsDetailsEvent {
-  const FetchSongData();
-
-  @override
-  List<Object?> get props => [];
-}
-
 final class DeleteSharedLyrics extends SharedLyricsDetailsEvent {
   const DeleteSharedLyrics();
 

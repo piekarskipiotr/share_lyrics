@@ -57,8 +57,7 @@ class _SharedLyricsDetailsViewState extends State<SharedLyricsDetailsView> {
       listener: _handleStateStatus,
       builder: (context, state) {
         final sharedLyrics = state.sharedLyrics;
-        final songMedia = [...?state.songMedia];
-        final isLoading = state.status == SharedLyricsDetailsStateStatus.fetchingSongData;
+        final songMedia = [...?sharedLyrics.song.media];
         final showTitleInAppBar = state.showTitleInAppBar;
 
         return AppScaffold(
@@ -79,7 +78,7 @@ class _SharedLyricsDetailsViewState extends State<SharedLyricsDetailsView> {
                     const SizedBox(height: 8),
                     SharedLyricsDetailsHeader(sharedLyrics: sharedLyrics),
                     const SizedBox(height: 16),
-                    SongMediaList(songMedia: songMedia, isLoading: isLoading),
+                    SongMediaList(songMedia: songMedia, isLoading: false),
                     SongLyrics(
                       lyrics: sharedLyrics.lyrics.map((lyric) => Lyric(line: lyric)).toList(),
                       onTap: (_) {},
