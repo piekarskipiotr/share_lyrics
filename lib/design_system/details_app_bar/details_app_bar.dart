@@ -1,45 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_lyrics/data/models/models.dart';
 import 'package:share_lyrics/design_system/design_system.dart';
-import 'package:share_lyrics/presentation/song_details/bloc/song_details_bloc.dart';
 
-class SongDetailsAppBar extends StatefulWidget implements PreferredSizeWidget {
-  const SongDetailsAppBar({
+class DetailsAppBar extends StatefulWidget implements PreferredSizeWidget {
+  const DetailsAppBar({
     required this.song,
+    required this.showTitle,
     required this.scrollController,
-    required this.showTitleInAppBar,
+    required this.changeVisibilityOfTitle,
+    this.actions,
     super.key,
   });
 
   final Song song;
+  final bool showTitle;
   final ScrollController scrollController;
-  final bool showTitleInAppBar;
+  final void Function({required bool value}) changeVisibilityOfTitle;
+  final List<Widget>? actions;
 
   @override
-  State<SongDetailsAppBar> createState() => _SongDetailsAppBarState();
+  State<DetailsAppBar> createState() => _DetailsAppBarState();
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
-class _SongDetailsAppBarState extends State<SongDetailsAppBar> {
+class _DetailsAppBarState extends State<DetailsAppBar> {
   @override
   void initState() {
     super.initState();
     widget.scrollController.addListener(_scrollListener);
   }
 
-  void _changeVisibilityOfTitleInAppBar(bool value) {
-    context.read<SongDetailsBloc>().add(ChangeVisibilityOfTitleInAppBar(showTitleInAppBar: value));
-  }
-
   void _scrollListener() {
-    if (widget.scrollController.offset >= 90 && !widget.showTitleInAppBar) {
-      _changeVisibilityOfTitleInAppBar(true);
-    } else if (widget.scrollController.offset < 90 && widget.showTitleInAppBar) {
-      _changeVisibilityOfTitleInAppBar(false);
+    if (widget.scrollController.offset >= 90 && !widget.showTitle) {
+      widget.changeVisibilityOfTitle.call(value: true);
+    } else if (widget.scrollController.offset < 90 && widget.showTitle) {
+      widget.changeVisibilityOfTitle.call(value: false);
     }
   }
 
@@ -56,8 +54,9 @@ class _SongDetailsAppBarState extends State<SongDetailsAppBar> {
         onPressed: _navigateBack,
         icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.white),
       ),
+      actions: widget.actions,
       title: AnimatedOpacity(
-        opacity: widget.showTitleInAppBar ? 1.0 : 0.0,
+        opacity: widget.showTitle ? 1.0 : 0.0,
         duration: const Duration(milliseconds: 200),
         child: RichText(
           maxLines: 1,

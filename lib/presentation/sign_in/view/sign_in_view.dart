@@ -8,7 +8,7 @@ import 'package:share_lyrics/design_system/colors/app_colors.dart';
 import 'package:share_lyrics/presentation/sign_in/bloc/sign_in_bloc.dart';
 import 'package:share_lyrics/presentation/sign_in/view/sign_in_hero_text.dart';
 import 'package:share_lyrics/presentation/sign_in/view/sign_in_terms_n_privacy_text.dart';
-import 'package:share_lyrics/presentation/widgets/app_scaffold.dart';
+import 'package:share_lyrics/design_system/scaffolds/app_scaffold.dart';
 
 class SignInView extends StatefulWidget {
   const SignInView({super.key});

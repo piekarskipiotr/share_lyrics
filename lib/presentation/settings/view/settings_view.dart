@@ -8,7 +8,7 @@ import 'package:share_lyrics/design_system/design_system.dart';
 import 'package:share_lyrics/l10n/l10n.dart';
 import 'package:share_lyrics/presentation/settings/bloc/settings_bloc.dart';
 import 'package:share_lyrics/presentation/settings/widgets/settings_widgets.dart';
-import 'package:share_lyrics/presentation/widgets/app_scaffold.dart';
+import 'package:share_lyrics/design_system/scaffolds/app_scaffold.dart';
 import 'package:share_lyrics/utils/extensions/extensions.dart';
 import 'package:share_lyrics/utils/helpers/helpers.dart';
 

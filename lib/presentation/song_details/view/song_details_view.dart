@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:share_lyrics/data/enums/enums.dart';
 import 'package:share_lyrics/data/models/models.dart';
 import 'package:share_lyrics/design_system/design_system.dart';
 import 'package:share_lyrics/presentation/share_lyrics_dialog/view/share_lyrics_dialog.dart';
 import 'package:share_lyrics/presentation/song_details/bloc/song_details_bloc.dart';
 import 'package:share_lyrics/presentation/song_details/constants/song_details_state_status.dart';
-import 'package:share_lyrics/presentation/song_details/widgets/song_details_app_bar.dart';
 import 'package:share_lyrics/presentation/song_details/widgets/song_details_continue_button.dart';
-import 'package:share_lyrics/presentation/song_details/widgets/song_details_header.dart';
-import 'package:share_lyrics/presentation/song_details/widgets/song_details_vertical_gradient.dart';
-import 'package:share_lyrics/presentation/widgets/app_scaffold.dart';
 
 class SongDetailsView extends StatefulWidget {
   const SongDetailsView({super.key});
@@ -49,6 +46,10 @@ class _SongDetailsViewState extends State<SongDetailsView> {
     AppBottomSheetDialog.show(child: ShareLyricsDialog(sharedLyrics: sharedLyrics), context: context);
   }
 
+  void _changeVisibilityOfTitleInAppBar({required bool value}) {
+    context.read<SongDetailsBloc>().add(ChangeVisibilityOfTitleInAppBar(showTitleInAppBar: value));
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SongDetailsBloc, SongDetailsState>(
@@ -63,10 +64,11 @@ class _SongDetailsViewState extends State<SongDetailsView> {
         return AppScaffold(
           backgroundColor: AppColors.black,
           ignoreBottomSafeArea: true,
-          appBar: SongDetailsAppBar(
+          appBar: DetailsAppBar(
             song: song,
             scrollController: _scrollController,
-            showTitleInAppBar: showTitleInAppBar,
+            changeVisibilityOfTitle: _changeVisibilityOfTitleInAppBar,
+            showTitle: showTitleInAppBar,
           ),
           body: Stack(
             children: [
@@ -76,7 +78,7 @@ class _SongDetailsViewState extends State<SongDetailsView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 8),
-                    SongDetailsHeader(song: song),
+                    SongDetailsRow(song: song, type: SongDetailsType.large),
                     const SizedBox(height: 16),
                     SongMediaList(songMedia: songMedia, isLoading: isLoading),
                     SongLyrics(lyrics: lyrics, onTap: _onLyricTap, isLoading: isLoading),
@@ -84,7 +86,7 @@ class _SongDetailsViewState extends State<SongDetailsView> {
                   ],
                 ),
               ),
-              SongDetailsVerticalGradient(showTitleInAppBar: showTitleInAppBar),
+              AppVerticalGradient(extendUpperGradient: showTitleInAppBar),
               SongDetailsContinueButton(song: song, lyrics: lyrics, onPressed: _onContinueButtonPressed),
             ],
           ),

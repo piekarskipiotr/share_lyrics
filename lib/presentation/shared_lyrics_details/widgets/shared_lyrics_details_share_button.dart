@@ -3,8 +3,8 @@ import 'package:share_lyrics/data/models/models.dart';
 import 'package:share_lyrics/design_system/buttons/buttons.dart';
 import 'package:share_lyrics/l10n/l10n.dart';
 
-class SharedLyricsDetailsContinueButton extends StatelessWidget {
-  const SharedLyricsDetailsContinueButton({
+class SharedLyricsDetailsShareButton extends StatelessWidget {
+  const SharedLyricsDetailsShareButton({
     required this.onPressed,
     required this.sharedLyrics,
     super.key,

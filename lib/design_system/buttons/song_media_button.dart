@@ -5,10 +5,7 @@ import 'package:share_lyrics/design_system/design_system.dart';
 import 'package:share_lyrics/utils/helpers/helpers.dart';
 
 class SongMediaButton extends StatelessWidget {
-  const SongMediaButton({
-    required this.songMedia,
-    super.key,
-  });
+  const SongMediaButton({required this.songMedia, super.key});
 
   final SongMedia songMedia;
 

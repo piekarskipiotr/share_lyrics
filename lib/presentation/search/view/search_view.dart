@@ -5,7 +5,6 @@ import 'package:share_lyrics/data/models/models.dart';
 import 'package:share_lyrics/design_system/design_system.dart';
 import 'package:share_lyrics/l10n/l10n.dart';
 import 'package:share_lyrics/presentation/search/bloc/search_bloc.dart';
-import 'package:share_lyrics/presentation/search/widgets/song_item.dart';
 import 'package:share_lyrics/presentation/search/widgets/songs_loading.dart';
 import 'package:share_lyrics/router/app_router.dart';
 import 'package:share_lyrics/router/app_router_navigation.dart';
@@ -54,9 +53,9 @@ class _SearchViewState extends State<SearchView> {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         child: Column(
-          children: [
-            ...songs.map((song) => SongItem(song: song, onTap: _navigateToSongDetails)),
-          ],
+          children: songs
+              .map((song) => SongDetailsRow(song: song, type: SongDetailsType.medium, onTap: _navigateToSongDetails))
+              .toList(),
         ),
       ),
     );

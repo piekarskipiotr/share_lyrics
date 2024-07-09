@@ -1,38 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:share_lyrics/data/enums/song_details_type.dart';
 import 'package:share_lyrics/data/models/models.dart';
 import 'package:share_lyrics/design_system/design_system.dart';
 
-class SongItem extends StatelessWidget {
-  const SongItem({required this.song, required this.onTap, super.key});
+class SongDetailsRow extends StatelessWidget {
+  const SongDetailsRow({required this.song, required this.type, this.onTap, super.key});
 
   final Song song;
-  final void Function(Song song) onTap;
+  final SongDetailsType type;
+  final void Function(Song song)? onTap;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onTap.call(song),
+      onTap: () => onTap?.call(song),
       behavior: HitTestBehavior.translucent,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16),
+        padding: type.outerPadding,
         child: Row(
           children: [
-            SongImage(imageUrl: song.image, imageSize: 56),
-            const SizedBox(width: 16),
+            SongImage(imageUrl: song.image, imageSize: type.songImageSize),
+            SizedBox(width: type.spaceBetweenImageAndDetails),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     song.artist,
-                    style: AppTextStyles.h9(fontWeight: FontWeight.w300),
+                    style: type.artistTextStyle,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
                     song.title,
-                    style: AppTextStyles.h9(color: AppColors.primary, fontWeight: FontWeight.w600),
-                    maxLines: 1,
+                    style: type.titleTextStyle,
+                    maxLines: type.titleMaxLines,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ],

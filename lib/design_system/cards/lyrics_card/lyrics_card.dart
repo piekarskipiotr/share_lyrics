@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:share_lyrics/data/enums/enums.dart';
 import 'package:share_lyrics/data/models/models.dart';
-import 'package:share_lyrics/design_system/cards/lyrics_card/lyrics_card_header.dart';
 import 'package:share_lyrics/design_system/cards/lyrics_card/lyrics_card_lines.dart';
 import 'package:share_lyrics/design_system/design_system.dart';
 
@@ -25,11 +25,7 @@ class LyricsCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            LyricsCardHeader(
-              artist: sharedLyrics.song.artist,
-              title: sharedLyrics.song.title,
-              image: sharedLyrics.song.image,
-            ),
+            SongDetailsRow(song: sharedLyrics.song, type: SongDetailsType.small),
             _defaultGap,
             LyricsCardLines(lines: sharedLyrics.lyrics),
             _defaultGap,
