@@ -4,12 +4,14 @@ class ShareLyricsState extends Equatable {
   const ShareLyricsState({
     required this.lyricsWidgetKey,
     required this.shareSongLyrics,
+    required this.quickShare,
     this.status = ShareLyricsStateStatus.initial,
     this.error,
   });
 
   final GlobalKey lyricsWidgetKey;
   final ShareSongLyrics shareSongLyrics;
+  final bool quickShare;
   final ShareLyricsStateStatus status;
   final String? error;
 
@@ -20,11 +22,12 @@ class ShareLyricsState extends Equatable {
     return ShareLyricsState(
       lyricsWidgetKey: lyricsWidgetKey,
       shareSongLyrics: shareSongLyrics,
+      quickShare: quickShare,
       status: status ?? this.status,
       error: error,
     );
   }
 
   @override
-  List<Object?> get props => [lyricsWidgetKey, shareSongLyrics, status, error];
+  List<Object?> get props => [lyricsWidgetKey, shareSongLyrics, quickShare, status, error];
 }

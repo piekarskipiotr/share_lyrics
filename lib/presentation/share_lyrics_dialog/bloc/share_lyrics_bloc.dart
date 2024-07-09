@@ -22,13 +22,23 @@ part 'share_lyrics_state.dart';
 class ShareLyricsBloc extends Bloc<ShareLyricsEvent, ShareLyricsState> {
   ShareLyricsBloc({
     required ShareSongLyrics shareSongLyrics,
+    required bool quickShare,
     required AuthService authService,
     required FirestoreSongLyricsRepository firestoreSongLyricsRepository,
   })  : _authService = authService,
         _firestoreSongLyricsRepository = firestoreSongLyricsRepository,
-        super(ShareLyricsState(lyricsWidgetKey: GlobalKey(), shareSongLyrics: shareSongLyrics)) {
+        super(
+          ShareLyricsState(
+            lyricsWidgetKey: GlobalKey(),
+            shareSongLyrics: shareSongLyrics,
+            quickShare: quickShare,
+          ),
+        ) {
     on<SaveNShareLyrics>(_onSaveNShareLyrics);
     on<SaveLyrics>(_onSaveLyrics);
+    on<ShareLyrics>(_onShareLyrics);
+
+    if (quickShare) add(const ShareLyrics());
   }
 
   final AuthService _authService;
@@ -72,6 +82,19 @@ class ShareLyricsBloc extends Bloc<ShareLyricsEvent, ShareLyricsState> {
       log('FAILED TO SAVE SONG LYRICS, error: $error \n\n $stacktrace');
       emit(state.copyWith(status: ShareLyricsStateStatus.savingNSharingLyricsFailed, error: error.toString()));
     });
+  }
+
+  Future<void> _onShareLyrics(ShareLyrics event, Emitter<ShareLyricsState> emit) async {
+    emit(state.copyWith(status: ShareLyricsStateStatus.sharingLyrics));
+    try {
+      final lyricsWidgetKey = state.lyricsWidgetKey;
+      final cardLyricsBytes = await _captureLyricsCardImage(lyricsWidgetKey);
+      await _share(cardLyricsBytes);
+      emit(state.copyWith(status: ShareLyricsStateStatus.sharingLyricsSucceeded));
+    } catch (error, stacktrace) {
+      log('FAILED TO SAVE & SHARE SONG, error: $error \n\n $stacktrace');
+      emit(state.copyWith(status: ShareLyricsStateStatus.sharingLyricsFailed, error: error.toString()));
+    }
   }
 
   Future<Uint8List> _captureLyricsCardImage(GlobalKey lyricsWidgetKey) async {

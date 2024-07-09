@@ -16,6 +16,7 @@ class ShareLyricsDialogView extends StatefulWidget {
 class _ShareLyricsDialogViewState extends State<ShareLyricsDialogView> {
   void _handleStateStatus(BuildContext context, ShareLyricsState state) {
     switch (state.status) {
+      case ShareLyricsStateStatus.sharingLyricsSucceeded:
       case ShareLyricsStateStatus.savingLyricsSucceeded:
       case ShareLyricsStateStatus.savingNSharingLyricsSucceeded:
         _closeDialog();
@@ -43,6 +44,7 @@ class _ShareLyricsDialogViewState extends State<ShareLyricsDialogView> {
       listenWhen: (previous, current) => previous.status != current.status,
       listener: _handleStateStatus,
       builder: (context, state) {
+        final isQuickShare = state.quickShare;
         final lyricsCardWidgetKey = state.lyricsWidgetKey;
         final shareSongLyrics = state.shareSongLyrics;
         final isSavingNSharingLyrics = state.status == ShareLyricsStateStatus.savingNSharingLyrics;
@@ -52,20 +54,22 @@ class _ShareLyricsDialogViewState extends State<ShareLyricsDialogView> {
         return Column(
           children: [
             SongLyricsCard(shareSongLyrics: shareSongLyrics, lyricsCardWidgetKey: lyricsCardWidgetKey),
-            const SizedBox(height: 48),
-            AppButton(
-              label: l10n.save_n_share,
-              onPressed: _saveNShareLyrics,
-              isLoading: isSavingNSharingLyrics,
-              disableOnPressed: isLoading,
-            ),
-            const SizedBox(height: 24),
-            AppTextButton(
-              label: l10n.just_save,
-              onPressed: _saveLyrics,
-              isLoading: isSavingLyrics,
-              disableOnPressed: isLoading,
-            ),
+            if (!isQuickShare) ...[
+              const SizedBox(height: 48),
+              AppButton(
+                label: l10n.save_n_share,
+                onPressed: _saveNShareLyrics,
+                isLoading: isSavingNSharingLyrics,
+                disableOnPressed: isLoading,
+              ),
+              const SizedBox(height: 24),
+              AppTextButton(
+                label: l10n.just_save,
+                onPressed: _saveLyrics,
+                isLoading: isSavingLyrics,
+                disableOnPressed: isLoading,
+              ),
+            ],
           ],
         );
       },

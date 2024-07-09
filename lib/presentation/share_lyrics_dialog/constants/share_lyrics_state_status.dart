@@ -5,5 +5,8 @@ enum ShareLyricsStateStatus {
   savingNSharingLyricsFailed,
   savingLyrics,
   savingLyricsSucceeded,
-  savingLyricsFailed;
+  savingLyricsFailed,
+  sharingLyrics,
+  sharingLyricsSucceeded,
+  sharingLyricsFailed;
 }

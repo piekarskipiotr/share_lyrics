@@ -17,3 +17,10 @@ final class SaveLyrics extends ShareLyricsEvent {
   @override
   List<Object?> get props => [];
 }
+
+final class ShareLyrics extends ShareLyricsEvent {
+  const ShareLyrics();
+
+  @override
+  List<Object?> get props => [];
+}

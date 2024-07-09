@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:share_lyrics/data/models/song/song_media.dart';
-import 'package:share_lyrics/presentation/song_details/widgets/song_media/song_media_list_view.dart';
-import 'package:share_lyrics/presentation/song_details/widgets/song_media/song_media_loading.dart';
+import 'package:share_lyrics/design_system/song_media/song_media_list_view.dart';
+import 'package:share_lyrics/design_system/song_media/song_media_loading.dart';
 
 class SongMediaList extends StatelessWidget {
   const SongMediaList({required this.songMedia, required this.isLoading, super.key});

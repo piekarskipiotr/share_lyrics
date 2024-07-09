@@ -9,8 +9,6 @@ import 'package:share_lyrics/presentation/song_details/widgets/song_details_app_
 import 'package:share_lyrics/presentation/song_details/widgets/song_details_continue_button.dart';
 import 'package:share_lyrics/presentation/song_details/widgets/song_details_header.dart';
 import 'package:share_lyrics/presentation/song_details/widgets/song_details_vertical_gradient.dart';
-import 'package:share_lyrics/presentation/song_details/widgets/song_lyrics/song_lyrics.dart';
-import 'package:share_lyrics/presentation/song_details/widgets/song_media/song_media_list.dart';
 import 'package:share_lyrics/presentation/widgets/app_scaffold.dart';
 
 class SongDetailsView extends StatefulWidget {
@@ -47,7 +45,14 @@ class _SongDetailsViewState extends State<SongDetailsView> {
   }
 
   void _onContinueButtonPressed(Song song, List<String> lyrics) {
-    final shareSongLyrics = ShareSongLyrics(title: song.title, artist: song.artist, image: song.image, lyrics: lyrics);
+    final shareSongLyrics = ShareSongLyrics(
+      id: song.id,
+      title: song.title,
+      artist: song.artist,
+      image: song.image,
+      lyrics: lyrics,
+    );
+
     AppBottomSheetDialog.show(child: ShareLyricsDialog(shareSongLyrics: shareSongLyrics), context: context);
   }
 

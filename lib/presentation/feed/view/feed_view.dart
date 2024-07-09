@@ -6,6 +6,8 @@ import 'package:share_lyrics/data/models/models.dart';
 import 'package:share_lyrics/design_system/design_system.dart';
 import 'package:share_lyrics/l10n/l10n.dart';
 import 'package:share_lyrics/presentation/feed/bloc/feed_bloc.dart';
+import 'package:share_lyrics/router/app_router.dart';
+import 'package:share_lyrics/router/app_router_navigation.dart';
 
 class FeedView extends StatefulWidget {
   const FeedView({super.key});
@@ -40,6 +42,10 @@ class _FeedViewState extends State<FeedView> {
     }
   }
 
+  void _navigateToSharedLyricsDetails(ShareSongLyrics shareSongLyrics) {
+    context.read<AppRouter>().showSharedLyricsDetails(shareSongLyrics: shareSongLyrics);
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<FeedBloc, FeedState>(
@@ -57,7 +63,13 @@ class _FeedViewState extends State<FeedView> {
             firstPageErrorIndicatorBuilder: (_) => const SizedBox(),
             noMoreItemsIndicatorBuilder: (_) => const SizedBox(),
             itemBuilder: (context, shareSongLyrics, index) {
-              return SongLyricsCard(shareSongLyrics: shareSongLyrics);
+              return GestureDetector(
+                onTap: () {
+                  _navigateToSharedLyricsDetails(shareSongLyrics);
+                },
+                behavior: HitTestBehavior.translucent,
+                child: SongLyricsCard(shareSongLyrics: shareSongLyrics),
+              );
             },
           ),
           separatorBuilder: (context, index) {

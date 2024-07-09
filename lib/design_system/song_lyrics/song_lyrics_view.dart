@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:share_lyrics/data/models/models.dart';
 import 'package:share_lyrics/design_system/design_system.dart';
+import 'package:share_lyrics/design_system/song_lyrics/song_lyrics_line.dart';
 import 'package:share_lyrics/l10n/l10n.dart';
-import 'package:share_lyrics/presentation/song_details/widgets/song_lyrics/song_lyrics_line.dart';
 
 class SongLyricsView extends StatelessWidget {
   const SongLyricsView({required this.lyrics, required this.onTap, super.key});

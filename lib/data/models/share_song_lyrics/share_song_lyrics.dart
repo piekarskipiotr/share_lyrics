@@ -5,6 +5,7 @@ part 'share_song_lyrics.g.dart';
 @JsonSerializable()
 class ShareSongLyrics {
   const ShareSongLyrics({
+    required this.id,
     required this.title,
     required this.artist,
     required this.image,
@@ -14,12 +15,14 @@ class ShareSongLyrics {
   });
 
   factory ShareSongLyrics.local({
+    required int id,
     required String title,
     required String artist,
     required String? image,
     required List<String> lyrics,
   }) {
     return ShareSongLyrics(
+      id: id,
       title: title,
       artist: artist,
       image: image,
@@ -33,6 +36,7 @@ class ShareSongLyrics {
 
   ShareSongLyrics updateLocalToFirestore({required String userUUID, required DateTime createdAt}) {
     return ShareSongLyrics(
+      id: id,
       title: title,
       artist: artist,
       image: image,
@@ -42,6 +46,7 @@ class ShareSongLyrics {
     );
   }
 
+  final int id;
   final String title;
   final String artist;
   final String? image;
@@ -51,6 +56,6 @@ class ShareSongLyrics {
 
   @override
   String toString() {
-    return 'ShareSongLyrics{title: $title, artist: $artist, image: $image, lyrics: $lyrics, userUUID: $userUUID, createdAt: $createdAt}';
+    return 'ShareSongLyrics{id: $id, title: $title, artist: $artist, image: $image, lyrics: $lyrics, userUUID: $userUUID, createdAt: $createdAt}';
   }
 }

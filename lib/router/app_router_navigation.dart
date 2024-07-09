@@ -9,5 +9,7 @@ extension AppRouterNavigation on AppRouter {
 
   void showSongDetails({required Song song}) => router.pushNamed(AppRoutes.songDetails, extra: song);
 
+  void showSharedLyricsDetails({required ShareSongLyrics shareSongLyrics}) => router.pushNamed(AppRoutes.sharedLyricsDetails, extra: shareSongLyrics);
+
   void showSettings() => router.pushNamed(AppRoutes.settings);
 }

@@ -37,4 +37,16 @@ class FirestoreSongLyricsRepository {
       throw Exception(e.toString());
     }
   }
+
+  Future<dynamic> deleteSongLyrics({required ShareSongLyrics shareSongLyrics}) async {
+    try {
+      final userUUID = shareSongLyrics.userUUID!;
+      final createdAt = shareSongLyrics.createdAt!;
+      final timestamp = createdAt.millisecondsSinceEpoch;
+      final docName = '$userUUID-$timestamp';
+      await _firebaseStore.doc(docName).delete();
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
 }
