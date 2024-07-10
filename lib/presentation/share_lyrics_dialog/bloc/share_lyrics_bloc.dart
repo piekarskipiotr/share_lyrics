@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:share_lyrics/data/enums/enums.dart';
 import 'package:share_lyrics/data/models/models.dart';
 import 'package:share_lyrics/data/repositories/firebase_store/firestore_song_lyrics_repository.dart';
 import 'package:share_lyrics/presentation/share_lyrics_dialog/constants/share_lyrics_state_status.dart';
@@ -23,8 +24,7 @@ part 'share_lyrics_state.dart';
 class ShareLyricsBloc extends Bloc<ShareLyricsEvent, ShareLyricsState> {
   ShareLyricsBloc({
     required SharedLyrics sharedLyrics,
-    required bool quickShare,
-    required bool quickSaveToGallery,
+    required ShareLyricsDialogMode mode,
     required AuthService authService,
     required FirestoreSongLyricsRepository firestoreSongLyricsRepository,
   })  : _authService = authService,
@@ -33,8 +33,7 @@ class ShareLyricsBloc extends Bloc<ShareLyricsEvent, ShareLyricsState> {
           ShareLyricsState(
             lyricsWidgetKey: GlobalKey(),
             sharedLyrics: sharedLyrics,
-            quickShare: quickShare,
-            quickSaveToGallery: quickSaveToGallery,
+            mode: mode,
           ),
         ) {
     on<SaveNShareLyrics>(_onSaveNShareLyrics);
@@ -42,8 +41,11 @@ class ShareLyricsBloc extends Bloc<ShareLyricsEvent, ShareLyricsState> {
     on<ShareLyrics>(_onShareLyrics);
     on<SaveToGallery>(_onSaveToGallery);
 
-    if (quickShare) add(const ShareLyrics());
-    if (quickSaveToGallery) add(const SaveToGallery());
+    switch (mode) {
+      case ShareLyricsDialogMode.autoShare: add(const ShareLyrics());
+      case ShareLyricsDialogMode.autoSaveToGallery: add(const SaveToGallery());
+      case _: break;
+    }
   }
 
   final AuthService _authService;

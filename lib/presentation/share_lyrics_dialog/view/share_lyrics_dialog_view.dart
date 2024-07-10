@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:share_lyrics/data/enums/enums.dart';
 import 'package:share_lyrics/design_system/design_system.dart';
 import 'package:share_lyrics/l10n/l10n.dart';
 import 'package:share_lyrics/presentation/share_lyrics_dialog/bloc/share_lyrics_bloc.dart';
@@ -41,8 +42,7 @@ class _ShareLyricsDialogViewState extends State<ShareLyricsDialogView> {
       listenWhen: (previous, current) => previous.status != current.status,
       listener: _handleStateStatus,
       builder: (context, state) {
-        final isQuickShare = state.quickShare;
-        final isSaveToGallery = state.quickSaveToGallery;
+        final mode = state.mode;
         final lyricsCardWidgetKey = state.lyricsWidgetKey;
         final sharedLyrics = state.sharedLyrics;
         final isSavingNSharingLyrics = state.status == ShareLyricsStateStatus.savingNSharingLyrics;
@@ -52,7 +52,7 @@ class _ShareLyricsDialogViewState extends State<ShareLyricsDialogView> {
         return Column(
           children: [
             LyricsCard(sharedLyrics: sharedLyrics, lyricsCardWidgetKey: lyricsCardWidgetKey),
-            if (!isQuickShare && !isSaveToGallery) ...[
+            if (mode == ShareLyricsDialogMode.normal) ...[
               const SizedBox(height: 48),
               AppButton(
                 label: l10n.save_n_share,

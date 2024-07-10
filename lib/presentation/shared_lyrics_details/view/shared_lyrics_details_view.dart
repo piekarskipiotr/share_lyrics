@@ -49,7 +49,7 @@ class _SharedLyricsDetailsViewState extends State<SharedLyricsDetailsView> {
 
   void _onShareButtonPressed(SharedLyrics sharedLyrics) {
     AppBottomSheetDialog.show(
-      child: ShareLyricsDialog(sharedLyrics: sharedLyrics, quickShare: true),
+      child: ShareLyricsDialog(sharedLyrics: sharedLyrics, mode: ShareLyricsDialogMode.autoShare),
       context: context,
     );
   }
@@ -73,7 +73,7 @@ class _SharedLyricsDetailsViewState extends State<SharedLyricsDetailsView> {
   void _onSaveToGalleryPressed(SharedLyrics sharedLyrics) {
     PermissionHelper.check(Permission.photos, () {
       AppBottomSheetDialog.show(
-        child: ShareLyricsDialog(sharedLyrics: sharedLyrics, quickSaveToGallery: true),
+        child: ShareLyricsDialog(sharedLyrics: sharedLyrics, mode: ShareLyricsDialogMode.autoSaveToGallery),
         context: context,
       );
     });
