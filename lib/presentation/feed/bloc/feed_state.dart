@@ -2,7 +2,7 @@ part of 'feed_bloc.dart';
 
 class FeedState extends Equatable {
   const FeedState({
-    this.status = StateStatus.initial,
+    this.status = FeedStateStatus.initial,
     this.pageSize = 10,
     this.page = 1,
     this.lastDocSnap,
@@ -10,7 +10,7 @@ class FeedState extends Equatable {
     this.error,
   });
 
-  final StateStatus status;
+  final FeedStateStatus status;
   final int pageSize;
   final int page;
   final DocumentSnapshot? lastDocSnap;
@@ -18,7 +18,7 @@ class FeedState extends Equatable {
   final String? error;
 
   FeedState copyWith({
-    StateStatus? status,
+    FeedStateStatus? status,
     int? pageSize,
     int? page,
     DocumentSnapshot? lastDocSnap,

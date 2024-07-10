@@ -10,4 +10,8 @@ class SearchService {
   void changeSearchPhrase(String phrase) {
     _controller.add(phrase);
   }
+
+  void clear() {
+    _controller.add('');
+  }
 }

@@ -11,6 +11,7 @@ class FeedPage extends StatelessWidget {
     return BlocProvider(
       create: (_) => FeedBloc(
         authService: context.read(),
+        feedService: context.read(),
         firestoreSongLyricsRepository: context.read(),
       ),
       child: const FeedView(),

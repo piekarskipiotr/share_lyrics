@@ -6,6 +6,7 @@ import 'package:share_lyrics/data/models/models.dart';
 import 'package:share_lyrics/design_system/design_system.dart';
 import 'package:share_lyrics/l10n/l10n.dart';
 import 'package:share_lyrics/presentation/feed/bloc/feed_bloc.dart';
+import 'package:share_lyrics/presentation/feed/constants/feed_state_status.dart';
 import 'package:share_lyrics/router/app_router.dart';
 import 'package:share_lyrics/router/app_router_navigation.dart';
 
@@ -30,7 +31,10 @@ class _FeedViewState extends State<FeedView> {
   void _handleStateStatus(BuildContext context, FeedState state) {
     final l10n = context.l10n;
     switch (state.status) {
-      case StateStatus.success:
+      case FeedStateStatus.refreshingCompleted:
+        _pagingController.itemList?.clear();
+        _pagingController.refresh();
+      case FeedStateStatus.loadingResultsSucceeded:
         final page = state.page;
         final pageSize = state.pageSize;
         final results = [...?state.results];
@@ -38,7 +42,7 @@ class _FeedViewState extends State<FeedView> {
         final isLastPage = pageSize > resultsCount;
 
         isLastPage ? _pagingController.appendLastPage(results) : _pagingController.appendPage(results, page + 1);
-      case StateStatus.failure:
+      case FeedStateStatus.loadingResultsFailed:
         AppSnackBar.show(
           context: context,
           title: l10n.error_occurred,

@@ -19,7 +19,6 @@ class AppSnackBar {
         padding: const EdgeInsets.all(6),
         elevation: 10,
         content: _AppSnackbarContent(title: title, description: description, type: type),
-        duration: const Duration(seconds: 5),
       ),
     );
   }

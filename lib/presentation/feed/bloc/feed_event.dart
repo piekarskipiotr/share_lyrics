@@ -12,3 +12,10 @@ final class FetchSongLyrics extends FeedEvent {
   @override
   List<Object?> get props => [page];
 }
+
+final class RefreshResults extends FeedEvent {
+  const RefreshResults();
+
+  @override
+  List<Object?> get props => [];
+}

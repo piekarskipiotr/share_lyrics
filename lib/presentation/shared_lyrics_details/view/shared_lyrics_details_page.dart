@@ -14,6 +14,7 @@ class SharedLyricsDetailsPage extends StatelessWidget {
     return BlocProvider(
       create: (_) => SharedLyricsDetailsBloc(
         sharedLyrics: sharedLyrics,
+        feedService: context.read(),
         firestoreSongLyricsRepository: context.read(),
       ),
       child: const SharedLyricsDetailsView(),

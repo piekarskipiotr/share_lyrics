@@ -7,9 +7,14 @@ extension AppRouterNavigation on AppRouter {
 
   void showHome() => router.goNamed(AppRoutes.home);
 
+  void popAndShowHome() => router
+    ..pop()
+    ..replaceNamed<void>(AppRoutes.home);
+
   void showSongDetails({required Song song}) => router.pushNamed(AppRoutes.songDetails, extra: song);
 
-  void showSharedLyricsDetails({required SharedLyrics sharedLyrics}) => router.pushNamed(AppRoutes.sharedLyricsDetails, extra: sharedLyrics);
+  void showSharedLyricsDetails({required SharedLyrics sharedLyrics}) =>
+      router.pushNamed(AppRoutes.sharedLyricsDetails, extra: sharedLyrics);
 
   void showSettings() => router.pushNamed(AppRoutes.settings);
 }

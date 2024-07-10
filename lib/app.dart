@@ -10,6 +10,7 @@ import 'package:share_lyrics/router/app_router.dart';
 import 'package:share_lyrics/router/app_router_navigation.dart';
 import 'package:share_lyrics/services/auth_service/auth_service.dart';
 import 'package:share_lyrics/services/auth_service/bloc/auth_bloc.dart';
+import 'package:share_lyrics/services/feed_service/feed_service.dart';
 import 'package:share_lyrics/services/search_service/search_service.dart';
 
 class App extends StatelessWidget {
@@ -19,6 +20,7 @@ class App extends StatelessWidget {
     required GeniusRepository geniusRepository,
     required AuthService authService,
     required SearchService searchService,
+    required FeedService feedService,
     required AppRouter router,
     super.key,
   })  : _firebaseAuthRepository = firebaseAuthRepository,
@@ -26,6 +28,7 @@ class App extends StatelessWidget {
         _geniusRepository = geniusRepository,
         _authService = authService,
         _searchService = searchService,
+        _feedService = feedService,
         _router = router;
 
   final FirebaseAuthRepository _firebaseAuthRepository;
@@ -33,6 +36,7 @@ class App extends StatelessWidget {
   final GeniusRepository _geniusRepository;
   final AuthService _authService;
   final SearchService _searchService;
+  final FeedService _feedService;
   final AppRouter _router;
 
   @override
@@ -43,9 +47,9 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _firestoreSongLyricsRepository),
         RepositoryProvider.value(value: _geniusRepository),
         RepositoryProvider.value(value: _authService),
-        RepositoryProvider.value(value: _authService),
-        RepositoryProvider.value(value: _router),
         RepositoryProvider.value(value: _searchService),
+        RepositoryProvider.value(value: _feedService),
+        RepositoryProvider.value(value: _router),
       ],
       child: BlocProvider(
         create: (context) => AuthBloc(_authService),

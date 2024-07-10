@@ -7,6 +7,7 @@ import 'package:share_lyrics/data/repositories/genius_repository/genius_reposito
 import 'package:share_lyrics/network/genius_api/genius_api.dart';
 import 'package:share_lyrics/router/app_router.dart';
 import 'package:share_lyrics/services/auth_service/auth_service.dart';
+import 'package:share_lyrics/services/feed_service/feed_service.dart';
 import 'package:share_lyrics/services/search_service/search_service.dart';
 
 void main() {
@@ -17,6 +18,7 @@ void main() {
     final geniusRepository = GeniusRepository(geniusApi);
     final authService = AuthService(firebaseAuthRepository);
     final searchService = SearchService();
+    final feedService = FeedService();
     final router = AppRouter();
 
     return App(
@@ -25,6 +27,7 @@ void main() {
       geniusRepository: geniusRepository,
       authService: authService,
       searchService: searchService,
+      feedService: feedService,
       router: router,
     );
   });

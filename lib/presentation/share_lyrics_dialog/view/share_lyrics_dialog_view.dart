@@ -6,6 +6,8 @@ import 'package:share_lyrics/design_system/design_system.dart';
 import 'package:share_lyrics/l10n/l10n.dart';
 import 'package:share_lyrics/presentation/share_lyrics_dialog/bloc/share_lyrics_bloc.dart';
 import 'package:share_lyrics/presentation/share_lyrics_dialog/constants/share_lyrics_state_status.dart';
+import 'package:share_lyrics/router/app_router.dart';
+import 'package:share_lyrics/router/app_router_navigation.dart';
 
 class ShareLyricsDialogView extends StatefulWidget {
   const ShareLyricsDialogView({super.key});
@@ -19,7 +21,6 @@ class _ShareLyricsDialogViewState extends State<ShareLyricsDialogView> {
     final l10n = context.l10n;
     switch (state.status) {
       case ShareLyricsStateStatus.savingToGallerySucceeded:
-        context.pop();
         AppSnackBar.show(
           context: context,
           title: l10n.success_action,
@@ -28,7 +29,7 @@ class _ShareLyricsDialogViewState extends State<ShareLyricsDialogView> {
         );
       case ShareLyricsStateStatus.savingLyricsSucceeded:
       case ShareLyricsStateStatus.savingNSharingLyricsSucceeded:
-        context.pop();
+        context.read<AppRouter>().popAndShowHome();
         AppSnackBar.show(
           context: context,
           title: l10n.success_action,
