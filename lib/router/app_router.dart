@@ -6,11 +6,24 @@ import 'package:share_lyrics/presentation/shared_lyrics_details/view/shared_lyri
 import 'package:share_lyrics/presentation/sign_in/view/sign_in_page.dart';
 import 'package:share_lyrics/presentation/song_details/view/song_details_page.dart';
 import 'package:share_lyrics/router/app_routes.dart';
+import 'package:share_lyrics/services/auth_service/auth_service.dart';
 
 class AppRouter {
+  AppRouter({required this.authService});
+
+  final AuthService authService;
   late final router = GoRouter(
-    initialLocation: '/${AppRoutes.signIn}',
+    initialLocation: '/',
     routes: [
+      GoRoute(
+        path: '/',
+        redirect: (context, state) async {
+          final isAuthenticated = await authService.isAuthenticated();
+          if (isAuthenticated) return AppRoutes.home;
+
+          return AppRoutes.signIn;
+        },
+      ),
       GoRoute(
         path: '/${AppRoutes.signIn}',
         name: AppRoutes.signIn,

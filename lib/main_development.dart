@@ -19,7 +19,7 @@ void main() {
     final authService = AuthService(firebaseAuthRepository);
     final searchService = SearchService();
     final feedService = FeedService();
-    final router = AppRouter();
+    final router = AppRouter(authService: authService);
 
     return App(
       firebaseAuthRepository: firebaseAuthRepository,
