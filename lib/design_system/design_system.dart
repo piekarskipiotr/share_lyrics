@@ -7,6 +7,7 @@ export 'cards/cards.dart';
 export 'colors/app_colors.dart';
 export 'details_app_bar/details_app_bar.dart';
 export 'scaffolds/scaffolds.dart';
+export 'snack_bars/snack_bars.dart';
 export 'song_details_row/song_details_row.dart';
 export 'song_image/song_image.dart';
 export 'song_lyrics/song_lyrics_export.dart';
