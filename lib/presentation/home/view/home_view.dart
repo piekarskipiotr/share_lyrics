@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:share_lyrics/design_system/design_system.dart';
 import 'package:share_lyrics/presentation/home/bloc/home_bloc.dart';
 import 'package:share_lyrics/presentation/home/view/home_app_bar.dart';
-import 'package:share_lyrics/design_system/scaffolds/app_scaffold.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});

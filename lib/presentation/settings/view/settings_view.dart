@@ -20,10 +20,6 @@ class SettingsView extends StatefulWidget {
 }
 
 class _SettingsViewState extends State<SettingsView> {
-  void _navigateBack() {
-    context.pop();
-  }
-
   void _navigateToTermsOfService() {
     UrlLauncher.open(termsOfServiceUrl);
   }
@@ -43,9 +39,7 @@ class _SettingsViewState extends State<SettingsView> {
       onPrimaryPressed: () {
         context.read<SettingsBloc>().add(const DeleteAccount());
       },
-      onSecondaryPressed: () {
-        context.pop();
-      },
+      onSecondaryPressed: context.pop,
       context: context,
     );
   }
@@ -72,7 +66,7 @@ class _SettingsViewState extends State<SettingsView> {
             backgroundColor: AppColors.transparent,
             title: Text(l10n.settings, style: AppTextStyles.h7()),
             leading: IconButton(
-              onPressed: _navigateBack,
+              onPressed: context.pop,
               icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.white),
             ),
           ),

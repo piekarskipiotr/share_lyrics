@@ -20,21 +20,17 @@ class _ShareLyricsDialogViewState extends State<ShareLyricsDialogView> {
       case ShareLyricsStateStatus.sharingLyricsSucceeded:
       case ShareLyricsStateStatus.savingLyricsSucceeded:
       case ShareLyricsStateStatus.savingNSharingLyricsSucceeded:
-        _closeDialog();
+        context.pop();
       case _:
         break;
     }
   }
 
-  void _closeDialog() {
-    context.pop();
-  }
-
-  void _saveNShareLyrics() {
+  void _onSaveNShareLyricsPressed() {
     context.read<ShareLyricsBloc>().add(const SaveNShareLyrics());
   }
 
-  void _saveLyrics() {
+  void _onSaveLyricsPressed() {
     context.read<ShareLyricsBloc>().add(const SaveLyrics());
   }
 
@@ -60,14 +56,14 @@ class _ShareLyricsDialogViewState extends State<ShareLyricsDialogView> {
               const SizedBox(height: 48),
               AppButton(
                 label: l10n.save_n_share,
-                onPressed: _saveNShareLyrics,
+                onPressed: _onSaveNShareLyricsPressed,
                 isLoading: isSavingNSharingLyrics,
                 disableOnPressed: isLoading,
               ),
               const SizedBox(height: 24),
               AppTextButton(
                 label: l10n.just_save,
-                onPressed: _saveLyrics,
+                onPressed: _onSaveLyricsPressed,
                 isLoading: isSavingLyrics,
                 disableOnPressed: isLoading,
               ),

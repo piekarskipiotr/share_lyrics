@@ -10,6 +10,7 @@ import 'package:share_lyrics/presentation/share_lyrics_dialog/view/share_lyrics_
 import 'package:share_lyrics/presentation/shared_lyrics_details/bloc/shared_lyrics_details_bloc.dart';
 import 'package:share_lyrics/presentation/shared_lyrics_details/constants/shared_lyrics_details_state_status.dart';
 import 'package:share_lyrics/presentation/shared_lyrics_details/widgets/shared_lyrics_details_share_button.dart';
+import 'package:share_lyrics/utils/helpers/helpers.dart';
 
 class SharedLyricsDetailsView extends StatefulWidget {
   const SharedLyricsDetailsView({super.key});
@@ -42,6 +43,10 @@ class _SharedLyricsDetailsViewState extends State<SharedLyricsDetailsView> {
     }
   }
 
+  void _changeVisibilityOfTitleInAppBar({required bool value}) {
+    context.read<SharedLyricsDetailsBloc>().add(ChangeVisibilityOfTitleInAppBar(showTitleInAppBar: value));
+  }
+
   void _onShareButtonPressed(SharedLyrics sharedLyrics) {
     AppBottomSheetDialog.show(
       child: ShareLyricsDialog(sharedLyrics: sharedLyrics, quickShare: true),
@@ -49,11 +54,7 @@ class _SharedLyricsDetailsViewState extends State<SharedLyricsDetailsView> {
     );
   }
 
-  void _changeVisibilityOfTitleInAppBar({required bool value}) {
-    context.read<SharedLyricsDetailsBloc>().add(ChangeVisibilityOfTitleInAppBar(showTitleInAppBar: value));
-  }
-
-  void _deleteSong() {
+  void _onDeletePressed() {
     final l10n = context.l10n;
     AppActionDialog.show(
       title: l10n.shared_lyrics_delete_confirmation_title,
@@ -64,24 +65,18 @@ class _SharedLyricsDetailsViewState extends State<SharedLyricsDetailsView> {
         context.pop();
         context.read<SharedLyricsDetailsBloc>().add(const DeleteSharedLyrics());
       },
-      onSecondaryPressed: () {
-        context.pop();
-      },
+      onSecondaryPressed: context.pop,
       context: context,
     );
   }
 
-  Future<void> _saveToGallery(SharedLyrics sharedLyrics) async {
-    final status = await Permission.photos.status;
-    if (status.isGranted) {
+  void _onSaveToGalleryPressed(SharedLyrics sharedLyrics) {
+    PermissionHelper.check(Permission.photos, () {
       AppBottomSheetDialog.show(
         child: ShareLyricsDialog(sharedLyrics: sharedLyrics, quickSaveToGallery: true),
         context: context,
       );
-      return;
-    }
-
-    if (status.isPermanentlyDenied) await openAppSettings();
+    });
   }
 
   @override
@@ -111,14 +106,14 @@ class _SharedLyricsDetailsViewState extends State<SharedLyricsDetailsView> {
                     icon: Icons.save_alt_rounded,
                     isDanger: false,
                     onTap: () {
-                      _saveToGallery(sharedLyrics);
+                      _onSaveToGalleryPressed(sharedLyrics);
                     },
                   ),
                   AppDropdownMenuItem(
                     label: l10n.delete,
                     icon: Icons.delete_rounded,
                     isDanger: true,
-                    onTap: _deleteSong,
+                    onTap: _onDeletePressed,
                   ),
                 ],
                 child: const Icon(Icons.more_vert_rounded, color: AppColors.white),

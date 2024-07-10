@@ -37,6 +37,10 @@ class _SongDetailsViewState extends State<SongDetailsView> {
     }
   }
 
+  void _changeVisibilityOfTitleInAppBar({required bool value}) {
+    context.read<SongDetailsBloc>().add(ChangeVisibilityOfTitleInAppBar(showTitleInAppBar: value));
+  }
+
   void _onLyricTap(Lyric lyric) {
     context.read<SongDetailsBloc>().add(SelectLine(lyric: lyric));
   }
@@ -44,10 +48,6 @@ class _SongDetailsViewState extends State<SongDetailsView> {
   void _onContinueButtonPressed(Song song, List<String> lyrics) {
     final sharedLyrics = SharedLyrics(lyrics: lyrics, song: song);
     AppBottomSheetDialog.show(child: ShareLyricsDialog(sharedLyrics: sharedLyrics), context: context);
-  }
-
-  void _changeVisibilityOfTitleInAppBar({required bool value}) {
-    context.read<SongDetailsBloc>().add(ChangeVisibilityOfTitleInAppBar(showTitleInAppBar: value));
   }
 
   @override
