@@ -6,12 +6,12 @@ enum SnackBarType {
   error;
 
   Color get backgroundGradientColor => switch (this) {
-        success => AppColors.primary,
+        success => AppColors.green,
         error => AppColors.red,
       };
 
   Color get iconColor => switch (this) {
-        success => AppColors.white,
+        success => AppColors.fieldBg,
         error => AppColors.white,
       };
 

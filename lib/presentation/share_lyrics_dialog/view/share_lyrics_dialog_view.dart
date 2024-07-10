@@ -16,12 +16,55 @@ class ShareLyricsDialogView extends StatefulWidget {
 
 class _ShareLyricsDialogViewState extends State<ShareLyricsDialogView> {
   void _handleStateStatus(BuildContext context, ShareLyricsState state) {
+    final l10n = context.l10n;
     switch (state.status) {
       case ShareLyricsStateStatus.savingToGallerySucceeded:
-      case ShareLyricsStateStatus.sharingLyricsSucceeded:
+        context.pop();
+        AppSnackBar.show(
+          context: context,
+          title: l10n.success_action,
+          description: l10n.success_action_saving_to_gallery_description,
+          type: SnackBarType.success,
+        );
       case ShareLyricsStateStatus.savingLyricsSucceeded:
       case ShareLyricsStateStatus.savingNSharingLyricsSucceeded:
         context.pop();
+        AppSnackBar.show(
+          context: context,
+          title: l10n.success_action,
+          description: l10n.success_action_saving_lyrics_description,
+          type: SnackBarType.success,
+        );
+      case ShareLyricsStateStatus.sharingLyricsSucceeded:
+        context.pop();
+      case ShareLyricsStateStatus.savingToGalleryFailed:
+        AppSnackBar.show(
+          context: context,
+          title: l10n.error_occurred,
+          description: l10n.error_occurred_saving_to_gallery_description,
+          type: SnackBarType.error,
+        );
+      case ShareLyricsStateStatus.sharingLyricsFailed:
+        AppSnackBar.show(
+          context: context,
+          title: l10n.error_occurred,
+          description: l10n.error_occurred_sharing_lyrics_description,
+          type: SnackBarType.error,
+        );
+      case ShareLyricsStateStatus.savingLyricsFailed:
+        AppSnackBar.show(
+          context: context,
+          title: l10n.error_occurred,
+          description: l10n.error_occurred_saving_lyrics_description,
+          type: SnackBarType.error,
+        );
+      case ShareLyricsStateStatus.savingNSharingLyricsFailed:
+        AppSnackBar.show(
+          context: context,
+          title: l10n.error_occurred,
+          description: l10n.error_occurred_saving_n_sharing_lyrics_description,
+          type: SnackBarType.error,
+        );
       case _:
         break;
     }

@@ -3,12 +3,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_lyrics/data/enums/enums.dart';
-import 'package:share_lyrics/design_system/buttons/buttons.dart';
-import 'package:share_lyrics/design_system/colors/app_colors.dart';
+import 'package:share_lyrics/design_system/design_system.dart';
+import 'package:share_lyrics/l10n/l10n.dart';
 import 'package:share_lyrics/presentation/sign_in/bloc/sign_in_bloc.dart';
 import 'package:share_lyrics/presentation/sign_in/view/sign_in_hero_text.dart';
 import 'package:share_lyrics/presentation/sign_in/view/sign_in_terms_n_privacy_text.dart';
-import 'package:share_lyrics/design_system/scaffolds/app_scaffold.dart';
 
 class SignInView extends StatefulWidget {
   const SignInView({super.key});
@@ -19,9 +18,15 @@ class SignInView extends StatefulWidget {
 
 class _SignInViewState extends State<SignInView> {
   void _handleStateStatus(BuildContext context, SignInState state) {
+    final l10n = context.l10n;
     switch (state.status) {
       case StateStatus.failure:
-      // TODO(piotr): display error toast
+        AppSnackBar.show(
+          context: context,
+          title: l10n.error_occurred,
+          description: l10n.error_occurred_sign_in_description,
+          type: SnackBarType.error,
+        );
       case _:
         break;
     }

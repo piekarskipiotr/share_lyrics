@@ -35,9 +35,23 @@ class _SharedLyricsDetailsViewState extends State<SharedLyricsDetailsView> {
   }
 
   void _handleStateStatus(BuildContext context, SharedLyricsDetailsState state) {
+    final l10n = context.l10n;
     switch (state.status) {
       case SharedLyricsDetailsStateStatus.deletingSharedLyricsSucceeded:
         context.pop();
+        AppSnackBar.show(
+          context: context,
+          title: l10n.success_action,
+          description: l10n.success_action_deleting_shared_lyrics_description,
+          type: SnackBarType.success,
+        );
+     case SharedLyricsDetailsStateStatus.deletingSharedLyricsFailed:
+       AppSnackBar.show(
+         context: context,
+         title: l10n.error_occurred,
+         description: l10n.error_occurred_deleting_shared_lyrics_description,
+         type: SnackBarType.error,
+       );
       case _:
         break;
     }

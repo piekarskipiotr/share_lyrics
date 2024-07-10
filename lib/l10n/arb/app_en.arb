@@ -45,5 +45,18 @@
   "share": "Share",
   "save_to_gallery": "Save to gallery",
   "shared_lyrics_delete_confirmation_title": "Do you want to delete these shared lyrics?",
-  "shared_lyrics_delete_confirmation_description": "This action cannot be undone"
+  "shared_lyrics_delete_confirmation_description": "This action cannot be undone",
+  "error_occurred": "Yikes! We Hit a Snag",
+  "error_occurred_feed_description": "We couldn't fetch your saved lyrics. Please try again.",
+  "error_occurred_saving_to_gallery_description": "We encountered an error saving to your gallery. Please try again.",
+  "error_occurred_sharing_lyrics_description": "There was an issue while sharing. Please try again.",
+  "error_occurred_saving_lyrics_description": "We couldn't save your lyrics. Please try again later.",
+  "error_occurred_saving_n_sharing_lyrics_description": "We couldn't save or share your lyrics. Please try again later",
+  "error_occurred_deleting_shared_lyrics_description": "We couldn't delete your saved lyrics. Please try again later.",
+  "error_occurred_sign_in_description": "We encountered an issue signing you in. Please retry.",
+  "error_occurred_fetching_song_data_description": "There was a problem fetching the song details. Please try again.",
+  "success_action": "Success! Everything's Good",
+  "success_action_saving_to_gallery_description": "Your lyrics card has been saved to the gallery.",
+  "success_action_saving_lyrics_description": "Your lyrics have been saved.",
+  "success_action_deleting_shared_lyrics_description": "Your saved lyrics have been deleted from your collection."
 }

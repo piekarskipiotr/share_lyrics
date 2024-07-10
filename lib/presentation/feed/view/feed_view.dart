@@ -28,6 +28,7 @@ class _FeedViewState extends State<FeedView> {
   }
 
   void _handleStateStatus(BuildContext context, FeedState state) {
+    final l10n = context.l10n;
     switch (state.status) {
       case StateStatus.success:
         final page = state.page;
@@ -37,6 +38,13 @@ class _FeedViewState extends State<FeedView> {
         final isLastPage = pageSize > resultsCount;
 
         isLastPage ? _pagingController.appendLastPage(results) : _pagingController.appendPage(results, page + 1);
+      case StateStatus.failure:
+        AppSnackBar.show(
+          context: context,
+          title: l10n.error_occurred,
+          description: l10n.error_occurred_feed_description,
+          type: SnackBarType.error,
+        );
       case _:
         break;
     }

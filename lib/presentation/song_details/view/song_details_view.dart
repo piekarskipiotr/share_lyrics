@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_lyrics/data/enums/enums.dart';
 import 'package:share_lyrics/data/models/models.dart';
 import 'package:share_lyrics/design_system/design_system.dart';
+import 'package:share_lyrics/l10n/l10n.dart';
 import 'package:share_lyrics/presentation/share_lyrics_dialog/view/share_lyrics_dialog.dart';
 import 'package:share_lyrics/presentation/song_details/bloc/song_details_bloc.dart';
 import 'package:share_lyrics/presentation/song_details/constants/song_details_state_status.dart';
@@ -31,7 +32,15 @@ class _SongDetailsViewState extends State<SongDetailsView> {
   }
 
   void _handleStateStatus(BuildContext context, SongDetailsState state) {
+    final l10n = context.l10n;
     switch (state.status) {
+      case SongDetailsStateStatus.fetchingSongDataFailed:
+        AppSnackBar.show(
+          context: context,
+          title: l10n.error_occurred,
+          description: l10n.error_occurred_fetching_song_data_description,
+          type: SnackBarType.error,
+        );
       case _:
         break;
     }

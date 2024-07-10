@@ -13,12 +13,13 @@ class AppSnackBar {
   }) {
     ScaffoldMessenger.maybeOf(context)?.showSnackBar(
       SnackBar(
-        behavior: SnackBarBehavior.floating,
+        behavior: SnackBarBehavior.fixed,
         backgroundColor: AppColors.fieldBg,
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(_outerRadius)),
-        padding: const EdgeInsets.all(4),
+        padding: const EdgeInsets.all(6),
         elevation: 10,
         content: _AppSnackbarContent(title: title, description: description, type: type),
+        duration: const Duration(seconds: 5),
       ),
     );
   }
@@ -44,7 +45,7 @@ class _AppSnackbarContent extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [type.backgroundGradientColor.withOpacity(0.4), AppColors.transparent],
+                colors: [type.backgroundGradientColor.withOpacity(0.2), AppColors.transparent],
               ),
             ),
           ),
@@ -59,7 +60,7 @@ class _AppSnackbarContent extends StatelessWidget {
                 child: Container(
                   height: _iconSize,
                   width: _iconSize,
-                  color: AppColors.primary,
+                  color: type.backgroundGradientColor,
                   child: Icon(type.icon, color: type.iconColor),
                 ),
               ),
