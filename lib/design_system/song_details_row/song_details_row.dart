@@ -13,7 +13,7 @@ class SongDetailsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onTap?.call(song),
+      onTap: onTap != null ? () => onTap?.call(song) : null,
       behavior: HitTestBehavior.translucent,
       child: Padding(
         padding: type.outerPadding,
