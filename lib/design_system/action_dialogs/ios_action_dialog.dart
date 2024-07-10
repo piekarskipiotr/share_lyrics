@@ -22,17 +22,23 @@ class IOSActionDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoAlertDialog(
-      title: Text(title),
-      content: Text(subtitle),
+      title: Text(title, style: AppActionDialogsStyles.h9(color: AppColors.black, fontWeight: FontWeight.w500)),
+      content: Text(subtitle, style: AppActionDialogsStyles.h11(color: AppColors.black)),
       actions: [
         CupertinoDialogAction(
           onPressed: onSecondaryPressed,
-          child: Text(secondaryText, style: AppTextStyles.h9(color: AppColors.iosBlueText)),
+          child: Text(secondaryText, style: AppActionDialogsStyles.h9(color: AppColors.iosBlueText)),
         ),
         CupertinoDialogAction(
           onPressed: onPrimaryPressed,
           isDestructiveAction: true,
-          child: Text(primaryText),
+          child: Text(
+            primaryText,
+            style: AppActionDialogsStyles.h9(
+              color: AppColors.iosRedText,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
         ),
       ],
     );

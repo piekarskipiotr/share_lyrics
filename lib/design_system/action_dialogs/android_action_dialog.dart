@@ -22,8 +22,8 @@ class AndroidActionDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(title, style: AppTextStyles.h9()),
-      content: Text(subtitle, style: AppTextStyles.h10()),
+      title: Text(title, style: AppActionDialogsStyles.h9(fontWeight: FontWeight.w500)),
+      content: Text(subtitle, style: AppActionDialogsStyles.h11()),
       backgroundColor: AppColors.blackBg,
       actions: [
         ElevatedButton(
@@ -32,11 +32,15 @@ class AndroidActionDialog extends StatelessWidget {
             overlayColor: WidgetStateProperty.all(AppColors.red),
             backgroundColor: WidgetStateProperty.all(AppColors.red),
           ),
-          child: Text(primaryText, style: AppTextStyles.h9()),
+          child: Text(primaryText, style: AppActionDialogsStyles.h9(fontWeight: FontWeight.w500)),
         ),
         TextButton(
           onPressed: onSecondaryPressed,
-          child: Text(secondaryText, style: AppTextStyles.h9()),
+          style: ButtonStyle(
+            overlayColor: WidgetStateProperty.all(AppColors.transparent),
+            backgroundColor: WidgetStateProperty.all(AppColors.transparent),
+          ),
+          child: Text(secondaryText, style: AppActionDialogsStyles.h9()),
         ),
       ],
     );
