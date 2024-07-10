@@ -21,6 +21,7 @@ class _ShareLyricsDialogViewState extends State<ShareLyricsDialogView> {
     final l10n = context.l10n;
     switch (state.status) {
       case ShareLyricsStateStatus.savingToGallerySucceeded:
+        context.pop();
         AppSnackBar.show(
           context: context,
           title: l10n.success_action,
@@ -39,6 +40,7 @@ class _ShareLyricsDialogViewState extends State<ShareLyricsDialogView> {
       case ShareLyricsStateStatus.sharingLyricsSucceeded:
         context.pop();
       case ShareLyricsStateStatus.savingToGalleryFailed:
+        context.pop();
         AppSnackBar.show(
           context: context,
           title: l10n.error_occurred,
@@ -46,6 +48,7 @@ class _ShareLyricsDialogViewState extends State<ShareLyricsDialogView> {
           type: SnackBarType.error,
         );
       case ShareLyricsStateStatus.sharingLyricsFailed:
+        context.pop();
         AppSnackBar.show(
           context: context,
           title: l10n.error_occurred,
@@ -53,6 +56,7 @@ class _ShareLyricsDialogViewState extends State<ShareLyricsDialogView> {
           type: SnackBarType.error,
         );
       case ShareLyricsStateStatus.savingLyricsFailed:
+        context.pop();
         AppSnackBar.show(
           context: context,
           title: l10n.error_occurred,
@@ -60,6 +64,7 @@ class _ShareLyricsDialogViewState extends State<ShareLyricsDialogView> {
           type: SnackBarType.error,
         );
       case ShareLyricsStateStatus.savingNSharingLyricsFailed:
+        context.pop();
         AppSnackBar.show(
           context: context,
           title: l10n.error_occurred,

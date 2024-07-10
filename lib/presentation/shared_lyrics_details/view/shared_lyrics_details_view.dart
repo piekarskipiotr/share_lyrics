@@ -45,13 +45,13 @@ class _SharedLyricsDetailsViewState extends State<SharedLyricsDetailsView> {
           description: l10n.success_action_deleting_shared_lyrics_description,
           type: SnackBarType.success,
         );
-     case SharedLyricsDetailsStateStatus.deletingSharedLyricsFailed:
-       AppSnackBar.show(
-         context: context,
-         title: l10n.error_occurred,
-         description: l10n.error_occurred_deleting_shared_lyrics_description,
-         type: SnackBarType.error,
-       );
+      case SharedLyricsDetailsStateStatus.deletingSharedLyricsFailed:
+        AppSnackBar.show(
+          context: context,
+          title: l10n.error_occurred,
+          description: l10n.error_occurred_deleting_shared_lyrics_description,
+          type: SnackBarType.error,
+        );
       case _:
         break;
     }
@@ -80,17 +80,33 @@ class _SharedLyricsDetailsViewState extends State<SharedLyricsDetailsView> {
         context.read<SharedLyricsDetailsBloc>().add(const DeleteSharedLyrics());
       },
       onSecondaryPressed: context.pop,
+      isPrimaryDestructive: true,
       context: context,
     );
   }
 
   void _onSaveToGalleryPressed(SharedLyrics sharedLyrics) {
-    PermissionHelper.check(Permission.photos, () {
-      AppBottomSheetDialog.show(
-        child: ShareLyricsDialog(sharedLyrics: sharedLyrics, mode: ShareLyricsDialogMode.autoSaveToGallery),
-        context: context,
-      );
-    });
+    final l10n = context.l10n;
+    PermissionHelper.check(
+      permission: Permission.photos,
+      onSuccess: () {
+        AppBottomSheetDialog.show(
+          child: ShareLyricsDialog(sharedLyrics: sharedLyrics, mode: ShareLyricsDialogMode.autoSaveToGallery),
+          context: context,
+        );
+      },
+      onPermanentlyDenied: () {
+        AppActionDialog.show(
+          title: l10n.permission_photos_rationale_title,
+          subtitle: l10n.permission_photos_rationale_description,
+          primaryText: l10n.open_app_settings,
+          secondaryText: l10n.cancel,
+          onPrimaryPressed: openAppSettings,
+          onSecondaryPressed: context.pop,
+          context: context,
+        );
+      },
+    );
   }
 
   @override

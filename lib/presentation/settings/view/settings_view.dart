@@ -40,6 +40,7 @@ class _SettingsViewState extends State<SettingsView> {
         context.read<SettingsBloc>().add(const DeleteAccount());
       },
       onSecondaryPressed: context.pop,
+      isPrimaryDestructive: true,
       context: context,
     );
   }

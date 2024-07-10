@@ -13,6 +13,7 @@ class AppActionDialog {
     required VoidCallback onPrimaryPressed,
     required VoidCallback onSecondaryPressed,
     required BuildContext context,
+    bool isPrimaryDestructive = false,
   }) =>
       showDialog<dynamic>(
         context: context,
@@ -24,6 +25,7 @@ class AppActionDialog {
                 secondaryText: secondaryText,
                 onPrimaryPressed: onPrimaryPressed,
                 onSecondaryPressed: onSecondaryPressed,
+                isPrimaryDestructive: isPrimaryDestructive,
               )
             : IOSActionDialog(
                 title: title,
@@ -32,6 +34,7 @@ class AppActionDialog {
                 secondaryText: secondaryText,
                 onPrimaryPressed: onPrimaryPressed,
                 onSecondaryPressed: onSecondaryPressed,
+                isPrimaryDestructive: isPrimaryDestructive,
               ),
       );
 }

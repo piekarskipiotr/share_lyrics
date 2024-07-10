@@ -9,6 +9,7 @@ class IOSActionDialog extends StatelessWidget {
     required this.secondaryText,
     required this.onPrimaryPressed,
     required this.onSecondaryPressed,
+    required this.isPrimaryDestructive,
     super.key,
   });
 
@@ -18,12 +19,13 @@ class IOSActionDialog extends StatelessWidget {
   final String secondaryText;
   final VoidCallback onPrimaryPressed;
   final VoidCallback onSecondaryPressed;
+  final bool isPrimaryDestructive;
 
   @override
   Widget build(BuildContext context) {
     return CupertinoAlertDialog(
-      title: Text(title, style: AppActionDialogsStyles.h9(color: AppColors.black, fontWeight: FontWeight.w500)),
-      content: Text(subtitle, style: AppActionDialogsStyles.h11(color: AppColors.black)),
+      title: Text(title, style: AppActionDialogsStyles.h9(color: AppColors.black, fontWeight: FontWeight.w600)),
+      content: Text(subtitle, style: AppActionDialogsStyles.h10(color: AppColors.black)),
       actions: [
         CupertinoDialogAction(
           onPressed: onSecondaryPressed,
@@ -31,11 +33,12 @@ class IOSActionDialog extends StatelessWidget {
         ),
         CupertinoDialogAction(
           onPressed: onPrimaryPressed,
-          isDestructiveAction: true,
+          isDefaultAction: true,
+          isDestructiveAction: isPrimaryDestructive,
           child: Text(
             primaryText,
             style: AppActionDialogsStyles.h9(
-              color: AppColors.iosRedText,
+              color: isPrimaryDestructive ? AppColors.iosRedText : AppColors.iosBlueText,
               fontWeight: FontWeight.w500,
             ),
           ),

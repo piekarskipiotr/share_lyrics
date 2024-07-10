@@ -58,5 +58,8 @@
   "success_action": "Success! Everything's Good",
   "success_action_saving_to_gallery_description": "Your lyrics card has been saved to the gallery.",
   "success_action_saving_lyrics_description": "Your lyrics have been saved.",
-  "success_action_deleting_shared_lyrics_description": "Your saved lyrics have been deleted from your collection."
+  "success_action_deleting_shared_lyrics_description": "Your saved lyrics have been deleted from your collection.",
+  "open_app_settings": "Open settings",
+  "permission_photos_rationale_title": "Permission for Gallery Access",
+  "permission_photos_rationale_description": "This permission lets you save app content to your photo collection. Go to app settings to turn it on"
 }

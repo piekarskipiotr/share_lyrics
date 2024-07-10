@@ -9,6 +9,7 @@ class AndroidActionDialog extends StatelessWidget {
     required this.secondaryText,
     required this.onPrimaryPressed,
     required this.onSecondaryPressed,
+    required this.isPrimaryDestructive,
     super.key,
   });
 
@@ -18,19 +19,20 @@ class AndroidActionDialog extends StatelessWidget {
   final String secondaryText;
   final VoidCallback onPrimaryPressed;
   final VoidCallback onSecondaryPressed;
+  final bool isPrimaryDestructive;
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(title, style: AppActionDialogsStyles.h9(fontWeight: FontWeight.w500)),
-      content: Text(subtitle, style: AppActionDialogsStyles.h11()),
+      title: Text(title, style: AppActionDialogsStyles.h9(fontWeight: FontWeight.w600)),
+      content: Text(subtitle, style: AppActionDialogsStyles.h10()),
       backgroundColor: AppColors.blackBg,
       actions: [
         ElevatedButton(
           onPressed: onPrimaryPressed,
           style: ButtonStyle(
-            overlayColor: WidgetStateProperty.all(AppColors.red),
-            backgroundColor: WidgetStateProperty.all(AppColors.red),
+            overlayColor: WidgetStateProperty.all(isPrimaryDestructive ? AppColors.red : AppColors.black),
+            backgroundColor: WidgetStateProperty.all(isPrimaryDestructive ? AppColors.red : AppColors.black),
           ),
           child: Text(primaryText, style: AppActionDialogsStyles.h9(fontWeight: FontWeight.w500)),
         ),
