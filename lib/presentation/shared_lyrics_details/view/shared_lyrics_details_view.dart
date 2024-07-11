@@ -141,7 +141,7 @@ class _SharedLyricsDetailsViewState extends State<SharedLyricsDetailsView> {
                   ),
                   AppDropdownMenuItem(
                     label: l10n.delete,
-                    icon: Icons.delete_rounded,
+                    icon: Icons.remove_circle_outline_rounded,
                     isDanger: true,
                     onTap: _onDeletePressed,
                   ),
