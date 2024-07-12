@@ -1,4 +1,5 @@
-import 'package:html/parser.dart';
+import 'package:html/dom.dart' as dom;
+import 'package:html/parser.dart' show parse;
 
 class GeniusLyricsWrapper {
   GeniusLyricsWrapper(this.jsonResponse);
@@ -7,19 +8,30 @@ class GeniusLyricsWrapper {
 
   List<String> getLyrics() {
     final document = parse(jsonResponse);
-    final lyricsContainer = document.querySelector('div[class^="Lyrics__Container"]');
-    final lyricsContainerItems = [...?lyricsContainer?.querySelectorAll('span')];
+    final lyricsContainers = document.querySelectorAll('div[data-lyrics-container="true"]');
     final lines = <String>[];
-    for (final element in lyricsContainerItems) {
-      for (final node in element.nodes) {
-        if (node.nodeType == 3) {
-          lines.addAll(node.text!.trim().split('\n'));
-        } else if (node.text?.contains('<br>') ?? false) {
-          lines.add('');
-        }
-      }
+
+    for (final container in lyricsContainers) {
+      _processNode(container, lines);
     }
 
-    return lines.map((line) => line.trim()).where((line) => line.isNotEmpty).toList();
+    return lines.map((line) => line.trim()).where((line) => line.isNotEmpty && !_isMetadataLine(line)).toList();
+  }
+
+  void _processNode(dom.Node node, List<String> lines) {
+    if (node.nodeType == dom.Node.TEXT_NODE) {
+      lines.add(node.text!.trim());
+    } else if (node is dom.Element && node.localName == 'br') {
+      lines.add('');
+    } else if (node is dom.Element) {
+      for (final node in node.nodes) {
+        _processNode(node, lines);
+      }
+    }
+  }
+
+  bool _isMetadataLine(String line) {
+    final metadataPattern = RegExp(r'^\[.*?\]$');
+    return metadataPattern.hasMatch(line);
   }
 }
