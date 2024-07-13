@@ -11,6 +11,7 @@ class PermissionHelper {
     switch (status) {
       case PermissionStatus.granted:
         onSuccess.call();
+      case PermissionStatus.denied:
       case PermissionStatus.permanentlyDenied:
         onPermanentlyDenied == null ? await openAppSettings() : onPermanentlyDenied.call();
       case _:
