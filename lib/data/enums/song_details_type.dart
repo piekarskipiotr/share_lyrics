@@ -24,9 +24,9 @@ enum SongDetailsType {
       };
 
   TextStyle get artistTextStyle => switch (this) {
-        small => AppTextStyles.h10(fontWeight: FontWeight.w300),
-        medium => AppTextStyles.h9(fontWeight: FontWeight.w300),
-        large => AppTextStyles.h7(fontWeight: FontWeight.w300),
+        small => AppTextStyles.h10(),
+        medium => AppTextStyles.h9(),
+        large => AppTextStyles.h7(),
       };
 
   TextStyle get titleTextStyle => switch (this) {
