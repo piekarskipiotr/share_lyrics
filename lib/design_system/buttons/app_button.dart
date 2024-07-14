@@ -67,7 +67,7 @@ class AppButton extends StatelessWidget {
               ),
               Text(
                 label,
-                style: AppTextStyles.h7(fontWeight: FontWeight.bold, color: textColor),
+                style: AppTextStyles.h7(fontWeight: FontWeight.w600, color: textColor),
               ),
               const SizedBox(width: _circularProgressSize + _circularProgressSpace),
             ],

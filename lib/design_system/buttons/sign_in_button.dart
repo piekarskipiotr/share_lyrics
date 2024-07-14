@@ -45,7 +45,7 @@ class SignInButton extends StatelessWidget {
               Text(
                 l10n.sign_in_with(signInProvider.name),
                 style: AppTextStyles.h8(
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w600,
                   color: signInProvider.buttonTextColor,
                 ),
               ),

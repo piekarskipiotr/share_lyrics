@@ -44,7 +44,7 @@ class SongMediaButton extends StatelessWidget {
               Text(
                 songMedia.provider.name,
                 style: AppTextStyles.h10(
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                   color: songMedia.provider.buttonTextColor,
                 ),
               ),
