@@ -16,7 +16,7 @@ class AppVerticalGradient extends StatelessWidget {
         children: [
           AnimatedContainer(
             duration: _animationDuration,
-            height: extendUpperGradient ? 200 : 56,
+            height: extendUpperGradient ? 200 : 24,
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
