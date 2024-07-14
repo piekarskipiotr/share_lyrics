@@ -10,18 +10,25 @@ class AppDropdownMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton<AppDropdownMenuItem>(
-      icon: child,
-      color: AppColors.blackBg,
-      padding: EdgeInsets.zero,
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16))),
-      position: PopupMenuPosition.under,
-      onSelected: (dropdownMenuItem) {
-        dropdownMenuItem.onTap.call();
-      },
-      itemBuilder: (BuildContext context) {
-        return _mapItems(items);
-      },
+    return Theme(
+      data: Theme.of(context).copyWith(
+        splashFactory: NoSplash.splashFactory,
+        splashColor: AppColors.transparent,
+        highlightColor: AppColors.transparent,
+      ),
+      child: PopupMenuButton<AppDropdownMenuItem>(
+        icon: child,
+        color: AppColors.blackBg,
+        padding: EdgeInsets.zero,
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16))),
+        position: PopupMenuPosition.under,
+        onSelected: (dropdownMenuItem) {
+          dropdownMenuItem.onTap.call();
+        },
+        itemBuilder: (BuildContext context) {
+          return _mapItems(items);
+        },
+      ),
     );
   }
 
