@@ -52,6 +52,7 @@ flutter:
   uses-material-design: true
   generate: true
   assets:
+    - assets/app_logos/
     - assets/sign_in_icons/
     - assets/song_media_icons/
 
@@ -63,6 +64,9 @@ spider:
   use_references_list: false
   package: resources
   groups:
+    - path: assets/app_logos
+      class_name: AppLogos
+      types: [ .svg ]
     - path: assets/sign_in_icons
       class_name: SignInIcons
       types: [ .svg ]

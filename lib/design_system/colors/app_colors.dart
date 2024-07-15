@@ -10,6 +10,7 @@ class AppColors {
   static const green = Color(0xFF4ad66d);
   static const iosBlueText = Color(0xFF147efb);
   static const iosRedText = Color(0xFFFF3825);
+  static const geniusPrimary = Color(0xFFFEFF63);
   static const shimmerHighlight = Color(0xFF2E2E2E);
   static const transparent = Color(0x00000000);
 }

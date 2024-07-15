@@ -61,5 +61,8 @@
   "success_action_deleting_shared_lyrics_description": "Your saved lyrics have been deleted from your collection.",
   "open_app_settings": "Open settings",
   "permission_photos_rationale_title": "Permission for Gallery Access",
-  "permission_photos_rationale_description": "This permission lets you save app content to your photo collection. Go to app settings to turn it on"
+  "permission_photos_rationale_description": "This permission lets you save app content to your photo collection. Go to app settings to turn it on",
+  "genius_credits_pt_1": "Lyrics provided by",
+  "genius_credits_pt_2": " Genius ",
+  "genius_credits_pt_3": "community"
 }
