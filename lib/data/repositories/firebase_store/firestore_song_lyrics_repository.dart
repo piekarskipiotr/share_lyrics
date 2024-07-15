@@ -11,7 +11,7 @@ class FirestoreSongLyricsRepository {
       final timestamp = createdAt.millisecondsSinceEpoch;
       final docName = '$userUUID-$timestamp';
       final firestoreSharedLyrics = sharedLyrics.updateLocalToFirestore(userUUID: userUUID, createdAt: createdAt);
-      await _firebaseStore.doc(docName).set(firestoreSharedLyrics.toJson());
+      await _firebaseStore.doc(docName).set(firestoreSharedLyrics.toFirestoreJson());
     } catch (e) {
       throw Exception(e.toString());
     }

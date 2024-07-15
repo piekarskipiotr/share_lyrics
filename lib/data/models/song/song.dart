@@ -18,6 +18,15 @@ class Song {
 
   Map<String, dynamic> toJson() => _$SongToJson(this);
 
+  Map<String, dynamic> toFirestoreJson() => <String, dynamic>{
+        'id': id,
+        'title': title,
+        'primary_artist_names': artist,
+        'song_art_image_url': image,
+        'url': lyricsUrl,
+        'media': media?.map((e) => e.toJson()),
+      };
+
   final int id;
   final String title;
   @JsonKey(name: 'primary_artist_names')

@@ -23,6 +23,13 @@ class SharedLyrics {
 
   Map<String, dynamic> toJson() => _$SharedLyricsToJson(this);
 
+  Map<String, dynamic> toFirestoreJson() => <String, dynamic>{
+        'lyrics': lyrics,
+        'song': song.toFirestoreJson(),
+        'userUUID': userUUID,
+        'createdAt': createdAt?.toIso8601String(),
+      };
+
   SharedLyrics updateLocalToFirestore({required String userUUID, required DateTime createdAt}) {
     return SharedLyrics(
       lyrics: lyrics,
