@@ -14,7 +14,7 @@ import 'package:share_lyrics/services/feed_service/feed_service.dart';
 import 'package:share_lyrics/services/search_service/search_service.dart';
 
 class App extends StatelessWidget {
-  App({
+  const App({
     required FirebaseAuthRepository firebaseAuthRepository,
     required FirestoreSongLyricsRepository firestoreSongLyricsRepository,
     required GeniusRepository geniusRepository,
