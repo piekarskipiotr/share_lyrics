@@ -41,14 +41,14 @@ class SettingsSectionItem extends StatelessWidget {
 
   Widget _buildValueView(dynamic value, Color color) {
     if (value is String) return _buildText(value, color);
-    if (value is IconData) return Icon(value, color: color, size: 20);
+    if (value is IconData) return Icon(value, color: color, size: 18);
     return const SizedBox();
   }
 
   Widget _buildText(String value, Color color) {
     return Text(
       value,
-      style: AppTextStyles.h9(color: color),
+      style: AppTextStyles.h10(color: color),
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
     );

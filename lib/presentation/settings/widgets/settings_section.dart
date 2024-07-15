@@ -15,7 +15,7 @@ class SettingsSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: AppTextStyles.h8(fontWeight: FontWeight.bold)),
+          Text(label, style: AppTextStyles.h9(fontWeight: FontWeight.bold)),
           const SizedBox(height: 16),
           ListView.separated(
             shrinkWrap: true,
