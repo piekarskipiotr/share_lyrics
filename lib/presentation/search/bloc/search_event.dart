@@ -12,4 +12,3 @@ final class Search extends SearchEvent {
   @override
   List<Object?> get props => [phrase];
 }
-
