@@ -12,7 +12,7 @@ dependencies:
   cached_network_image: ^3.3.1
   chopper: ^8.0.1+1
   chopper_generator: ^8.0.1
-  cloud_firestore: ^5.0.2
+  cloud_firestore: ^5.1.0
   equatable: ^2.0.5
   firebase_auth: ^5.1.2
   firebase_core: ^3.1.1
