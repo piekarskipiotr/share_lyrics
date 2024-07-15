@@ -33,7 +33,7 @@ class SharedLyricsDetailsBloc extends Bloc<SharedLyricsDetailsEvent, SharedLyric
       _feedService.refresh();
       emit(state.copyWith(status: SharedLyricsDetailsStateStatus.deletingSharedLyricsSucceeded));
     } catch (error, stacktrace) {
-      log('FAILED TO FETCH SONG DATA, error: $error \n\n $stacktrace');
+      log('FAILED TO DELETE SAVED SHARED LYRICS, error: $error \n\n $stacktrace');
       emit(state.copyWith(status: SharedLyricsDetailsStateStatus.deletingSharedLyricsFailed, error: error.toString()));
     }
   }

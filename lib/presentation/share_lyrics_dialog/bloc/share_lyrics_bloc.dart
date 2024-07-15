@@ -99,7 +99,7 @@ class ShareLyricsBloc extends Bloc<ShareLyricsEvent, ShareLyricsState> {
       await _share(cardLyricsBytes);
       emit(state.copyWith(status: ShareLyricsStateStatus.sharingLyricsSucceeded));
     } catch (error, stacktrace) {
-      log('FAILED TO SAVE & SHARE SONG, error: $error \n\n $stacktrace');
+      log('FAILED TO SHARE SONG, error: $error \n\n $stacktrace');
       emit(state.copyWith(status: ShareLyricsStateStatus.sharingLyricsFailed, error: error.toString()));
     }
   }
@@ -117,7 +117,7 @@ class ShareLyricsBloc extends Bloc<ShareLyricsEvent, ShareLyricsState> {
       await ImageGallerySaver.saveImage(cardLyricsBytes, name: name, quality: 100);
       emit(state.copyWith(status: ShareLyricsStateStatus.savingToGallerySucceeded));
     } catch (error, stacktrace) {
-      log('FAILED TO SAVE & SHARE SONG, error: $error \n\n $stacktrace');
+      log('FAILED TO SAVE TO GALLERY, error: $error \n\n $stacktrace');
       emit(state.copyWith(status: ShareLyricsStateStatus.savingToGalleryFailed, error: error.toString()));
     }
   }

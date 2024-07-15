@@ -56,7 +56,7 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
       final lastDocSnap = snapshot.$2;
       emit(state.copyWith(status: FeedStateStatus.loadingResultsSucceeded, results: results, lastDocSnap: lastDocSnap));
     }).catchError((Object error, StackTrace stacktrace) async {
-      log('GENIUS: FAILED FETCH USER SAVED SONG LYRICS, error: $error \n\n $stacktrace');
+      log('FAILED FETCH USER SAVED SONG LYRICS, error: $error \n\n $stacktrace');
       emit(state.copyWith(status: FeedStateStatus.loadingResultsFailed, error: error.toString()));
     });
   }
