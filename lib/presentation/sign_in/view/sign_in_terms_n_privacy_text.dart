@@ -20,22 +20,22 @@ class SignInTermsNPrivacyText extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 32),
       child: RichText(
         textAlign: TextAlign.center,
         text: TextSpan(
-          style: AppTextStyles.h10(fontWeight: FontWeight.w300),
+          style: AppTextStyles.h10(),
           children: [
             TextSpan(text: l10n.terms_n_privacy_pt_1),
             TextSpan(
               text: l10n.terms_n_privacy_pt_2,
-              style: AppTextStyles.h10(fontWeight: FontWeight.w300, color: AppColors.primary),
+              style: AppTextStyles.h10( color: AppColors.primary),
               recognizer: TapGestureRecognizer()..onTap = _onTermsTapped,
             ),
             TextSpan(text: l10n.terms_n_privacy_pt_3),
             TextSpan(
               text: l10n.terms_n_privacy_pt_4,
-              style: AppTextStyles.h10(fontWeight: FontWeight.w300, color: AppColors.primary),
+              style: AppTextStyles.h10(color: AppColors.primary),
               recognizer: TapGestureRecognizer()..onTap = _onPrivacyTapped,
             ),
           ],
