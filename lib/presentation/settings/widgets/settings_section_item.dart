@@ -22,7 +22,7 @@ class SettingsSectionItem extends StatelessWidget {
       onTap: onTap,
       behavior: HitTestBehavior.translucent,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10),
+        padding: const EdgeInsets.symmetric(vertical: 12),
         child: Row(
           children: [
             _buildText(label, color),
@@ -48,7 +48,7 @@ class SettingsSectionItem extends StatelessWidget {
   Widget _buildText(String value, Color color) {
     return Text(
       value,
-      style: AppTextStyles.h10(color: color),
+      style: AppTextStyles.h9(color: color),
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
     );

@@ -8,7 +8,6 @@ import 'package:share_lyrics/design_system/design_system.dart';
 import 'package:share_lyrics/l10n/l10n.dart';
 import 'package:share_lyrics/presentation/settings/bloc/settings_bloc.dart';
 import 'package:share_lyrics/presentation/settings/widgets/settings_widgets.dart';
-import 'package:share_lyrics/design_system/scaffolds/app_scaffold.dart';
 import 'package:share_lyrics/utils/extensions/extensions.dart';
 import 'package:share_lyrics/utils/helpers/helpers.dart';
 
@@ -28,7 +27,6 @@ class _SettingsViewState extends State<SettingsView> {
     UrlLauncher.open(privacyPolicyUrl);
   }
 
-  // TODO(piotr): call this function like "show delete dialog" & move bloc call to function _deleteAccount
   void _deleteAccount() {
     final l10n = context.l10n;
     AppActionDialog.show(
@@ -57,7 +55,6 @@ class _SettingsViewState extends State<SettingsView> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    // TODO(piotr): think about re-building / improving UI
     return BlocBuilder<SettingsBloc, SettingsState>(
       builder: (context, state) {
         final user = state.user;
@@ -65,7 +62,7 @@ class _SettingsViewState extends State<SettingsView> {
         return AppScaffold(
           appBar: AppBar(
             backgroundColor: AppColors.transparent,
-            title: Text(l10n.settings, style: AppTextStyles.h7()),
+            title: Text(l10n.settings, style: AppTextStyles.h6(fontWeight: FontWeight.w900)),
             leading: IconButton(
               onPressed: context.pop,
               icon: const Icon(Icons.arrow_back_ios_new_rounded, color: AppColors.white),
@@ -74,9 +71,9 @@ class _SettingsViewState extends State<SettingsView> {
           body: SingleChildScrollView(
             child: Column(
               children: [
-                const SizedBox(height: 24),
+                const SizedBox(height: 32),
                 SettingsSection(
-                  label: l10n.general,
+                  label: l10n.account,
                   children: [
                     SettingsSectionItem(
                       label: l10n.email,
@@ -86,23 +83,6 @@ class _SettingsViewState extends State<SettingsView> {
                       label: l10n.signed_method,
                       value: _getProviderName(user?.providerData.firstOrNull) ?? '-',
                     ),
-                  ],
-                ),
-                const SizedBox(height: 24),
-                SettingsSection(
-                  label: l10n.others,
-                  children: [
-                    SettingsSectionItem(
-                      label: l10n.terms_of_service,
-                      value: Icons.link_rounded,
-                      onTap: _navigateToTermsOfService,
-                    ),
-                    SettingsSectionItem(
-                      label: l10n.privacy_policy,
-                      value: Icons.link_rounded,
-                      onTap: _navigateToPrivacyPolicy,
-                    ),
-                    // TODO(piotr): improve color of danger and improve UI of dialog
                     SettingsSectionItem(
                       label: l10n.delete_account,
                       onTap: _deleteAccount,
@@ -110,15 +90,37 @@ class _SettingsViewState extends State<SettingsView> {
                     ),
                   ],
                 ),
+                const SizedBox(height: 24),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Container(height: 1, color: AppColors.fieldBg),
+                ),
+                const SizedBox(height: 36),
+                SettingsSection(
+                  label: l10n.others,
+                  children: [
+                    SettingsSectionItem(
+                      label: l10n.terms_of_service,
+                      value: Icons.open_in_new_rounded,
+                      onTap: _navigateToTermsOfService,
+                    ),
+                    SettingsSectionItem(
+                      label: l10n.privacy_policy,
+                      value: Icons.open_in_new_rounded,
+                      onTap: _navigateToPrivacyPolicy,
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
           bottomNavigationBar: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 24),
-            child: AppTextButton(
+            padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+            child: AppButton(
               label: l10n.sign_out,
               onPressed: _signOut,
-              textColor: AppColors.primary,
+              backgroundColor: AppColors.black,
+              textColor: AppColors.white,
               isLoading: isSigningOut,
             ),
           ),
