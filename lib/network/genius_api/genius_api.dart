@@ -8,12 +8,12 @@ typedef Json = Map<String, dynamic>;
 
 @ChopperApi()
 abstract class GeniusApi extends ChopperService {
-  static GeniusApi create(String baseUrl, {bool enableLogs = true}) {
+  static GeniusApi create(String baseUrl, String geniusApiKey, {bool enableLogs = true}) {
     final client = ChopperClient(
       baseUrl: Uri.parse(baseUrl),
       interceptors: [
-        const HeadersInterceptor({
-          HttpHeaders.authorizationHeader: 'Bearer FU8n0PzlVEumcQCdkrrhwLX1jTc30BzOvZtcSMynsmIFA3uElWXChEaO1ntmObCn',
+        HeadersInterceptor({
+          HttpHeaders.authorizationHeader: 'Bearer $geniusApiKey',
           HttpHeaders.hostHeader: 'api.genius.com',
           contentTypeKey: jsonHeaders,
         }),

@@ -14,7 +14,7 @@ void main() {
   bootstrap(() {
     final firebaseAuthRepository = FirebaseAuthRepository();
     final firestoreSongLyricsRepository = FirestoreSongLyricsRepository();
-    final geniusApi = GeniusApi.create(geniusAPIUrl);
+    final geniusApi = GeniusApi.create(geniusAPIUrl, const String.fromEnvironment(geniusAPIKeyEnvName));
     final geniusRepository = GeniusRepository(geniusApi);
     final authService = AuthService(firebaseAuthRepository);
     final searchService = SearchService();
