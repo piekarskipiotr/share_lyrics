@@ -109,7 +109,6 @@ app.*.map.json
 !.idea/codeStyles/
 !.idea/dictionaries/
 
-lib/firebase_options.dart
 lib/network/genius_api/genius_api.chopper.dart
 lib/resources/*
 lib/data/models/*.g.dart
