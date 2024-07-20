@@ -20,12 +20,16 @@ class GeniusLyricsWrapper {
 
   void _processNode(dom.Node node, List<String> lines) {
     if (node.nodeType == dom.Node.TEXT_NODE) {
-      lines.add(node.text!.trim());
+      if (lines.isEmpty) {
+        lines.add(node.text!.trim());
+      } else {
+        lines[lines.length - 1] += node.text!.trim();
+      }
     } else if (node is dom.Element && node.localName == 'br') {
       lines.add('');
     } else if (node is dom.Element) {
-      for (final node in node.nodes) {
-        _processNode(node, lines);
+      for (final child in node.nodes) {
+        _processNode(child, lines);
       }
     }
   }
