@@ -42,9 +42,12 @@ class ShareLyricsBloc extends Bloc<ShareLyricsEvent, ShareLyricsState> {
     on<SaveToGallery>(_onSaveToGallery);
 
     switch (mode) {
-      case ShareLyricsDialogMode.autoShare: add(const ShareLyrics());
-      case ShareLyricsDialogMode.autoSaveToGallery: add(const SaveToGallery());
-      case _: break;
+      case ShareLyricsDialogMode.autoShare:
+        add(const ShareLyrics());
+      case ShareLyricsDialogMode.autoSaveToGallery:
+        add(const SaveToGallery());
+      case _:
+        break;
     }
   }
 
@@ -114,7 +117,8 @@ class ShareLyricsBloc extends Bloc<ShareLyricsEvent, ShareLyricsState> {
       final name = '$artist-$title-$timestamp';
       final lyricsWidgetKey = state.lyricsWidgetKey;
       final cardLyricsBytes = await _captureLyricsCardImage(lyricsWidgetKey);
-      await ImageGallerySaver.saveImage(cardLyricsBytes, name: name, quality: 100);
+      final cardLyricsFile = await _getTemporaryFileFromBytes(cardLyricsBytes);
+      await ImageGallerySaver.saveFile(cardLyricsFile.path, name: name);
       emit(state.copyWith(status: ShareLyricsStateStatus.savingToGallerySucceeded));
     } catch (error, stacktrace) {
       log('FAILED TO SAVE TO GALLERY, error: $error \n\n $stacktrace');
@@ -136,12 +140,17 @@ class ShareLyricsBloc extends Bloc<ShareLyricsEvent, ShareLyricsState> {
 
   Future<void> _share(Uint8List bytes) async {
     try {
-      final directory = (await getTemporaryDirectory()).path;
-      final path = '$directory/${DateTime.now().millisecondsSinceEpoch}.png';
-      await File(path).writeAsBytes(bytes);
+      final file = await _getTemporaryFileFromBytes(bytes);
+      final path = file.path;
       await Share.shareXFiles([XFile(path)]);
     } catch (e) {
       throw Exception(e.toString());
     }
+  }
+
+  Future<File> _getTemporaryFileFromBytes(Uint8List bytes) async {
+    final directory = (await getTemporaryDirectory()).path;
+    final path = '$directory/${DateTime.now().millisecondsSinceEpoch}.png';
+    return File(path).writeAsBytes(bytes);
   }
 }

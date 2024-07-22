@@ -17,37 +17,40 @@ class LyricsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepaintBoundary(
-      key: lyricsCardWidgetKey,
-      child: Container(
-        constraints: const BoxConstraints(minHeight: 274),
-        padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(24)),
-          color: AppColors.black,
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SongDetailsRow(song: sharedLyrics.song, type: SongDetailsType.small),
-                _defaultGap,
-                LyricsCardLines(lines: sharedLyrics.lyrics),
-                _defaultGap,
-                _defaultGap,
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const LyricsCardCredits(),
-                _smallGap,
-              ],
-            ),
-          ],
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(24),
+      child: RepaintBoundary(
+        key: lyricsCardWidgetKey,
+        child: Container(
+          constraints: const BoxConstraints(minHeight: 274),
+          padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(24)),
+            color: AppColors.black,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SongDetailsRow(song: sharedLyrics.song, type: SongDetailsType.small),
+                  _defaultGap,
+                  LyricsCardLines(lines: sharedLyrics.lyrics),
+                  _defaultGap,
+                  _defaultGap,
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const LyricsCardCredits(),
+                  _smallGap,
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
