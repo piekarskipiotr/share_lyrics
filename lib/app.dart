@@ -66,7 +66,11 @@ class App extends StatelessWidget {
           },
           child: MaterialApp.router(
             debugShowCheckedModeBanner: false,
-            theme: ThemeData(textTheme: GoogleFonts.openSansTextTheme()),
+            theme: Theme.of(context).copyWith(textTheme: GoogleFonts.openSansTextTheme()),
+            darkTheme: Theme.of(context).copyWith(
+              brightness: Brightness.dark,
+              textTheme: GoogleFonts.openSansTextTheme(),
+            ),
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
             routeInformationProvider: _router.router.routeInformationProvider,
