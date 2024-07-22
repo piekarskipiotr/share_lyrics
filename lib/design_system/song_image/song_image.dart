@@ -7,15 +7,23 @@ class SongImage extends StatelessWidget {
 
   final String? imageUrl;
   final double imageSize;
+  static const double _padding = 2;
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(imageSize / 2),
-      child: SizedBox(
-        height: imageSize,
-        width: imageSize,
-        child: _image(context, imageUrl),
+    return Container(
+      padding: const EdgeInsets.all(_padding),
+      decoration: BoxDecoration(
+        color: AppColors.fieldBg,
+        borderRadius: BorderRadius.circular((imageSize + _padding) / 2),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(imageSize / 2),
+        child: SizedBox(
+          height: imageSize,
+          width: imageSize,
+          child: _image(context, imageUrl),
+        ),
       ),
     );
   }
