@@ -10,6 +10,8 @@ import 'package:share_lyrics/presentation/share_lyrics_dialog/view/share_lyrics_
 import 'package:share_lyrics/presentation/shared_lyrics_details/bloc/shared_lyrics_details_bloc.dart';
 import 'package:share_lyrics/presentation/shared_lyrics_details/constants/shared_lyrics_details_state_status.dart';
 import 'package:share_lyrics/presentation/shared_lyrics_details/widgets/shared_lyrics_details_share_button.dart';
+import 'package:share_lyrics/router/app_router.dart';
+import 'package:share_lyrics/router/app_router_navigation.dart';
 import 'package:share_lyrics/utils/helpers/helpers.dart';
 
 class SharedLyricsDetailsView extends StatefulWidget {
@@ -85,6 +87,10 @@ class _SharedLyricsDetailsViewState extends State<SharedLyricsDetailsView> {
     );
   }
 
+  void _openSongDetails(Song song) {
+    context.read<AppRouter>().showSongDetails(song: song);
+  }
+
   void _onSaveToGalleryPressed(SharedLyrics sharedLyrics) {
     final l10n = context.l10n;
     PermissionHelper.check(
@@ -131,6 +137,14 @@ class _SharedLyricsDetailsViewState extends State<SharedLyricsDetailsView> {
             actions: [
               AppDropdownMenu(
                 items: [
+                  AppDropdownMenuItem(
+                    label: l10n.open_song_details,
+                    icon: Icons.library_music_rounded,
+                    isDanger: false,
+                    onTap: () {
+                      _openSongDetails(sharedLyrics.song);
+                    },
+                  ),
                   AppDropdownMenuItem(
                     label: l10n.save_to_gallery,
                     icon: Icons.save_alt_rounded,

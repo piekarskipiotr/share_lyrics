@@ -64,5 +64,6 @@
   "permission_photos_rationale_description": "This permission lets you save app content to your photo collection. Go to app settings to turn it on",
   "genius_credits_pt_1": "Lyrics provided by",
   "genius_credits_pt_2": " Genius ",
-  "genius_credits_pt_3": "community"
+  "genius_credits_pt_3": "community",
+  "open_song_details": "Open song details"
 }

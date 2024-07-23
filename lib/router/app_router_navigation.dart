@@ -7,9 +7,13 @@ extension AppRouterNavigation on AppRouter {
 
   void showHome() => router.goNamed(AppRoutes.home);
 
-  void popAndShowHome() => router
-    ..pop()
-    ..replaceNamed<void>(AppRoutes.home);
+  void popAndShowHome() {
+    while (router.canPop()) {
+      router.pop();
+    }
+
+    router.pushReplacementNamed(AppRoutes.home);
+  }
 
   void showSongDetails({required Song song}) => router.pushNamed(AppRoutes.songDetails, extra: song);
 
