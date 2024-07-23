@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 extension StringExtensions on String {
   String toTitleCase() {
     if (isEmpty) {
@@ -11,4 +13,8 @@ extension StringExtensions on String {
       return word[0].toUpperCase() + word.substring(1).toLowerCase();
     }).join(' ');
   }
+}
+
+extension ContextExtensions on BuildContext {
+  bool get isDarkTheme  => Theme.of(this).brightness == Brightness.dark;
 }

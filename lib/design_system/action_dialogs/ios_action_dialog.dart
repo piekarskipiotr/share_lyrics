@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:share_lyrics/design_system/design_system.dart';
+import 'package:share_lyrics/utils/extensions/extensions.dart';
 
 class IOSActionDialog extends StatelessWidget {
   const IOSActionDialog({
@@ -23,9 +24,10 @@ class IOSActionDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textColor = context.isDarkTheme ? AppColors.white : AppColors.black;
     return CupertinoAlertDialog(
-      title: Text(title, style: AppActionDialogsStyles.h9(color: AppColors.black, fontWeight: FontWeight.w600)),
-      content: Text(subtitle, style: AppActionDialogsStyles.h10(color: AppColors.black)),
+      title: Text(title, style: AppActionDialogsStyles.h9(color: textColor, fontWeight: FontWeight.w600)),
+      content: Text(subtitle, style: AppActionDialogsStyles.h10(color: textColor)),
       actions: [
         CupertinoDialogAction(
           onPressed: onSecondaryPressed,
