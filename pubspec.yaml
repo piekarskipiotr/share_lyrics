@@ -1,6 +1,6 @@
 name: share_lyrics
 description: Flutter app to store song lyrics
-version: 1.0.0+1
+version: 1.0.0+2
 publish_to: none
 
 environment:
