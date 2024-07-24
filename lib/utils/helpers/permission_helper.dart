@@ -7,7 +7,7 @@ class PermissionHelper {
     required VoidCallback onSuccess,
     VoidCallback? onPermanentlyDenied,
   }) async {
-    final status = await permission.status;
+    final status = await permission.request();
     switch (status) {
       case PermissionStatus.granted:
         onSuccess.call();
