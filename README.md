@@ -10,7 +10,7 @@ of [Firestore][firestore_link], users can easily manage and share their favorite
 
 ---
 
-## Project Updates and Contributions 🚀
+### Project Updates and Contributions 🚀
 
 I will be occasionally updating this project with new features, improvements, and bug fixes. Stay tuned for the latest
 enhancements to **shareLYRICS**!
@@ -21,7 +21,7 @@ help make **shareLYRICS** even better.
 
 ---
 
-## Requirements 🛠️
+### Requirements 🛠️
 
 To run the project, you will need to meet the following requirements:
 
@@ -48,7 +48,7 @@ To run the project, you will need to meet the following requirements:
 
 ---
 
-### Disclaimer ⚠️
+#### Disclaimer ⚠️
 
 Please note that this app is not intended for commercial use and will not be published in-app stores due to the legal
 complexities surrounding the usage of song lyrics. This project is for educational purposes, and users are free to fork
