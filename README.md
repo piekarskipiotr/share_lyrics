@@ -8,6 +8,9 @@ provides access to a vast collection of song lyrics from various artists and gen
 With the convenience
 of [Firestore][firestore_link], users can easily manage and share their favorite lyrics with friends.
 
+---
+
+### Watch app showcase 📲
 <div align="center">
     <a href="https://youtu.be/eUOoKbh09Dk" target="_blank">
         <img src="https://img.youtube.com/vi/eUOoKbh09Dk/0.jpg" alt="Watch Video" style="width:100%;">
