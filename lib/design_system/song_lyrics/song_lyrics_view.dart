@@ -15,9 +15,14 @@ class SongLyricsView extends StatelessWidget {
     if (lyrics.isEmpty) return _buildEmptyView(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: lyrics.map((lyric) => SongLyricsLine(lyric: lyric, onTap: onTap)).toList(),
+      child: ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: lyrics.length,
+        itemBuilder: (context, index) {
+          final lyric = lyrics[index];
+          return SongLyricsLine(lyric: lyric, onTap: onTap);
+        },
       ),
     );
   }
